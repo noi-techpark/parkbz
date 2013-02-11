@@ -1,0 +1,41 @@
+{{extend 'layout.html'}}
+<div class="">
+	<table class="table table-striped table-bordered">
+	<thead><tr class=info><th>#park</th><th>Free slots</th></tr></thead>	
+	<tbody>
+	{{for park in parks:}}
+	<tr id="park_{{=park['park_id']}}">
+		<td>{{=park['name']}}</td>
+		<td><div class="progress">
+		<div class="bar bar-success" style="width: {{=park['freeslots_rate']}}%;">{{=park['freeslots']}}</div>		<div class="bar bar-danger" style="width: {{=park['slots_taken_rate']}}%;">{{=park['slots_taken']}}</div>
+		</div>
+		</td>
+	</tr>		
+	{{pass}}	
+	</tbody></table>
+</div>
+
+
+
+<script>
+
+function parseAnswer() {
+	console.log("parseAnswer");
+	return ;
+}
+
+{{for park in parks:}}
+	get_freeSlots({{=park['park_id']}});
+{{pass}} 
+
+function get_freeSlots(park) {
+	$.xmlrpc({
+	    url: '192.168.34.247:8080/xmlRpcFrontEnd/xmlrpc',
+	    methodName: "DataManager.getNumberOfFreeSlots",
+	    params: [park],
+	    success: function(response, status, jqXHR) { parseAnswer(response, status, jqXHR); },
+	    error: function(jqXHR, status, error) {console.log('errore'); }
+	});
+}
+
+</script>
