@@ -66,8 +66,6 @@ function web2py_event_handlers() {
   doc.ajaxError(function(e, xhr, settings, exception) {
     doc.off('click', '.flash')
       switch(xhr.status){
-        case 404:
-          $('.flash').html(ajax_error_500).slideDown(); 
         case 500:
           $('.flash').html(ajax_error_500).slideDown(); 
       }

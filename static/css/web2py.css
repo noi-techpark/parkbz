@@ -30,11 +30,14 @@ code {font-family:Courier}
 textarea {width:100%}
 video {width:400px}
 audio {width:200px}
-input[type=text],input[type=password],select{width:300px; margin-right:5px}
+input[type=text],input[type=password],select{width:300px;}
 .hidden {display:none;visibility:visible}
 .right {float:right; text-align:right}
 .left {float:left; text-align:left}
 .center {width:100; text-align:center; vertical-align:middle}
+section {
+	padding-top: 30px;
+}
 /** end **/
 
 /* Sticky footer begin */
@@ -43,11 +46,11 @@ input[type=text],input[type=password],select{width:300px; margin-right:5px}
   padding:20px 0 50px 0;
 }
 
-.footer,.push {
+/*.footer,.push {
   height:6em;
   padding:1em 0;
   clear:both;
-}
+}*/
 
 .footer-content {position:relative; bottom:-4em; width:100%}
 
@@ -67,6 +70,7 @@ input[type=text],input[type=password],select{width:300px; margin-right:5px}
 
 fieldset {padding:16px; border-top:1px #DEDEDE solid}
 fieldset legend {text-transform:uppercase; font-weight:bold; padding:4px 16px 4px 16px; background:#f1f1f1}
+
 
 /* fix ie problem with menu */
 
@@ -115,9 +119,9 @@ div.flash {
     z-index:2000;
 }
 
-div.flash #closeflash{color:inherit; float:right; margin-left:15px;}
-.ie-lte7  div.flash #closeflash
-{color:expression(this.parentNode.currentStyle['color']);float:none;position:absolute;right:4px;}
+div.flash #closeflash{color:inherit; float:right;}
+.ie-lte7  div.flash
+#closeflash{color:expression(this.parentNode.currentStyle['color']);float:none;position:absolute;right:4px;}
 
 div.flash:hover { opacity:0.25; }
 
@@ -312,3 +316,281 @@ li.w2p_grid_breadcrumb_elem {
 .ie-lte8 div.flash{ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#222222', endColorstr='#000000', GradientType=0 ); }
 .ie-lte8 div.flash:hover {filter:alpha(opacity=25);}
 .ie9 #w2p_query_panel {padding-bottom:2px}
+
+.chart, #traffic_chart_m {
+    background: linear-gradient(#F6F6F6 0px, #FFFFFF 50px) repeat scroll 0 0 transparent;
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    height: 500px;
+    margin: 0px auto 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 60px;
+
+    border-radius: 5px 5px 5px 5px;
+}
+.nav.nav-tabs{
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+#map_canvas{
+    height: 500px;
+}
+
+#slider-range-min {
+	display: inline-block;
+	width: 200px;
+}
+
+/* Few css tips from bootstrap docs, released under CC-BY 3.0 */
+body > .navbar {
+    font-size: 13px;
+}
+body > .navbar li a.brand {
+   /* color: #000001; */
+    float: right;
+    font-weight: bold;
+    padding-left: 0;
+    padding-right: 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+    transition: all 0.2s linear 0s;
+	-webkit-transition: all .2s linear;
+	   -moz-transition: all .2s linear;
+		transition: all .2s linear;
+}
+body > .navbar li a.brand:hover {
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+header {
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2) inset, 0 -3px 7px rgba(0, 0, 0, 0.2) inset;
+    color: #FFFFFF;
+    padding-top: 65px;
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 25px;
+    position: relative;
+    /*margin-top:40px;*/
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075); 
+    background: #020031; /* Old browsers */
+    background: -moz-linear-gradient(45deg,  #020031 0%, #6d3353 100%); /* FF3.6+ */
+    background: linear-gradient(75deg, #AA0031 0%, #6D3353 100%) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #AA0031), color-stop(100%,#6d3353)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg,   #AA0031 0%,#6d3353 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg,   #AA0031 0%,#6d3353 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg,  #AA0031 0%,#6d3353 100%); /* IE10+ */
+    background: linear-gradient(45deg,   #AA0031 0%,#6d3353 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=' #AA0031', endColorstr='#6d3353',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+     -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+          box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+}
+header h1 {
+    font-size: 60px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+header p {
+    padding-top: 7px;   
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+/*header:after {
+    background: url("../img/bs-docs-masthead-pattern.png") repeat scroll center center transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    opacity: 0.4;
+    position: absolute;
+    right: 0;
+    top: 0;
+}*/
+
+
+.bs-docs-sidebar .bs-docs-sidenav {
+  width: 228px;
+  margin: 30px 0 0;
+  padding: 0;
+  background-color: #fff;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+     -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+          box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+.bs-docs-sidebar .bs-docs-sidenav > li > a {
+  display: block;
+  width: 190px \9;
+  margin: 0 0 -1px;
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+}
+.bs-docs-sidebar .bs-docs-sidenav > li:first-child > a {
+  -webkit-border-radius: 6px 6px 0 0;
+     -moz-border-radius: 6px 6px 0 0;
+          border-radius: 6px 6px 0 0;
+}
+.bs-docs-sidebar .bs-docs-sidenav > li:last-child > a {
+  -webkit-border-radius: 0 0 6px 6px;
+     -moz-border-radius: 0 0 6px 6px;
+          border-radius: 0 0 6px 6px;
+}
+.bs-docs-sidebar .bs-docs-sidenav > .active > a {
+  position: relative;
+  z-index: 2;
+  padding: 9px 15px;
+  border: 0;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15);
+  -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+     -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+          box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+}
+/* Chevrons */
+.bs-docs-sidebar .bs-docs-sidenav .icon-chevron-right {
+  float: right;
+  margin-top: 2px;
+  margin-right: -6px;
+  opacity: .25;
+}
+
+.bs-docs-sidebar .bs-docs-sidenav a:hover .icon-chevron-right {
+  opacity: .5;
+}
+.bs-docs-sidebar .bs-docs-sidenav .active .icon-chevron-right,
+.bs-docs-sidebar .bs-docs-sidenav .active a:hover .icon-chevron-right {
+  background-image: url(/vtraffic/static/images/glyphicons-halflings-white.png);
+  opacity: 1;
+}
+/*.bs-docs-sidenav.affix {
+  top: 40px;
+}*/
+.bs-docs-sidebar .bs-docs-sidenav.affix-bottom {
+  position: absolute;
+  top: auto;
+  bottom: 270px;
+}
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px) {
+  /* Unfloat brand */
+  body > .navbar-fixed-top .brand {
+    float: left;
+    margin-left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* When affixed, space properly */
+  .bs-docs-sidebar .bs-docs-sidenav {
+    top: 0;
+    width: 218px;
+    margin-top: 30px;
+    margin-right: 0;
+  }
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 979px) {
+  /* Remove any padding from the body */
+  body {
+    padding-top: 0;
+  }
+  /* Widen masthead and social buttons to fill body padding */
+  header {
+    margin-top: -20px; /* Offset bottom margin on .navbar */
+  }
+  /* Adjust sidenav width */
+  .bs-docs-sidebar .bs-docs-sidenav {
+    width: 166px;
+    margin-top: 20px;
+  }
+  .bs-docs-sidenav.affix {
+    top: 0;
+  }
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+  /* Remove any padding from the body */
+  body {
+    padding-top: 0;
+  }
+
+  /* Widen masthead and social buttons to fill body padding */
+  header {
+    margin-top:   -20px; /* Offset bottom margin on .navbar */
+    margin-right: -20px;
+    margin-left:  -20px;
+  }
+
+  /* Sidenav */
+  .bs-docs-sidenav {
+    width: auto;
+    margin-bottom: 20px;
+  }
+  .bs-docs-sidenav.affix {
+    position: static;
+    width: auto;
+    top: 0;
+  }
+}
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 480px) {
+  /* Remove padding above jumbotron */
+  body {
+    padding-top: 0;
+  }
+  header {
+    margin-top: -20px; /* Offset bottom margin on .navbar */
+  }
+
+  /* Downsize the jumbotrons */
+  header h1 {
+    font-size: 45px;
+  }
+}
+
+/** sticky footer **/
+html, body {
+   height: 100%;
+   /* The html and body elements cannot have any padding or margin. */
+}
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -121px;
+}
+
+/* Set the fixed height of the footer here */
+#push,#footer {
+	height: 120px;
+}
+
+
+.carousel .carousel-indicators .active {
+    background-color: #AA0031;
+}
+
+#githubSticker {
+    position: absolute; 
+    top: 40px; 
+    right: 0; 
+    border: 0;
+}
+
+
