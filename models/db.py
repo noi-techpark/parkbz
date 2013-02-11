@@ -21,9 +21,11 @@
 #mail.settings.server = settings.email_server
 #mail.settings.sender = settings.email_sender
 #mail.settings.login = settings.email_login
+session.forget()
+T.is_writable = False
+
 if not request.is_local:
 	from gluon.contrib.memcache import MemcacheClient
-	#from gluon.contrib.memdb import MEMDB
 	memcache_servers = ['127.0.0.1:11211']
 	cache.memcache = MemcacheClient(request, memcache_servers)
 	cache.ram = cache.disk = cache.memcache

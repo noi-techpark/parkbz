@@ -4,24 +4,32 @@
 	<thead><tr class=info><th>#park</th><th>Free slots</th></tr></thead>	
 	<tbody>
 	{{for park in parks:}}
-	<tr id="park_{{=park['park_id']}}">
+		<tr id="park_{{=park['park_id']}}">
 		<td>{{=park['name']}}</td>
-		<td><div class="progress">
-		<div class="bar bar-success" style="width: {{=park['freeslots_rate']}}%;">{{=park['freeslots']}}</div>		<div class="bar bar-danger" style="width: {{=park['slots_taken_rate']}}%;">{{=park['slots_taken']}}</div>
-		</div>
-		</td>
-	</tr>		
+		<td>{{include 'default/park_bar.html'}}	
 	{{pass}}	
 	</tbody></table>
 </div>
-
-
-
 <script>
 
-function parseAnswer() {
-	console.log("parseAnswer");
-	return ;
+function parseAnswer(park, json) {
+	html = json.plain_html;
+	/*freeslots = json.freeslots;
+	if (parseInt($('#freeslots_' + park).text()) !== parseInt(freeslots)) {
+		progress = $('#park_' + park + ' .progress').html(html);	
+	}*/
+	if (html) {
+		console.log('update', park);
+		progress = $('#park_' + park + ' .progress');
+		progress.fadeIn(2000, function() {
+			progress.html(html);
+			progress.fadeIn();
+		});
+
+		setTimeout( function() {get_freeSlots(park)}, 5*60*1000);
+	} else {
+		setTimeout( function() {get_freeSlots(park)}, 20*1000);
+	}
 }
 
 {{for park in parks:}}
@@ -29,13 +37,14 @@ function parseAnswer() {
 {{pass}} 
 
 function get_freeSlots(park) {
-	$.xmlrpc({
-	    url: '192.168.34.247:8080/xmlRpcFrontEnd/xmlrpc',
-	    methodName: "DataManager.getNumberOfFreeSlots",
-	    params: [park],
-	    success: function(response, status, jqXHR) { parseAnswer(response, status, jqXHR); },
-	    error: function(jqXHR, status, error) {console.log('errore'); }
-	});
+	freeslots = $('#freeslots_' + park).text()
+	$.ajax({
+		'dataType':'json', 
+		'url':'/parkbz/default/freeslots/parkID/freeSlots'.replace(/parkID/, park).replace(/freeSlots/, freeslots),
+		'success':function(data){
+			parseAnswer(park, data);
+		},
+	}); 
 }
 
 </script>
