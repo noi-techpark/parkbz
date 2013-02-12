@@ -17,6 +17,7 @@
 	</tbody></table>
 </div>
 <script>
+$('#spinner_' + park).hide();
 $('#parks').on('click', 'a', function() {
 	id = $(this).parents('tr').attr('id').split('_')[1];
 	get_freeSlots(id);
