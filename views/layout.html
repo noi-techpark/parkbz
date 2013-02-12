@@ -15,8 +15,6 @@
 
   <!-- http://dev.w3.org/html5/markup/meta.name.html -->
   <meta name="application-name" content="{{=request.application}}" />
-
-
   <!--  Mobile Viewport Fix
         j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
         device-width: Occupy full width of the screen in its current orientation
@@ -58,7 +56,7 @@
 <noscript><link href="{{=URL('static', 'css/web2py_bootstrap_nojs.css')}}" rel="stylesheet" type="text/css" /></noscript>
 </head>
 
-<body data-spy="scroll" data-target="#affixul">
+<body>
 <div id="wrap">
   <!-- Navbar ================================================== -->
   <div class="navbar navbar-inverse navbar-fixed-top">
@@ -66,13 +64,13 @@
     <div class="navbar-inner">
       <div class="container">
         <!-- the next tag is necessary for bootstrap menus, do not remove -->
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <!--button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </button>
-        <ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul>
-        <div class="nav-collapse">
+        </button-->
+        <!--ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul-->
+        <div class="">
           {{is_mobile=request.user_agent().is_mobile}}
           {{if response.menu:}}
           {{=MENU(response.menu, _class='mobile-menu nav' if is_mobile else 'nav',mobile=is_mobile,li_class='dropdown',ul_class='dropdown-menu', li_active='active')}}
