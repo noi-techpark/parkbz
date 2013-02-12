@@ -29,6 +29,9 @@ def freeslots():
 
 def __get_park_data(park):
 	data = cache.ram('park_%s' % park, lambda: server.DataManager.getParkingStation(park), time_expire=3600)
+	if not(isinstance(data, dict)): 
+		cache.ram('park_%s' % park, lambda: None, time_expire=0)		
+		raise HTTP(500)	
 	data['park_id']	= park
 	data['freeslots'] = server.DataManager.getNumberOfFreeSlots(park)
 	data['slots_taken'] = data['slots'] - data['freeslots']

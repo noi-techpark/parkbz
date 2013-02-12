@@ -1,50 +1,64 @@
 {{extend 'layout.html'}}
 <div class="">
-	<table class="table table-striped table-bordered">
-	<thead><tr class=info><th>#park</th><th>Free slots</th></tr></thead>	
+	<table id='parks' class="table table-striped table-bordered">
+	<thead><tr class=info><th>{{=T('Park')}}</th><th>{{=T("Free slots")}}</th></tr></thead>	
 	<tbody>
 	{{for park in parks:}}
 		<tr id="park_{{=park['park_id']}}">
-		<td>{{=park['name']}}</td>
-		<td>{{include 'default/park_bar.html'}}	
+		<td><b>{{=park['name']}}</b></td>
+		<td><a title="{{=T('Click to update')}}" href="#">
+			<span id="{{='spinner_%s' % park['park_id']}}" class="pull-right">
+				<img src="/parkbz/static/img/spinner.gif">
+			</span>
+			<div class="progress">{{include 'default/park_bar.html'}}</div>
+			</a>
+		</td>
 	{{pass}}	
 	</tbody></table>
 </div>
 <script>
+$('#parks').on('click', 'a', function() {
+	id = $(this).parents('tr').attr('id').split('_')[1];
+	get_freeSlots(id);
+});
 
+{{for park in parks:}}
+	setTimeout( function() {get_freeSlots({{=park['park_id']}})}, 20*1000);
+{{pass}} 
 function parseAnswer(park, json) {
+	$('#spinner_' + park).hide();	
 	html = json.plain_html;
 	/*freeslots = json.freeslots;
 	if (parseInt($('#freeslots_' + park).text()) !== parseInt(freeslots)) {
 		progress = $('#park_' + park + ' .progress').html(html);	
 	}*/
+	progress = $('#park_' + park + ' .progress');
 	if (html) {
-		console.log('update', park);
-		progress = $('#park_' + park + ' .progress');
+		console.log('updated', park);
 		progress.fadeIn(2000, function() {
 			progress.html(html);
-			progress.fadeIn();
 		});
-
 		setTimeout( function() {get_freeSlots(park)}, 5*60*1000);
 	} else {
 		setTimeout( function() {get_freeSlots(park)}, 20*1000);
 	}
+	console.log('fade', park);
+	$(progress).fadeTo(0.5, 1);
 }
 
-{{for park in parks:}}
-	get_freeSlots({{=park['park_id']}});
-{{pass}} 
-
 function get_freeSlots(park) {
+	progress = $('#park_' + park + ' .progress');
 	freeslots = $('#freeslots_' + park).text()
 	$.ajax({
 		'dataType':'json', 
 		'url':'/parkbz/default/freeslots/parkID/freeSlots'.replace(/parkID/, park).replace(/freeSlots/, freeslots),
+		'beforeSend': function (xhr) {
+			$(progress).fadeTo(0, 0.5);
+			$('#spinner_' + park).show();
+		},
 		'success':function(data){
 			parseAnswer(park, data);
 		},
 	}); 
 }
-
 </script>
