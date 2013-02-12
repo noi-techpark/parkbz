@@ -6,19 +6,19 @@
 	{{for park in parks:}}
 		<tr id="park_{{=park['park_id']}}">
 		<td><b>{{=park['name']}}</b></td>
-		<td><a title="{{=T('Click to update')}}" href="#">
+		<td title="{{=T('Click to update')}}" class="refresh accordion-toggle">
 			<span id="{{='spinner_%s' % park['park_id']}}" class="spinner pull-right">
 				<img src="/parkbz/static/img/spinner.gif">
 			</span>
 			<div class="progress">{{include 'default/park_bar.html'}}</div>
-			</a>
+			
 		</td>
 	{{pass}}	
 	</tbody></table>
 </div>
 <script>
 $('span.spinner').hide();
-$('#parks').on('click', 'a', function() {
+$('#parks').on('click', '.refresh', function() {
 	id = $(this).parents('tr').attr('id').split('_')[1];
 	get_freeSlots(id);
 });
