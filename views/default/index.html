@@ -7,7 +7,7 @@
 		<tr id="park_{{=park['park_id']}}">
 		<td><b>{{=park['name']}}</b></td>
 		<td><a title="{{=T('Click to update')}}" href="#">
-			<span id="{{='spinner_%s' % park['park_id']}}" class="pull-right">
+			<span id="{{='spinner_%s' % park['park_id']}}" class="spinner pull-right">
 				<img src="/parkbz/static/img/spinner.gif">
 			</span>
 			<div class="progress">{{include 'default/park_bar.html'}}</div>
@@ -17,7 +17,7 @@
 	</tbody></table>
 </div>
 <script>
-$('#spinner_' + park).hide();
+$('span.spinner').hide();
 $('#parks').on('click', 'a', function() {
 	id = $(this).parents('tr').attr('id').split('_')[1];
 	get_freeSlots(id);
