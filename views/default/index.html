@@ -27,7 +27,6 @@ $('#parks').on('click', '.refresh', function() {
 	setTimeout( function() {get_freeSlots({{=park['park_id']}})}, (20+Math.floor((Math.random()*10)+1))*1000 );
 {{pass}} 
 function parseAnswer(park, json) {
-	$('#spinner_' + park).hide();	
 	html = json.plain_html;
 	/*freeslots = json.freeslots;
 	if (parseInt($('#freeslots_' + park).text()) !== parseInt(freeslots)) {
@@ -35,7 +34,6 @@ function parseAnswer(park, json) {
 	}*/
 	progress = $('#park_' + park + ' .progress');
 	if (html) {
-		console.log('updated', park);
 		progress.fadeIn(2000, function() {
 			progress.html(html);
 		});
@@ -43,8 +41,8 @@ function parseAnswer(park, json) {
 	} else {
 		setTimeout( function() {get_freeSlots(park)}, 20*1000);
 	}
-	console.log('fade', park);
 	$(progress).fadeTo(0.5, 1);
+	$('#spinner_' + park).hide();	
 }
 
 function get_freeSlots(park) {
