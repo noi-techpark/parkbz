@@ -326,9 +326,9 @@ li.w2p_grid_breadcrumb_elem {
     height: 500px;
     margin: 0px auto 30px;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 10px;    
+    padding-top: 10px;
     padding-bottom: 60px;
-
     border-radius: 5px 5px 5px 5px;
 }
 .nav.nav-tabs{
