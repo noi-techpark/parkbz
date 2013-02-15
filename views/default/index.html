@@ -5,7 +5,7 @@
 	<tbody>
 	{{for park in parks:}}
 		<tr id="park_{{=park['park_id']}}">
-		<td><b>{{=park['name']}}</b></td>
+		<td><a href="{{=URL('default', 'trend', args=[park['park_id'], park['name']])}}">{{=park['name']}}</a></td>
 		<td title="{{=T('Click to update')}}" class="refresh accordion-toggle">
 			<span id="{{='spinner_%s' % park['park_id']}}" class="spinner pull-right">
 				<img alt='' src="/parkbz/static/img/spinner.gif">

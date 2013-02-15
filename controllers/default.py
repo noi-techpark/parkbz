@@ -11,7 +11,8 @@ def index():
 		return {'parks': parks}
 	except Exception:
 		return 'Data not available'
-def plot():
+
+def trend():
 	park_id = request.args(0) or 'index'
 	if not(park_id and park_id.isdigit()): raise HTTP(404)
 	parks = __get_parks_info()
