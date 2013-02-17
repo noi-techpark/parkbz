@@ -1,5 +1,5 @@
 {{extend 'layout.html'}}
-<div class="">
+<section class="span12">
 	<table id='parks' class="table table-striped table-bordered">
 	<thead><tr class=info><th>{{=T('Park')}}</th><th>{{=T("Free slots")}}</th></tr></thead>	
 	<tbody>
@@ -15,7 +15,7 @@
 		</td>
 	{{pass}}	
 	</tbody></table>
-</div>
+</section>
 <script>
 $('span.spinner').hide();
 $('#parks').on('click', '.refresh', function() {
