@@ -479,6 +479,11 @@ header .container {
   bottom: 270px;
 }
 
+#logs a input {
+	margin-top: -2px;
+	margin-right: 5px;
+}
+
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {

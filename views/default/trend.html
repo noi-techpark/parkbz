@@ -5,7 +5,10 @@
 	<ul id='logs' class="nav nav-list">
 		<li class="nav-header">Parks list</li>
 		{{for park in parks:}}
-			<li><label id='label_park_{{=park['park_id']}}' title="{{=park['name']}}" class="checkbox"><input  id='park_{{=park['park_id']}}' type="checkbox" {{='checked=checked' if park['park_id'] == int(park_id) else ''}}/>{{=park['name']}}</label></li>	
+			<li><a id='park_{{=park['park_id']}}' title="{{=park['name']}}" href="#" class="muted">
+	<!--input  id='park_{{=park['park_id']}}' type="checkbox" {{='checked=checked' if park['park_id'] == int(park_id) else ''}}-->
+				{{=park['name']}}
+			</a></li>	
 		{{pass}}
 	</ul>
 </div>
@@ -19,7 +22,7 @@
 		<li class="active"><a href="#" class='last' id="last_7">Last 7days</a></li>
 		<li><a href="#" class='last' id="last_30">Last 30days</a></li>
 		</ul>
-		<div id="traffic_chart_h"  style="height:370px"> </div>
+		<div id="traffic_chart_h"  style="height:370px"></div>
 	</div>
 </div>
 </div>
@@ -56,26 +59,28 @@
 	interval = 7; // Default 7 days
 	function onDataReceived (json) {
 		for (var k in json) {
-			json[k]['label'] = $('#'+k).parent().attr('title') ;
+			json[k]['label'] = $('#'+k).attr('title') ;
 			data.push(json[k]);
 		}
 		$.extend(datasets, json); 
 		plotAccordingToChoices();
 	}
 
-	$(document).on('click', 'input', function() {
+	$(document).on('click', '#logs a', function() {
 		var key = $(this).attr("id");	
+		$(this).toggleClass('muted');
+
 		if (typeof datasets[key] === "undefined") {
 			return get_park_history(key.split('_')[1])
 		} else {
-			if ($(this).is(':checked')) {
-				if (key && datasets[key])
-					data.push(datasets[key]);
-			} else {
+			if ($(this).hasClass('muted')) {
 				if (key && datasets[key]) {
 					var index = data.indexOf(datasets[key]);
 					data.splice(index, 1);
 				}
+			} else {
+				if (key && datasets[key])
+					data.push(datasets[key]);
 			}
 		}
 		plotAccordingToChoices();	
@@ -116,6 +121,6 @@
 		});
 	}
 	// Starting call
-	get_park_history({{=park_id}});
+	$("#park_" + {{=park_id}}).click();
 </script>
 </section>
