@@ -27,8 +27,9 @@
 </div>
 </div>
 <script>    
-	var options = { xaxis: { mode: "time", timeZoneOffset: "browser"},
-			yaxis: { max: 1000, zoomRange: false, panRange: [0, null], },
+	var options = { 
+		xaxis: { mode: "time", timeZoneOffset: "browser"},
+		yaxis: { position: 'left', axisLabel: "{{=T('Free slots')}}", max: 1000, zoomRange: false, panRange: [0, null], },
 			series:{ lines: { show: true, fill: true },
 			points: { show: false }},
 			pan: { interactive: true },
