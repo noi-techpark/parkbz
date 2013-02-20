@@ -30,35 +30,35 @@
 	var options = { 
 		xaxis: { mode: "time", timeZoneOffset: "browser"},
 		yaxis: { position: 'left', axisLabel: "{{=T('Free slots')}}", max: 1000, zoomRange: false, panRange: false, },
-			series:{ lines: { show: true, fill: true },
-			points: { show: false }},
-			pan: { interactive: true },
-			zoom: { interactive: true},
-			tooltip: true,       //false
-			tooltipOpts: {
-				content:      "%s |  %x |  %y",
-				xDateFormat: "%b %d, %H:%M:%S",
-				defaultTheme:  true     //true
-			},
-			grid: {	//show: true,
-				color: "#444444",
-				backgroundColor: "#DDDDDD",
-				borderColor: "#FFFFFF",
-				tickColor: "#CCCCCC",
-				//aboveData: false,
-				borderWidth: 0,
-				clickable: true,
-				hoverable: true,
-				autoHighlight: true,
-			},
-			touch: {autoHeight: false, autoWidth: false},
+		series:{ lines: { show: true, fill: true },
+		points: { show: false }},
+		crosshair: { mode: null },
+		pan: { interactive: true },
+		zoom: { interactive: true},
+		tooltip: true,       
+		tooltipOpts: {
+			content:      "%s |  %x |  %y",
+			xDateFormat: "%b %d, %H:%M:%S",
+			defaultTheme:  true,
+		},
+		grid: {
+			color: "#444444",
+			backgroundColor: "#DDDDDD",
+			borderColor: "#FFFFFF",
+			tickColor: "#CCCCCC",
+			//aboveData: false,
+			borderWidth: 0,
+			clickable: true,
+			hoverable: true,
+			autoHighlight: true,
+		},
+		touch: {autoHeight: false, autoWidth: false},
 	}
 	var placeholder_h = $("#traffic_chart_h");
+	var datasets = {};	// All data available
+	var data = [];		// All data shown
+	var interval = 7; 	// Default 7 days
 
-	var datasets, plot, data, interval;	
-	datasets = {};
-	data = [];
-	interval = 7; // Default 7 days
 	function onDataReceived (json) {
 		for (var k in json) {
 			json[k]['label'] = $('#'+k).attr('title') ;
@@ -94,6 +94,11 @@
 	});
 
 	function plotAccordingToChoices() {
+		if (data.length>1) {
+			options.crosshair.mode = 'x';
+		} else {
+			options.crosshair.mode = null;
+		}
 		$.plot($(placeholder_h), data, options);
 		$('#loading').hide();
 	}
