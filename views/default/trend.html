@@ -72,7 +72,12 @@
 		$(this).toggleClass('muted');
 
 		if (typeof datasets[key] === "undefined") {
-			return get_park_history(key.split('_')[1])
+			if ( ! $(this).hasClass('muted')) { 
+				return get_park_history(key.split('_')[1])
+			} else { 
+				// skip already coming call			
+				$(this).toggleClass('muted');
+			}
 		} else {
 			if ($(this).hasClass('muted')) {
 				if (key && datasets[key]) {
