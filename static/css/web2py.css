@@ -490,6 +490,25 @@ header .container {
 	margin-right: 5px;
 }
 
+.legend_box {
+	margin-right: 5px;
+	margin-left: 5px;
+	border: 1px solid #ccc;
+	padding: 1px;
+}
+
+.legend_box_color {
+	border-radius: 2px 2px 2px 2px;
+    display: inline-block;
+    float: left;
+    height: 16px;
+    /*margin-left: -5px;*/
+    margin-right: 4px;
+	margin-top: 1px;
+    width: 6px;
+	background-color: #ccc;
+}
+
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {

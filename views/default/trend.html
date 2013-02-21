@@ -6,7 +6,10 @@
 		<li class="nav-header">Parks list</li>
 		{{for park in parks:}}
 			<li><a id='park_{{=park['park_id']}}' title="{{='%s %s' % (T('Parking'), park['name']) }}" href="#" class="muted">
-	<!--input  id='park_{{=park['park_id']}}' type="checkbox" {{='checked=checked' if park['park_id'] == int(park_id) else ''}}-->
+				
+					<span class="legend_box_color"></span>
+				<!--span class="legend_box"></span>
+	<input  id='park_{{=park['park_id']}}' type="checkbox" {{='checked=checked' if park['park_id'] == int(park_id) else ''}}-->
 				{{=park['name']}}
 			</a></li>	
 		{{pass}}
@@ -28,16 +31,21 @@
 </div>
 </div>
 <script>    
+	/*var d = new Date();
+	m_seconds = d.getTime();
+	console.log(m_seconds);
+	var min_seconds = m_seconds-1000*60*60*24*7;
+	console.log(m_seconds, min_seconds);*/
 	var options = { 
 		xaxis: { mode: "time", timeZoneOffset: "browser", alignTicksWithAxis:true},
 		yaxis: { position: 'left', axisLabel: "{{=T('Free slots')}}", max: 1000, zoomRange: false, panRange: false, },
-		series:{ lines: { show: true, fill: true },
+		series:{ lines: { show: true, fill: false },
 		points: { show: false }},
 		crosshair: { mode: null },
 		pan: { interactive: true },
 		zoom: { interactive: true},
 		tooltip: true, 
-		legend: {backgroundOpacity: 0},    
+		legend: {show: false, backgroundOpacity: 0},    
 		tooltipOpts: {
 			content:      "%s |  %x |  %y",
 			xDateFormat: "%b %d, %H:%M:%S",
@@ -64,6 +72,7 @@
 	function onDataReceived (json) {
 		for (var k in json) {
 			json[k]['label'] = $('#'+k).attr('title') ;
+			json[k]['park_id'] = k;
 			data.push(json[k]);
 		}
 		$.extend(datasets, json); 
@@ -85,6 +94,7 @@
 			if ($(this).hasClass('muted')) {
 				if (key && datasets[key]) {
 					var index = data.indexOf(datasets[key]);
+					$(this).children('span.legend_box_color').css('background-color', "#ccc");
 					data.splice(index, 1);
 				}
 			} else {
@@ -101,8 +111,13 @@
 		} else {
 			options.crosshair.mode = null;
 		}
-		$.plot($(placeholder), data, options);
+		var plot = $.plot($(placeholder), data, options);
 		$('#loading').hide();
+		/* get color assigned to the data series */
+		var dataPlotted = plot.getData();
+		for (var d in dataPlotted) {
+			$('#' + dataPlotted[d].park_id).children('span.legend_box_color').css('background-color', dataPlotted[d].color);
+		}
 	}
 
 	$(document).on('click', "li a[class='last']", function() {
