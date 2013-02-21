@@ -93,8 +93,9 @@
 		} else {
 			if ($(this).hasClass('muted')) {
 				if (key && datasets[key]) {
+					span = $('#' + key + ' .legend_box_color');
+					span.css('background-color', "rgb(204,204,204)");
 					var index = data.indexOf(datasets[key]);
-					$('#' + key + ' .legend_box_color').css('background-color', "#ccc");
 					data.splice(index, 1);
 				}
 			} else {
