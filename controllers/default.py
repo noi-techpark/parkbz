@@ -51,6 +51,8 @@ def __get_park_data(park):
 		raise HTTP(500)	
 	data['park_id']	= park
 	data['freeslots'] = server.DataManager.getNumberOfFreeSlots(park)
+	name = data['name']
+	data['name'] = name[name.index('-') + 1:]
 	data['slots_taken'] = data['slots'] - data['freeslots']
 	data['slots_taken_rate'] = (data['slots_taken'] * 100) / data['slots']
 	data['freeslots_rate'] = 100 - data['slots_taken_rate']

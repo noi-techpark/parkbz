@@ -5,7 +5,7 @@
 	<ul id='logs' class="nav nav-list">
 		<li class="nav-header">Parks list</li>
 		{{for park in parks:}}
-			<li><a id='park_{{=park['park_id']}}' title="{{=park['name']}}" href="#" class="muted">
+			<li><a id='park_{{=park['park_id']}}' title="{{='%s %s' % (T('Parking'), park['name']) }}" href="#" class="muted">
 	<!--input  id='park_{{=park['park_id']}}' type="checkbox" {{='checked=checked' if park['park_id'] == int(park_id) else ''}}-->
 				{{=park['name']}}
 			</a></li>	
@@ -17,6 +17,7 @@
 <div class='row-fluid'>
 	<div id="myTabContent" class="chart">
 		<span id='loading' class="alert alert-error span4 offset4 center">Loading...</span>
+		<!--a id="print" title="{{=T('Save image')}}" href="#" class="btn pull-right"><i class="icon-print"></i></a-->
 		<ul class="nav nav-pills"> 
 		<li><a class='last' href="#" id="last_1">Last 24h</a></li>
 		<li class="active"><a href="#" class='last' id="last_7">Last 7days</a></li>
@@ -28,14 +29,15 @@
 </div>
 <script>    
 	var options = { 
-		xaxis: { mode: "time", timeZoneOffset: "browser"},
+		xaxis: { mode: "time", timeZoneOffset: "browser", alignTicksWithAxis:true},
 		yaxis: { position: 'left', axisLabel: "{{=T('Free slots')}}", max: 1000, zoomRange: false, panRange: false, },
 		series:{ lines: { show: true, fill: true },
 		points: { show: false }},
 		crosshair: { mode: null },
 		pan: { interactive: true },
 		zoom: { interactive: true},
-		tooltip: true,       
+		tooltip: true, 
+		legend: {backgroundOpacity: 0},    
 		tooltipOpts: {
 			content:      "%s |  %x |  %y",
 			xDateFormat: "%b %d, %H:%M:%S",
@@ -54,7 +56,7 @@
 		},
 		touch: {autoHeight: false, autoWidth: false},
 	}
-	var placeholder_h = $("#traffic_chart_h");
+	var placeholder = $("#traffic_chart_h");
 	var datasets = {};	// All data available
 	var data = [];		// All data shown
 	var interval = 7; 	// Default 7 days
@@ -99,7 +101,7 @@
 		} else {
 			options.crosshair.mode = null;
 		}
-		$.plot($(placeholder_h), data, options);
+		$.plot($(placeholder), data, options);
 		$('#loading').hide();
 	}
 
@@ -123,6 +125,13 @@
 		}
 	});
 
+	$(document).on('click', '#print', function() {
+		canvas = $(placeholder).children('canvas')[0];
+		dataUrl = canvas.toDataURL();
+		//window.open(dataUrl, "toDataURL() image", "width=1000, height=600");
+		rawImageData = dataUrl.replace("image/png", "image/octet-stream")
+        document.location.href = rawImageData;
+	});
 	function get_park_history(park_id) {
 		$('#loading').show();
 		$.ajax({
