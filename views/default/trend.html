@@ -7,7 +7,7 @@
 		{{for park in parks:}}
 			<li><a id='park_{{=park['park_id']}}' title="{{='%s %s' % (T('Parking'), park['name']) }}" href="#" class="muted">
 				
-					<span class="legend_box_color"></span>
+					<span class="legend_box_color"> </span>
 				<!--span class="legend_box"></span>
 	<input  id='park_{{=park['park_id']}}' type="checkbox" {{='checked=checked' if park['park_id'] == int(park_id) else ''}}-->
 				{{=park['name']}}

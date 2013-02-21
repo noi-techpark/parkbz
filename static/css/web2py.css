@@ -502,13 +502,18 @@ header .container {
     display: inline-block;
     float: left;
     height: 16px;
+	line-height: 16px;
     /*margin-left: -5px;*/
     margin-right: 4px;
 	margin-top: 1px;
     width: 6px;
 	background-color: #ccc;
+	white-space: nowrap;
 }
 
+.chart .nav-pills {
+	margin-bottom: 5px;
+}
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
