@@ -71,8 +71,8 @@
 
 	function onDataReceived (json) {
 		for (var k in json) {
+			console.log(json[k]);
 			json[k]['label'] = $('#'+k).attr('title') ;
-			json[k]['park_id'] = k;
 			data.push(json[k]);
 		}
 		$.extend(datasets, json); 
@@ -117,7 +117,7 @@
 		/* get color assigned to the data series */
 		var dataPlotted = plot.getData();
 		for (var d in dataPlotted) {
-			$('#' + dataPlotted[d].park_id).children('span.legend_box_color').css('background-color', dataPlotted[d].color);
+			$('#park_' + dataPlotted[d].park_id).children('span.legend_box_color').css('background-color', dataPlotted[d].color);
 		}
 	}
 
