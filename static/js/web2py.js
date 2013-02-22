@@ -216,3 +216,15 @@ function web2py_validate_entropy(myfield, req_entropy) {
     if(!myfield.hasClass('entropy_check')) myfield.on('keyup', validator).on('keydown', validator).addClass('entropy_check');
 }
 
+/* fix missing indexOf for ie8 */
+if (!('indexOf' in Array.prototype)) {
+    Array.prototype.indexOf= function(find, i /*opt*/) {
+        if (i===undefined) i= 0;
+        if (i<0) i+= this.length;
+        if (i<0) i= 0;
+        for (var n= this.length; i<n; i++)
+            if (i in this && this[i]===find)
+                return i;
+        return -1;
+    };
+}
