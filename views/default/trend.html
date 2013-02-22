@@ -91,7 +91,7 @@
 				if (key && datasets[key]) {
 					span = $('#' + key + ' .legend_box_color');
 					span.css('background-color', "rgb(204,204,204)");
-					var index = data.indexOf(datasets[key]);
+					var index = jQuery.inArray(datasets[key], data);
 					data.splice(index, 1);
 				}
 			} else {
