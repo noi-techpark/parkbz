@@ -419,6 +419,7 @@ header .container {
     top: 40px; 
     right: 0; 
     border: 0;
+	position: absolute;
 }
 
 .bs-docs-sidebar .bs-docs-sidenav {

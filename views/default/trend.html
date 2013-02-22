@@ -89,8 +89,7 @@
 		} else {
 			if ($(this).hasClass('muted')) {
 				if (key && datasets[key]) {
-					span = $('#' + key + ' .legend_box_color');
-					span.css('background-color', "rgb(204,204,204)");
+					$('#' + key + ' .legend_box_color').css('background-color', "rgb(204,204,204)");
 					var index = jQuery.inArray(datasets[key], data);
 					data.splice(index, 1);
 				}
