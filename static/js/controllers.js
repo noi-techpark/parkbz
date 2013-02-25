@@ -5,8 +5,9 @@
 function MobilityCtrl($scope,$location) {
 	var self = $scope;
 	self.getMap= function(){
+		console.log("getMap()");
 		var map = new OpenLayers.Map('testmap');
-		var geoServerUrl="http://192.168.174.99:8080";
+		var geoServerUrl="http://95.171.54.201:8080";
 		var extent = new OpenLayers.Bounds(11.272473793029,46.447363967896, 11.426969032287, 46.516028518678);
 		var wmscURL = [
 		      geoServerUrl+"/geoserver/wms"

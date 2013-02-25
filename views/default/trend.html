@@ -107,8 +107,8 @@
 		} else {
 			options.crosshair.mode = null;
 		}
-		var plot = $.plot($(placeholder), data, options);
 		$('#loading').hide();
+		var plot = $.plot($(placeholder), data, options);
 		/* get color assigned to the data series */
 		var dataPlotted = plot.getData();
 		for (var d in dataPlotted) {
