@@ -4,7 +4,7 @@
 function test_ex() {
 	console.log("test");
 }
-function getMap() {
+$(document).ready(function() { 
 	console.log("getMap()");
 	var map = new OpenLayers.Map('testmap');
 	var geoServerUrl="http://mapserver.tis.bz.it";
@@ -66,6 +66,5 @@ function getMap() {
         }
 		
     });
-}
+});
 
-getMap();
