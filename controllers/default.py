@@ -74,8 +74,8 @@ def __get_parks_info():
 def map():
 	response.files.append("https://www.google.com/jsapi")
 	response.files.append("https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js")
-	response.files.append(URL('static','js/controllers.js'))
 	response.files.append(URL('static','js/OpenLayers.js'))
+	response.files.append(URL('static','js/controllers.js'))
 	return {}
 
 
