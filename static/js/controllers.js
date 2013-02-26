@@ -36,7 +36,7 @@ $(document).ready(function() {
 		};
 	var traffic = new OpenLayers.Layer.WMS( 'Südtirol',wmscURL, {
 		layers: ['elgis:parkingarea'], 
-		//map: "relay2.map",
+		map: "relay2.map",
 		format: 'image/png',
 		exceptions:'application-vnd.ogc.se_inimage'	
 	},options);
@@ -45,8 +45,7 @@ $(document).ready(function() {
 		layers: ['elgis:l09'],
 		//filter:xmlFormatter.write(filter_format.write(filter)), TODO fix this filter so that it works
 		format: 'image/png',
-		//map: "relay2.map",
-		//exceptions:'test_ex'	
+		map: "relay.map",
 		exceptions:'application-vnd.ogc.se_inimage'	
 	},{
 		minResolution: 0.00000291534423828125,
