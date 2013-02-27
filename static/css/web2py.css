@@ -326,7 +326,7 @@ li.w2p_grid_breadcrumb_elem {
     padding-left: 10px;
     padding-right: 10px;    
     padding-top: 10px;
-    padding-bottom: 60px;
+    padding-bottom: 45px;
     border-radius: 5px 5px 5px 5px;
 	position: relative;
 
@@ -520,7 +520,12 @@ header .container {
 	max-width: none !important;
 }
 
-
+.pie_label {
+    margin-top: 95px;
+	color: #14B8D4;
+	text-align: center;
+    z-index: 100;
+}
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
@@ -545,6 +550,10 @@ header .container {
   #githubSticker {
 	display: none;
   }
+  /*.pie_label {
+		margin-left: 60px;
+  }*/
+
 }
 
 /* Tablet to desktop

@@ -18,6 +18,14 @@ def trend():
 	parks = __get_parks_info()
 	return {'parks': parks, 'park_id':park_id}
 
+def parking():
+	response.files.append(URL('static','js/OpenLayers.js'))
+	park_id = request.args(0) or 'index'
+	if not(park_id and park_id.isdigit()): raise HTTP(404)
+	park = __get_park_data(int(park_id))
+	response.title = "%s %s" %(T('Parking'), park['name'])
+	return {'park': park, 'park_id':park_id}
+
 def get_history():
 	if not(request.ajax): raise HTTP(403)
 	park_id = request.args(0) or 'index'

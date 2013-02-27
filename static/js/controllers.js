@@ -1,11 +1,7 @@
 //'use strict';
 
 /* Controllers */
-function test_ex() {
-	console.log("test");
-}
 $(document).ready(function() { 
-	console.log("getMap()");
 	var map = new OpenLayers.Map('testmap');
 	var geoServerUrl="http://mapserver.tis.bz.it";
 	//var geoServerUrl="http://95.171.54.201:8080";
@@ -13,9 +9,7 @@ $(document).ready(function() {
 	var wmscURL = [
 	      geoServerUrl+"/cgi-bin/mapserv?"
 	];
-	/*var wmscURL = [
-	      geoServerUrl+"/geoserver/wms"
-	];*/
+
 	var center=  new OpenLayers.Geometry.Point(46.481696243287,11.349721412658);
 	var filter_format = new OpenLayers.Format.Filter({version: "1.1.0"});
 	var xmlFormatter = new OpenLayers.Format.XML();
