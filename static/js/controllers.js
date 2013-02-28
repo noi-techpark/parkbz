@@ -45,7 +45,7 @@ $(document).ready(function() {
 		minResolution: 0.00000291534423828125,
 		maxResolution: 0.00200291534423828125,
 		buffer: 0, 
-        opacity:0.2, 
+        opacity:0.6, 
         isBaseLayer: false, 
         visibility: true, 
         singleTile: true 
