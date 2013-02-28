@@ -24,6 +24,7 @@ def parking():
 	if not(park_id and park_id.isdigit()): raise HTTP(404)
 	park = __get_park_data(int(park_id))
 	response.title = "%s %s" %(T('Parking'), park['name'])
+	response.meta.description = "%s %s" % (T('Map and number of free slots of the parking'), park['name'])
 	return {'park': park, 'park_id':park_id}
 
 def get_history():

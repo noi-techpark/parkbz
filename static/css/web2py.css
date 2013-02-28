@@ -1,15 +1,6 @@
 /** these MUST stay **/
 a {text-decoration:none; white-space:nowrap}
 a:hover {text-decoration:underline}
-a.button {text-decoration:none}
-h1,h2,h3,h4,h5,h6 {margin:0.5em 0 0.25em 0; display:block;
-  font-family:Helvetica}
-h1 {font-size:4.00em}
-h2 {font-size:3.00em}
-h3 {font-size:2.00em}
-h4 {font-size:1.50em}
-h5 {font-size:1.25em}
-h6 {font-size:1.12em}
 th,label {font-weight:bold; white-space: normal; word-wrap: break-word;}
 td,th {text-align:left; padding:2px 5px 2px 5px}
 th {vertical-align:middle; border-right:1px solid white}
@@ -383,11 +374,10 @@ header {
     padding-left: 0;
     padding-bottom: 0px;
     position: relative;
-    /*margin-top:40px;*/
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075); 
     background: #020031; /* Old browsers */
-    background: -moz-linear-gradient(45deg,  #020031 0%, #6d3353 100%); /* FF3.6+ */
-    background: linear-gradient(75deg, #AA0031 0%, #6D3353 100%) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(45deg,  #AA0031 0%, #6d3353 100%); /* FF3.6+ */
+    background: linear-gradient(45deg, #AA0031 0%, #6D3353 100%) repeat scroll 0 0 transparent;
     background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #AA0031), color-stop(100%,#6d3353)); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(45deg,   #AA0031 0%,#6d3353 100%); /* Chrome10+,Safari5.1+ */
     background: -o-linear-gradient(45deg,   #AA0031 0%,#6d3353 100%); /* Opera 11.10+ */

@@ -4,12 +4,12 @@
 		<button id="force_all" class="btn" title="Reload all"><i class="icon-refresh"></i></button>
 		<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
 		<ul class="dropdown-menu">
-			<li><a id="switch_on" href="#">Turn Live Update On</a></li>
-			<li><a id="switch_off" href="#">Turn Live Update Off</a></li>
+			<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>
+			<li><a id="switch_off" href="#">{{=T('Turn live update off')}}</a></li>
 		</ul>
 	</div>
 	<table id='parks' class="table table-striped table-bordered">
-	<thead><tr class=info><th>{{=T('Park')}}</th><th>{{=T("Free slots")}}</th></tr></thead>	
+	<thead><tr class=info><th>{{=T('Parking')}}</th><th>{{=T("Free slots")}} <a class="hidden-phone pull-right" title="{{=T('Data are updated every 5 minutes')}}"><i class="icon-info-sign"></i></a></th></tr></thead>	
 	<tbody>
 	{{for park in parks:}}
 		<tr id="park_{{=park['park_id']}}">
@@ -38,9 +38,13 @@ $(document).on('click', '#force_all', function() {
 });
 $(document).on('click', '#switch_off', function() {	
 	ajax_active = false;
+	$('#switch_on').parent().toggleClass('disabled');
+	$('#switch_off').parent().toggleClass('disabled');
 });
 $(document).on('click', '#switch_on', function() {
 	ajax_active = true;
+	$('#switch_on').parent().toggleClass('disabled');
+	$('#switch_off').parent().toggleClass('disabled');
 });
 
 {{for park in parks:}}

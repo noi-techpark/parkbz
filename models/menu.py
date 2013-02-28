@@ -3,7 +3,7 @@ response.subtitle = settings.subtitle
 response.meta.author = '%(author)s <%(author_email)s>' % settings
 response.meta.keywords = settings.keywords
 response.google_analytics_id = "UA-34703572-1"
-response.meta.description = settings.description
+response.meta.description = settings.description 
 response.page_title=T("Bolzano parking situation")
 response.menu = [
 	(A('INTEGREEN', _href="http://integreen-life.bz.it/", _class="brand"), False, None),

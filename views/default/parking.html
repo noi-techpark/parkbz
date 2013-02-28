@@ -3,9 +3,7 @@
 <section>
 <div class="span9">
 	<div class="chart">
-		<div id="map_canvas" style="width: 100%; height: 100%">
-			<!--p id='loading_map' class="label label-info span4 offset4 center">Loading...</p-->	
-		</div>
+		<div id="map_canvas" style="width: 100%; height: 100%"></div>
 	</div>
 </div>
 
@@ -28,8 +26,8 @@
 <script type="text/javascript">
 	// Map
 	var zoom = 15;
-	var lat  = 47.35387;
-	var lon  = 8.43609;
+	var lon  = {{=park['latitude']}};
+	var lat  = {{=park['longitude']}};
 	var map = new OpenLayers.Map("map_canvas");
 	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
 	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
@@ -57,10 +55,10 @@
 			},
        	},
 		legend: {show: false},		
-		grid: {
+		/*grid: {
           		hoverable: false,
 	            clickable: false,
-        },
+        },*/
 	};
 	var placeholder = $("#pie_chart");
 	data = [{'data':{{=park['freeslots']}}, 
