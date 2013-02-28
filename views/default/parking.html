@@ -26,8 +26,8 @@
 <script type="text/javascript">
 	// Map
 	var zoom = 15;
-	var lon  = {{=park['latitude']}};
-	var lat  = {{=park['longitude']}};
+	var lon  = {{=park['longitude']}};
+	var lat  = {{=park['latitude']}};
 	var map = new OpenLayers.Map("map_canvas");
 	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
 	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
