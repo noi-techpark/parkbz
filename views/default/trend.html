@@ -3,7 +3,7 @@
 <div class='span3'>
 <div class='well' style="padding: 7px 0px;">
 	<ul id='logs' class="nav nav-list">
-		<li class="nav-header">Parks list</li>
+		<li class="nav-header">Parking list</li>
 		{{for park in parks:}}
 			<li><a id='park_{{=park['park_id']}}' title="{{='%s %s' % (T('Parking'), park['name']) }}" href="#" class="muted">
 				<span class="legend_box_color"> </span>

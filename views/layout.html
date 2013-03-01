@@ -68,13 +68,6 @@
     <div class="flash">{{=response.flash or ''}}</div>
     <div class="navbar-inner">
       <div class="container">
-        <!-- the next tag is necessary for bootstrap menus, do not remove -->
-        <!--button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button-->
-        <!--ul id="navbar" class="nav pull-right">{{='auth' in globals() and auth.navbar(mode="dropdown") or ''}}</ul-->
         <div class="">
           {{if response.menu:}}
           {{=MENU(response.menu, _class='nav', mobile=False, li_class='dropdown', ul_class='dropdown-menu', li_active='active')}}

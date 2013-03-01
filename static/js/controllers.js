@@ -2,66 +2,45 @@
 
 /* Controllers */
 $(document).ready(function() { 
-	var map = new OpenLayers.Map('testmap');
+	var map = new OpenLayers.Map('testmap',{
+		displayProjection: new OpenLayers.Projection("EPSG:900913"),
+		projection: "EPSG:900913",
+	});
+
 	var geoServerUrl="http://mapserver.tis.bz.it";
-	//var geoServerUrl="http://95.171.54.201:8080";
-	var extent = new OpenLayers.Bounds(11.272473793029,46.447363967896, 11.426969032287, 46.516028518678);
 	var wmscURL = [
 	      geoServerUrl+"/cgi-bin/mapserv?"
 	];
 
-	var center=  new OpenLayers.Geometry.Point(46.481696243287,11.349721412658);
-	var filter_format = new OpenLayers.Format.Filter({version: "1.1.0"});
-	var xmlFormatter = new OpenLayers.Format.XML();
-	var filter= new OpenLayers.Filter.Spatial({
-		type: OpenLayers.Filter.Spatial.DWITHIN,
-		property:'the_geom',
-		value:center,
-		distance:5000
-	});
 	var options={
-			minResolution: 0.00000291534423828125,
-			maxResolution: 0.00200291534423828125,
-			buffer: 0, 
-	        opacity: 1, 
-	        isBaseLayer: true, 
-	        visibility: true, 
-	        singleTile: true 
-		};
-	var traffic = new OpenLayers.Layer.WMS( 'Südtirol',wmscURL, {
+		/*minResolution: 0.00000291534423828125,
+		maxResolution: 0.00200291534423828125,*/
+		opacity: 0.5, 
+		isBaseLayer: false, 
+		visibility: true, 
+		singleTile: true,
+	};
+	
+	var layer_parking = new OpenLayers.Layer.WMS( 'Südtirol',wmscURL, {
 		layers: ['elgis:parkingarea'], 
-		map: "relay2.map",
+		map: "relay_2.map",
 		format: 'image/png',
 		exceptions:'application-vnd.ogc.se_inimage'	
-	},options);
-	
-	var st = new OpenLayers.Layer.WMS( 'Südtirol',wmscURL, {
-		layers: ['elgis:l09'],
-		//filter:xmlFormatter.write(filter_format.write(filter)), TODO fix this filter so that it works
-		format: 'image/png',
-		map: "relay.map",
-		exceptions:'application-vnd.ogc.se_inimage'	
-	},{
-		minResolution: 0.00000291534423828125,
-		maxResolution: 0.00200291534423828125,
-		buffer: 0, 
-        opacity:0.6, 
-        isBaseLayer: false, 
-        visibility: true, 
-        singleTile: true 
-	});
-	
-	map.addLayer(st);
-	map.addLayer(traffic);
-	map.zoomToExtent(extent);
-	st.events.on({
-		 moveend: function(e) {
-           if (e.zoomChanged) {
-   			   self.box=map.getExtent();
-               OpenLayers.Event.stop(e);
-           }
-        }
-		
-    });
+	}, options);
+
+	// Test wms
+	//var wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+    //            "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'},{isBaseLayer: false, opacity:0.6});
+
+	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+	var layer_osm = new OpenLayers.Layer.OSM()
+
+	var extent = new OpenLayers.Bounds(11.272473793029,46.447363967896, 11.426969032287, 46.516028518678);
+	var center=  new OpenLayers.Geometry.Point(46.481696243287,11.349721412658);
+	map.addLayer(layer_osm);
+	map.addLayer(layer_parking);
+	map.zoomToExtent(extent.transform( fromProjection, toProjection));
+	map.setCenter(center);
 });
 
