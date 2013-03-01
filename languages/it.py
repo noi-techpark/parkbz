@@ -164,6 +164,7 @@
 'Other Recipes': 'Other Recipes',
 'Overview': 'Overview',
 'Park': 'Park',
+'parking': 'parcheggio',
 'Parking': 'Parcheggio',
 'Parking situation': 'Situazione dei parcheggi',
 'Password': 'Password',
