@@ -38,10 +38,11 @@
   response.files.append(URL('static','css/web2py_bootstrap.css'))
   }}
 
+  {{include 'web2py_ajax.html'}}
   <!-- All JavaScript at the bottom, except for Modernizr which enables
        HTML5 elements & feature detects -->
-  <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
-  {{include 'web2py_ajax.html'}}
+  <!--script src="{{=URL('static','js/modernizr.custom.js')}}"></script-->
+
   <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{=URL('static','js/flashcanvas.js')}}"></script><![endif]-->
 
   {{
