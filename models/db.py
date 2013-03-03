@@ -2,7 +2,7 @@
 
 
 response.optimize_css = 'concat,minify'
-response.optimize_js = 'concat,minify'
+#response.optimize_js = 'concat,minify'
 
 #from gluon.tools import Auth, Crud, Service, PluginManager, prettydate
 #auth = Auth(db)
