@@ -25,7 +25,13 @@ def parking():
 	park = __get_park_data(int(park_id))
 	response.title = "%s %s" %(T('Parking'), park['name'])
 	response.meta.description = "%s %s" % (T('Map and number of free slots of the parking'), park['name'])
+	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
 	return {'park': park, 'park_id':park_id}
+
+def map():
+	response.files.append(URL('static','js/OpenLayers.js'))
+	response.files.append(URL('static','js/controllers.js'))
+	return {}
 
 def get_history():
 	if not(request.ajax): raise HTTP(403)
@@ -79,14 +85,3 @@ def __get_parks_info():
 		data = __get_park_data(park)
 		parks.append( data )
 	return parks
-
-def map():
-	response.files.append("https://www.google.com/jsapi")
-	#response.files.append("https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js")
-	response.files.append(URL('static','js/OpenLayers.js'))
-	response.files.append(URL('static','js/controllers.js'))
-	return {}
-
-
-
-
