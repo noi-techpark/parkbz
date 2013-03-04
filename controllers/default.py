@@ -5,6 +5,7 @@ from datetime import datetime
 
 def user(): return dict(form=auth())
 
+@cache(request.env.path_info, time_expire=3600, cache_model=cache.ram)
 def index():
 	try:
 		parks = __get_parks_info()
