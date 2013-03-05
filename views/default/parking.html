@@ -28,16 +28,37 @@
 	var zoom = 15;
 	var lon  = {{=park['longitude']}};
 	var lat  = {{=park['latitude']}};
-	var map = new OpenLayers.Map("map_canvas");
+	var map = new OpenLayers.Map("map_canvas", {
+		projection: "EPSG:900913",
+	});
 	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
 	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
 	var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
 
-	var markers = new OpenLayers.Layer.Markers( "Markers" );
-	markers.addMarker(new OpenLayers.Marker(position));
+	// layers
+	var layer_osm = new OpenLayers.Layer.OSM();
 
-	map.addLayer(new OpenLayers.Layer.OSM());
-	map.addLayer(markers);
+	var options_parking = {
+		opacity: 1, 
+		isBaseLayer: false, 
+		visibility: true, 
+		singleTile: true,
+	};
+	var wmscURL = [ "http://mapserver.tis.bz.it/cgi-bin/mapserv?" ];
+	var layer_parking = new OpenLayers.Layer.WMS( 'Südtirol',wmscURL, {
+		layers: ['elgis:parkingarea'], 
+		map: "relay_2.map",
+		format: 'image/png',
+		transparent: true,
+		exceptions:'application-vnd.ogc.se_inimage'	
+	}, options_parking);
+	
+	var layer_markers = new OpenLayers.Layer.Markers( "Markers" );
+	layer_markers.addMarker(new OpenLayers.Marker(position));
+
+	map.addLayer(layer_osm);
+	map.addLayer(layer_parking);
+	map.addLayer(layer_markers);
 	map.setCenter(position, zoom );
 
 	// pie chart
