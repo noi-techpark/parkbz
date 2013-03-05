@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from xmlrpclib import ServerProxy
 server = ServerProxy("http://ipchannels-frontend.integreen-life.bz.it/xmlRpcFrontEnd/xmlrpc")
+#server = ServerProxy("http://xmlrpcfrontend.mapserver.tis.bz.it/xmlRpcFrontEnd/xmlrpc")
 from datetime import datetime
 
 def user(): return dict(form=auth())

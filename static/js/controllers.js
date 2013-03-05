@@ -15,7 +15,7 @@ $(document).ready(function() {
 	var options={
 		/*minResolution: 0.00000291534423828125,
 		maxResolution: 0.00200291534423828125,*/
-		opacity: 0.5, 
+		opacity: 1, 
 		isBaseLayer: false, 
 		visibility: true, 
 		singleTile: true,
@@ -25,6 +25,7 @@ $(document).ready(function() {
 		layers: ['elgis:parkingarea'], 
 		map: "relay_2.map",
 		format: 'image/png',
+		transparent: true,
 		exceptions:'application-vnd.ogc.se_inimage'	
 	}, options);
 
