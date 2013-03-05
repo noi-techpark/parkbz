@@ -11,9 +11,9 @@
 	<div class="well">
 	<h3>{{=T('Free slots')}}</h3>
 	<div class="nav">
-   		<span class="label label-success">0-30 %</span>
-   		<span class="label label-warning">30-80 %</span>
-   		<span class="label label-important">80-100 %</span>
+   		<span class="label label-important">{{=T('low')}}</span>
+   		<span class="label label-warning">{{=T('medium')}}</span>
+   		<span class="label label-success">{{=T('high')}}</span>
    	</div>
 	<div style="position: relative">
 		<span class="row-fluid" style="position:absolute; z-index: 101;"><h3 class="span12 pie_label">{{=park['freeslots']}}</h3></span>
@@ -84,7 +84,7 @@
 	var placeholder = $("#pie_chart");
 	data = [{'data':{{=park['freeslots']}}, 
 			'label': '{{=T('Free slots')}}',
-			'color': '{{='#468847' if park['freeslots_rate'] <30 else '#F89406' if park['freeslots_rate'] < 80 else '#B94A48'}}',
+			'color': '{{='#B94A48' if park['freeslots_rate'] <30 else '#F89406' if park['freeslots_rate'] < 80 else '#468847'}}',
 			}, 
 			{'data':{{=park['slots_taken']}}, 
 			'label': '{{=T('Fdeeeree slots')}}',
