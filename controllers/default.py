@@ -35,6 +35,9 @@ def map():
 	response.files.append(URL('static','js/controllers.js'))
 	return {}
 
+def doc():
+	return {'server':server}
+
 def get_history():
 	if not(request.ajax): raise HTTP(403)
 	park_id = request.args(0) or 'index'
