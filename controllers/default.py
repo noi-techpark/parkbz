@@ -36,7 +36,9 @@ def map():
 	return {}
 
 def doc():
-	return {'server':server}
+	methods = server.system.listMethods()
+	methods.sort()
+	return {'server':server, 'methods':methods}
 
 def get_history():
 	if not(request.ajax): raise HTTP(403)

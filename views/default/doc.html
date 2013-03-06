@@ -1,13 +1,12 @@
 {{extend 'layout.html'}}
 
 <section class="span12">
-
-{{for method in server.system.listMethods():}}
+{{for method in methods:}}
 {{method_signatures = server.system.methodSignature(method)}}
 {{for signature in method_signatures:}}
 <div class="well">
 	{{params = signature[1:]}}
-	<p class="lead page-header">{{=signature[0]}} {{=method}}  ({{= ", ".join(params) }})</p>
+	<p class="lead page-header">{{="%(ret)s %(name)s" % {'ret':signature[0], 'name':method} }}({{= ", ".join(params) }})</p>
 	<p>{{=server.system.methodHelp(method)}}</p>
 </div>
 {{pass}}
