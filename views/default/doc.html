@@ -7,7 +7,7 @@
 <div class="well">
 	{{params = signature[1:]}}
 	<p class="lead page-header">{{="%(ret)s %(name)s" % {'ret':signature[0], 'name':method} }}({{= ", ".join(params) }})</p>
-	<p>{{=server.system.methodHelp(method)}}</p>
+	<p>{{=XML(server.system.methodHelp(method))}}</p>
 </div>
 {{pass}}
 {{pass}}
