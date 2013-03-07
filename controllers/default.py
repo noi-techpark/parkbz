@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from xmlrpclib import ServerProxy
-server = ServerProxy("http://ipchannels-frontend.integreen-life.bz.it/xmlRpcFrontEnd/xmlrpc")
-#server = ServerProxy("http://xmlrpcfrontend.mapserver.tis.bz.it/xmlRpcFrontEnd/xmlrpc")
+server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc")
+
 from datetime import datetime
 
 def user(): return dict(form=auth())
@@ -29,11 +29,6 @@ def parking():
 	response.meta.description = "%s %s" % (T('Map and number of free slots of the parking'), park['name'])
 	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
 	return {'park': park, 'park_id':park_id}
-
-def map():
-	response.files.append(URL('static','js/OpenLayers.js'))
-	response.files.append(URL('static','js/controllers.js'))
-	return {}
 
 def doc():
 	methods = server.system.listMethods()
