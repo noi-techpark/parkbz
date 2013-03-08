@@ -2,10 +2,6 @@
 from xmlrpclib import ServerProxy
 server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc")
 
-from datetime import datetime
-
-def user(): return dict(form=auth())
-
 @cache(request.env.path_info, time_expire=3600, cache_model=cache.ram)
 def index():
 	try:
@@ -36,6 +32,7 @@ def doc():
 	return {'server':server, 'methods':methods}
 
 def get_history():
+	from datetime import datetime
 	if not(request.ajax): raise HTTP(403)
 	park_id = request.args(0) or 'index'
 	n_days = int(request.vars.interval) if request.vars.interval and request.vars.interval.isdigit() else 7
