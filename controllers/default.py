@@ -2,7 +2,7 @@
 from xmlrpclib import ServerProxy
 server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc")
 
-@cache(request.env.path_info, time_expire=3600, cache_model=cache.ram)
+@cache.client(time_expire=3600, cache_model=cache.ram)
 def index():
 	try:
 		parks = __get_parks_info()
@@ -22,6 +22,7 @@ def parking():
 	if not(park_id and park_id.isdigit()): raise HTTP(404)
 	park = __get_park_data(int(park_id))
 	response.title = "%s %s" %(T('Parking'), park['name'])
+	response.page_title = park['name'] + ' - ' + response.page_title
 	response.meta.description = "%s %s" % (T('Map and number of free slots of the parking'), park['name'])
 	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
 	return {'park': park, 'park_id':park_id}
