@@ -14,7 +14,7 @@
 	{{for park in parks:}}
 		<tr id="park_{{=park['park_id']}}">
 		<td><h4><a href="{{=URL('default', T('parking', lazy=False), args=[park['park_id'], XML(park['name'])])}}">{{=park['name']}}</a></h4>
-<address><strong><abbr title="{{=T('Address')}}">{{=T('Address')}}:</abbr></strong> {{=park['address'].lower()}} - <strong><abbr title="{{=T('Phone')}}">{{=T('Phone')}}:</abbr></strong> {{=(park['phone'] or '--')}}</address>
+<address><strong><abbr title="{{=T('Address')}}">{{=T('Address')}}:</abbr></strong> {{=park['address']}} - <strong><abbr title="{{=T('Phone')}}">{{=T('Phone')}}:</abbr></strong> {{=(park['phone'] or '--')}}</address>
 		</td>
 		<td title="{{=T('Click to update')}}" class="refresh accordion-toggle">
 			<span id="{{='spinner_%s' % park['park_id']}}" class="spinner pull-right">
