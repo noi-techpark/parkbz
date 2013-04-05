@@ -6,7 +6,8 @@ server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xml
 def index():
 	try:
 		parks = __get_parks_info()
-		return {'parks': parks}
+		parks_ordered = sorted(parks, key=lambda p: p['name'])
+		return {'parks': parks_ordered}
 	except Exception:
 		return 'Data not available'
 
@@ -23,7 +24,8 @@ def parking():
 	park = __get_park_data(int(park_id))
 	response.title = "%s %s" %(T('Parking'), park['name'])
 	response.page_title = park['name'] + ' - ' + response.page_title
-	response.meta.description = "%s %s" % (T('Map and number of free slots of the parking'), park['name'])
+	response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
+	response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
 	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
 	return {'park': park, 'park_id':park_id}
 

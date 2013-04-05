@@ -8,12 +8,14 @@
 			<li><a id="switch_off" href="#">{{=T('Turn live update off')}}</a></li>
 		</ul>
 	</div>
-	<table id='parks' class="table table-striped table-bordered">
+	<table id='parks' class="table table-striped table-bordered table-condensed">
 	<thead><tr class=info><th>{{=T('Parking')}}</th><th>{{=T("Free slots")}} <a class="hidden-phone pull-right" title="{{=T('Data are updated every 5 minutes')}}"><i class="icon-info-sign"></i></a></th></tr></thead>	
 	<tbody>
 	{{for park in parks:}}
 		<tr id="park_{{=park['park_id']}}">
-		<td><a href="{{=URL('default', T('parking', lazy=False), args=[park['park_id'], XML(park['name'])])}}">{{=park['name']}}</a></td>
+		<td><h4><a href="{{=URL('default', T('parking', lazy=False), args=[park['park_id'], XML(park['name'])])}}">{{=park['name']}}</a></h4>
+<address><strong><abbr title="{{=T('Address')}}">{{=T('Address')}}:</abbr></strong> {{=park['address'].lower()}} - <strong><abbr title="{{=T('Phone')}}">{{=T('Phone')}}:</abbr></strong> {{=(park['phone'] or '--')}}</address>
+		</td>
 		<td title="{{=T('Click to update')}}" class="refresh accordion-toggle">
 			<span id="{{='spinner_%s' % park['park_id']}}" class="spinner pull-right">
 				<img alt='' src="/parkbz/static/img/spinner.gif">
