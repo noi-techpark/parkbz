@@ -23,7 +23,7 @@ def parking():
 	if not(park_id and park_id.isdigit()): raise HTTP(404)
 	park = __get_park_data(int(park_id))
 	response.title = "%s %s" %(T('Parking'), park['name'])
-	response.page_title = park['name'] + ' - ' + response.page_title
+	response.page_title = "%s %s, %s" % (T('Parking'), park['name'], T('Bolzano') )
 	response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
 	response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
 	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
