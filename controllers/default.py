@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from xmlrpclib import ServerProxy
-server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc")
+import socket
+from applications.parkbz.modules.utils import TimeoutTransport
+
+server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc", transport=TimeoutTransport())
 
 @cache.client(time_expire=3600, cache_model=cache.ram)
 def index():
@@ -8,8 +11,10 @@ def index():
 		parks = __get_parks_info()
 		parks_ordered = sorted(parks, key=lambda p: p['name'])
 		return {'parks': parks_ordered}
+	except socket.timeout:
+		return 'Data not available, the frontEnd is currently unreachable'
 	except Exception:
-		return 'Data not available'
+		return 'Internal error'
 
 def trend():
 	park_id = request.args(0) or 'index'
