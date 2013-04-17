@@ -17,12 +17,12 @@
 <div class='row-fluid'>
 	<div id="myTabContent" class="chart">
 		<span id='loading' class="alert alert-error span4 offset4 center">Loading...</span>
-		<!--a id="print" title="{{=T('Save image')}}" href="#" class="btn pull-right"><i class="icon-print"></i></a-->
-		<form class="pull-right">
+		<form class="pull-right form-inline">
 			<label class="radio inline"><input name="graph" type='radio' value="bars"  class='graph' id="bars_1"/>bars
 			</label>
 			<label class="radio inline"><input name="graph" type='radio' value="lines" checked='checked' class='graph' id="lines_6"/>lines
 			</label>
+			<a id="print" title="{{=T('Save image')}}" href="#" class="btn "><i class="icon-print"></i></a>
 		</form>
 		<ul class="nav nav-pills"> 
 		<li><a class='last' href="#" id="last_1">Last 24h</a></li>
@@ -41,11 +41,15 @@
 	console.log(m_seconds, min_seconds);*/
 	var options = { 
 		xaxis: { mode: "time", timeZoneOffset: "browser", alignTicksWithAxis:true},
-		yaxis: { position: 'left', axisLabel: "{{=T('Free slots')}}", max: 1000, zoomRange: false, panRange: false, },
+		yaxis: { position: 'left', axisLabel: "{{=T('Free slots')}}", max: 1000, zoomRange: false, panRange: false, 
+			axisLabelUseCanvas: true,
+			axisLabelFontFamily: "Helvetica Neue,Helvetica,Arial,sans-serif",
+			axisLabelFontSizePixels: 14,
+		},
 		series:{ lines: { show: true, fill: false },
 				 points: { show: false },
 				 bars: {show: false, barWidth:300*1000},
-				},
+		},
 		crosshair: { mode: null },
 		pan: { interactive: true },
 		zoom: { interactive: true},
@@ -79,6 +83,7 @@
 			}
 		},
 		touch: {autoHeight: false, autoWidth: false},
+		canvad: true
 	}
 	var placeholder = $("#traffic_chart_h");
 	var datasets = {};	// All data available

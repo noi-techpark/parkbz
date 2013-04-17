@@ -521,6 +521,10 @@ table address {
 	margin-bottom: 0;
 }
 
+form.form-inline {
+	margin-bottom: 0;
+}
+
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
