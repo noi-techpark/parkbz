@@ -5,7 +5,7 @@ from applications.parkbz.modules.utils import TimeoutTransport
 
 server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc", transport=TimeoutTransport())
 
-@cache.client(time_expire=3600, cache_model=cache.ram)
+@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
 	try:
 		parks = __get_parks_info()
@@ -59,7 +59,6 @@ def freeslots():
 	if not(park_id and park_id.isdigit()): raise HTTP(404)
 	data = __get_park_data(int(park_id))	
 	json = {'freeslots':data['freeslots']}	
-
 	freeslots = request.args(1) or 'index'
 	if data['freeslots'] != -1 and (not(freeslots and freeslots.isdigit()) or int(freeslots) != data['freeslots']):
 		json['plain_html'] = response.render('default/park_bar.html', park=data )
