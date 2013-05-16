@@ -46,12 +46,19 @@ function main() {
 		});
 		$("head").append( link );
 		// Get base layout
-		var urlParkWidget = 'http://parking.integreen-life.bz.it/parkbz/default/freeslots.jsonp/';
+		var urlParkWidget = '/parkbz/default/freeslots.jsonp/';
 
-		function load_park_bar(element, park_id) {
+		function load_park_bar(element) {
+			park_id = $(element).attr('data-ref');
+			domain  = $(element).attr('data-href');
+			if ((domain === undefined) || (park_id === undefined)) {
+				$(element).html('<div><strong>Error, please check your widget parameters</strong></div>');
+				return;
+			}
+			
 			$.ajax({
 				type: 'GET',
-				url: urlParkWidget + park_id,
+				url: domain + urlParkWidget + park_id,
 				async: false,
 				contentType: "application/json",
 				dataType: 'jsonp',
@@ -65,9 +72,8 @@ function main() {
 		}
 
 		placeholders = $('.parking-widget');
-		$.each(placeholders, function(i, element) {
-			park_id = $(element).attr('data-ref');
-			load_park_bar($(this), park_id)
+		$.each(placeholders, function(i, element) {	
+			load_park_bar($(this));
 		});
     });
 }
