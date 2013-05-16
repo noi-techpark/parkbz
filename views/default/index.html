@@ -20,7 +20,7 @@
 			<span id="{{='spinner_%s' % park['park_id']}}" class="spinner pull-right">
 				<img alt='' src="/parkbz/static/img/spinner.gif">
 			</span>
-			<div class="progress">{{#include 'default/park_bar.html'}}</div>		
+			<div class="placeholder_progress">{{#include 'default/park_bar.html'}}</div>		
 		</td>
 	{{pass}}	
 	</tbody></table>
@@ -59,7 +59,7 @@ function parseAnswer(park, json) {
 	if (parseInt($('#freeslots_' + park).text()) !== parseInt(freeslots)) {
 		progress = $('#park_' + park + ' .progress').html(html);	
 	}*/
-	progress = $('#park_' + park + ' .progress');
+	progress = $('#park_' + park + ' .placeholder_progress');
 	if (html) {
 		progress.fadeIn(2000, function() {
 			progress.html(html);
@@ -74,7 +74,7 @@ function parseAnswer(park, json) {
 
 function get_freeSlots(park, rapid) {
 	if (ajax_active !== true && rapid !== true) return;
-	progress = $('#park_' + park + ' .progress');
+	progress = $('#park_' + park + ' .placeholder_progress');
 	freeslots = $('#freeslots_' + park).text()
 	$.ajax({
 		'dataType':'json', 
