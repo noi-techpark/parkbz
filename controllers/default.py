@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
-from xmlrpclib import ServerProxy
 import socket
-from applications.parkbz.modules.utils import TimeoutTransport
-
-server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc", transport=TimeoutTransport())
-
 @cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
 	try:
@@ -39,6 +34,9 @@ def doc():
 	methods.sort()
 	return {'server':server, 'methods':methods}
 
+def widget():
+	return {}
+
 def get_history():
 	from datetime import datetime
 	if not(request.ajax): raise HTTP(403)
@@ -54,40 +52,19 @@ def get_history():
 	return response.render('generic.json', {'park_%s' % park_id:{'data':output, 'park_id':park_id}})	
 	
 def freeslots():
-	if not(request.ajax): raise HTTP(403)
+	#if not(request.ajax): raise HTTP(403) #jsonp is not considered as ajax request
 	park_id = request.args(0) or 'index'
 	if not(park_id and park_id.isdigit()): raise HTTP(404)
 	data = __get_park_data(int(park_id))	
-	json = {'freeslots':data['freeslots']}	
+	if request.extension == 'jsonp':
+		json = {'data':data}
+		render = 'default/single_view.html'		
+	else:
+		json = {'freeslots':data['freeslots']}	
+		render = 'default/park_bar.html'
 	freeslots = request.args(1) or 'index'
 	if data['freeslots'] != -1 and (not(freeslots and freeslots.isdigit()) or int(freeslots) != data['freeslots']):
-		json['plain_html'] = response.render('default/park_bar.html', park=data )
+		json['plain_html'] = response.render(render, park=data )
 
-	return response.render('generic.json', json)
-
-def __get_park_data(park):
-	data = cache.ram('park_%s' % park, lambda: server.DataManager.getParkingStation(park), time_expire=3600)
-	if not(isinstance(data, dict)): 
-		cache.ram('park_%s' % park, lambda: None, time_expire=0)		
-		raise HTTP(500)	
-	data['park_id']	= park
-	data['freeslots'] = server.DataManager.getNumberOfFreeSlots(park)
-	name = data['name']
-	try:
-		data['name'] = name[name.index('-') + 1:].strip()
-	except:
-		data['name'] = name.strip()
-	data['slots_taken'] = data['slots'] - data['freeslots']
-	data['slots_taken_rate'] = (data['slots_taken'] * 100) / data['slots']
-	data['freeslots_rate'] = 100 - data['slots_taken_rate']
-	return data
-
-def __get_parks_info():
-	parks_id = cache.ram('parkingIds', lambda: server.DataManager.getParkingIds(), time_expire=3600)
-	if parks_id == -1:
-		return 'errore'
-	parks = []
-	for park in parks_id:
-		data = __get_park_data(park)
-		parks.append( data )
-	return parks
+	extension = 'json' if request.extension != 'jsonp' else 'jsonp'
+	return response.render('generic.%s' % extension, json)
