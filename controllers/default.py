@@ -4,8 +4,7 @@ import socket
 def index():
 	try:
 		parks = __get_parks_info()
-		parks_ordered = sorted(parks, key=lambda p: p['name'])
-		return {'parks': parks_ordered}
+		return {'parks': parks}
 	except socket.timeout:
 		return 'Data not available, the frontEnd is currently unreachable'
 	except Exception:
@@ -35,7 +34,13 @@ def doc():
 	return {'server':server, 'methods':methods}
 
 def widget():
-	return {}
+	try:
+		parks = __get_parks_info()
+		return {'parks': parks}
+	except socket.timeout:
+		return 'Data not available, the frontEnd is currently unreachable'
+	except Exception:
+		return 'Internal error'
 
 def get_history():
 	from datetime import datetime
@@ -65,6 +70,8 @@ def freeslots():
 	freeslots = request.args(1) or 'index'
 	if data['freeslots'] != -1 and (not(freeslots and freeslots.isdigit()) or int(freeslots) != data['freeslots']):
 		json['plain_html'] = response.render(render, park=data )
+	else:
+		json['plain_html'] = response.render('default/park_bar_error.html', park=data )
 
 	extension = 'json' if request.extension != 'jsonp' else 'jsonp'
 	return response.render('generic.%s' % extension, json)
