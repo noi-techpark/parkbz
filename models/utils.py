@@ -5,7 +5,6 @@ server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xml
 
 def __get_park_data(park):
 	data = cache.ram('park_%s' % park, lambda: server.DataManager.getParkingStation(park), time_expire=3600)
-	print data
 	if not(isinstance(data, dict)) or ('status' in data and data['status'] != 200): 
 		cache.ram('park_%s' % park, lambda: None, time_expire=0)
 		raise HTTP(404)	
