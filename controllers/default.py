@@ -68,10 +68,10 @@ def freeslots():
 		json = {'freeslots':data['freeslots']}	
 		render = 'default/park_bar.html'
 	freeslots = request.args(1) or 'index'
-	if data['freeslots'] != -1 and (not(freeslots and freeslots.isdigit()) or int(freeslots) != data['freeslots']):
-		json['plain_html'] = response.render(render, park=data )
-	else:
+	if data['freeslots'] == -1:
 		json['plain_html'] = response.render('default/park_bar_error.html', park=data )
+	elif not(freeslots and freeslots.isdigit()) or int(freeslots) != data['freeslots']:
+		json['plain_html'] = response.render(render, park=data )
 
 	extension = 'json' if request.extension != 'jsonp' else 'jsonp'
 	return response.render('generic.%s' % extension, json)
