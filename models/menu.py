@@ -32,5 +32,8 @@ response.menu = [
         (A(CAT(TAG.I(_class="icon-info-sign"), " %s" % T('Parking situation')), _href='http://parking.integreen-life.bz.it', _title="Bolzano parking situation") , False, None),
 		(A(CAT(TAG.I(_class="icon-road"), " %s" %  T('Traffic monitoring')),_href='http://traffic.integreen-life.bz.it', _title="Bluetooth traffic monitoring"), False, None),
 	]),
-	(T('Index'),URL('default','index')==URL(),URL('default','index'),[]),]
+	(T('Index'),URL('default','index')==URL(),URL('default','index'),[]),
+	(T('Widget'),URL('default','widget')==URL(),URL('default','widget')),]
 
+if "auth" in locals():
+    response.menu += auth.wikimenu()
