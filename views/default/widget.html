@@ -1,0 +1,81 @@
+{{extend 'layout.html'}}
+<section class="span12">
+
+
+<div class="row">
+	<h4></h4>
+	<div class="span3"><div class="well">
+	<form class="form-horizontal" id="park_checkboxs">{{for park in parks:}}			
+	  <div class="control-group"><label class="checkbox success">
+		<input type="checkbox" id="park_{{=park['park_id']}}" value="{{=park['park_id']}}">{{=park['name']}}
+	</label></div>
+	{{pass}}</form>
+
+	</div>
+	</div>
+
+	<div class="span9">
+	<h4>Html and javascript to embed:</h4>
+	<textarea id="cpjs" class="input-block-level" type="text" rows="5">
+{{="""<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=%s;fjs.parentNode.insertBefore(js,fjs);}
+}(document,"script","parking-widget");
+</script>
+""" % URL('static','/js/widget.js', host=True)}}
+	</textarea>	
+
+<h4>Live example:</h4><div class="well" id="live_example"></div>
+
+
+	</div>
+
+
+</div>
+</section>
+<script>
+
+var js = $('textarea').val();
+$('textarea').val("");
+
+function update_example() {
+	$('#live_example').html("");
+	$('#live_example').hide();
+	$('#cpjs').val('');
+	$.each( $('#park_checkboxs input:checked'), function(i, element){
+		var park_id = $(this).attr('value');
+		var single_html = "<div class='parking-widget' data-href='http://parking.integreen-life.bz.it' data-ref='park_id_js'></div>".replace(/park_id_js/,park_id)
+		$('#live_example').append(single_html);
+		$('#cpjs').val( $('#cpjs').val() + single_html + "\n");
+	});
+	$('#cpjs').val($('#cpjs').val() + js);
+	$('#live_example').show();
+	$.getScript("{{=URL('static','/js/widget.js', host=True)}}", function(data, textStatus, jqxhr) {
+		console.log(data); //data returned
+		console.log(textStatus); //success
+		console.log(jqxhr.status); //200
+		console.log('Load was performed.');
+	});
+}
+
+
+$("#park_checkboxs").on('click', 'input', function () {
+	$(this).parents('div.control-group').toggleClass('success');	
+
+	update_example();
+});
+
+
+
+
+
+$(document).on('mousedown', 'textarea', function () {
+	$(this).select();
+    // Work around Chrome's little problem
+    $(this).mouseup(function() {
+        // Prevent further mouseup intervention
+        $(this).unbind("mouseup");
+        return false;
+    });
+
+});
+</script>
