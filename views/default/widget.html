@@ -43,7 +43,7 @@ function update_example() {
 	$('#cpjs').val('');
 	$.each( $('#park_checkboxs input:checked'), function(i, element){
 		var park_id = $(this).attr('value');
-		var single_html = "<div class='parking-widget' data-href='http://parking.integreen-life.bz.it' data-ref='park_id_js'></div>".replace(/park_id_js/,park_id)
+		var single_html = "{{=XML("<div class='parking-widget' data-href='http://%s' data-ref='park_id_js'></div>" % request.env.http_host)}}".replace(/park_id_js/,park_id);
 		$('#live_example').append(single_html);
 		$('#cpjs').val( $('#cpjs').val() + single_html + "\n");
 	});
