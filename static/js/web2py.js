@@ -228,3 +228,7 @@ if (!('indexOf' in Array.prototype)) {
         return -1;
     };
 }
+
+var template_js = '<p class="repo-name"><a href="{{link}}"><strong>{{name}}</strong></a></p><small>{{address}}</small>';
+
+

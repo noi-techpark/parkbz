@@ -3,7 +3,7 @@ import socket
 @cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
 	try:
-		parks = __get_parks_info()
+		parks = __get_parks_info(address_only=True)
 		return {'parks': parks}
 	except socket.timeout:
 		return 'Data not available, the frontEnd is currently unreachable'
@@ -75,3 +75,17 @@ def freeslots():
 
 	extension = 'json' if request.extension != 'jsonp' else 'jsonp'
 	return response.render('generic.%s' % extension, json)
+
+def search():
+	import re
+	if not (request.vars.query): return response.json([])
+	query = request.vars.query.lower()
+	parks = __get_parks_info(address_only=True)
+	json_l = []
+	for park in parks:
+		if query in park['name'].lower() or query in park['address'].lower():
+			cur_park = {'value':park['name'], 'name':park['name'], 'address':park['address'], 'tokens':[park['name'],park['address']] } 
+			cur_park['link'] = get_park_link(park)
+			json_l.append(cur_park)
+
+	return response.json(json_l)
