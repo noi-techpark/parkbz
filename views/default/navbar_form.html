@@ -1,0 +1,15 @@
+<form class="navbar-search"><input type="text" class="typeahead search-query" placeholder="Search"></form>
+<script>
+	$(' .typeahead').typeahead({                                
+		name: 'parking',                                                          
+		remote: { 
+			url: '{{=URL('default', 'search', vars={'query':"QUERY"}, extension='json', host=True)}}',
+			wildcard: 'QUERY',
+		},
+		template: template_js,
+		engine: Hogan,
+	});	
+	$(document).on("typeahead:selected", '.typeahead', function(e, datum) {
+		window.location.href=datum.link;
+	});
+</script>
