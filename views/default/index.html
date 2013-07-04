@@ -1,5 +1,5 @@
 {{extend 'layout.html'}}
-<section class="span12">
+<section class="span10 offset1">
 	<div class="btn-group nav pull-right">
 		<button id="force_all" class="btn" title="Reload all"><i class="icon-refresh"></i></button>
 		<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
@@ -78,7 +78,7 @@ function get_freeSlots(park, rapid) {
 	freeslots = $('#freeslots_' + park).text()
 	$.ajax({
 		'dataType':'json', 
-		'url':'/parkbz/default/freeslots/parkID/freeSlots'.replace(/parkID/, park).replace(/freeSlots/, freeslots),
+		'url':'/parkbz/default/freeslots/' + park + '/' + freeslots,
 		'beforeSend': function (xhr) {
 			$(progress).fadeTo(0, 0.5);
 			$('#spinner_' + park).show();
