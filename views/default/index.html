@@ -1,7 +1,7 @@
 {{extend 'layout.html'}}
 <section class="span10 offset1">
 	<div class="btn-group nav pull-right">
-		{{if request.vars.geo:}}<button id="geo_distance" class="btn" title="Reload all"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button>{{pass}}<button id="force_all" class="btn" title="Get your position"><i class="icon-refresh"></i></button><button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button><ul class="dropdown-menu">
+		<button id="geo_distance" class="btn" title="Reload all"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button><button id="force_all" class="btn" title="Get your position"><i class="icon-refresh"></i></button><button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button><ul class="dropdown-menu">
 		<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>
 		<li><a id="switch_off" href="#">{{=T('Turn live update off')}}</a></li>
 	</ul>
