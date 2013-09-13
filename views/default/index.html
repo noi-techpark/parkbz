@@ -95,6 +95,8 @@
 	}
 
 	$(document).on('click', '#geo_distance', function() {
+		$(".duration").remove();
+		$(".distance").remove();
 		navigator.geolocation.getCurrentPosition(successCallback,
 		                                         errorCallback,
 		                                         {enableHighAccuracy: true, timeout : 5000});
@@ -129,7 +131,7 @@
 				var duration = element.duration.text;
 				console.log(destinations[j], distance, duration);
 				// icon-road, icon-time
-				$('tbody tr:nth-child('+(j+1)+') td h4').append("<span class='label label-success'><i class='icon-road'></i>"+distance+"</span><span class='label label-info'><i class='icon-time'></i>"+duration+"</span>");
+				$('tbody tr:nth-child('+(j+1)+') td h4').append("<span class='label label-success distance'><i class='icon-road'></i>"+distance+"</span><span class='label label-info duration'><i class='icon-time'></i>"+duration+"</span>");
 
 	  		}
 		}
