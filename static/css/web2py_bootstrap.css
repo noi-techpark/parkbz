@@ -238,6 +238,9 @@ div.controls .error {
 @media only screen and (max-width:979px){
   body{padding-top:0px;}
   #navbar{/*top:5px;*/}
+  .navbar-fixed-top .navbar-inner {
+	padding-top: 0px;
+	}
   div.flash{right:5px;}
   .dropdown-menu ul{visibility:visible;}
 }
