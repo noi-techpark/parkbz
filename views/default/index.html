@@ -27,78 +27,78 @@
 	</tbody></table>
 </section>
 <script>
-var ajax_active = true;
-$('span.spinner').hide();
-$('#parks').on('click', '.refresh', function() {
-	id = $(this).parents('tr').attr('id').split('_')[1];
-	get_freeSlots(id);
-});
-$(document).on('click', '#force_all', function() {
-	$( "tr[id^='park_']" ).each(function() {
-		park_id = $(this).attr('id').split('_')[1];	
-		get_freeSlots(park_id, true);	
+	var ajax_active = true;
+	$('span.spinner').hide();
+	$('#parks').on('click', '.refresh', function() {
+		id = $(this).parents('tr').attr('id').split('_')[1];
+		get_freeSlots(id);
 	});
-});
-$(document).on('click', '#switch_off', function() {	
-	ajax_active = false;
-	$('#switch_on').parent().toggleClass('disabled');
-	$('#switch_off').parent().toggleClass('disabled');
-});
-$(document).on('click', '#switch_on', function() {
-	ajax_active = true;
-	$('#switch_on').parent().toggleClass('disabled');
-	$('#switch_off').parent().toggleClass('disabled');
-});
-
-{{for park in parks:}}
-	//setTimeout( function() {get_freeSlots({{=park['park_id']}})}, (20+Math.floor((Math.random()*10)+1))*1000 );
-	setTimeout(	function() {get_freeSlots({{=park['park_id']}})}, (Math.floor((Math.random()*10)+1))*250 );
-{{pass}} 
-
-function parseAnswer(park, json) {
-	html = json.plain_html;
-	/*freeslots = json.freeslots;
-	if (parseInt($('#freeslots_' + park).text()) !== parseInt(freeslots)) {
-		progress = $('#park_' + park + ' .progress').html(html);	
-	}*/
-	progress = $('#park_' + park + ' .placeholder_progress');
-	if (html) {
-		progress.fadeIn(2000, function() {
-			progress.html(html);
+	$(document).on('click', '#force_all', function() {
+		$( "tr[id^='park_']" ).each(function() {
+			park_id = $(this).attr('id').split('_')[1];	
+			get_freeSlots(park_id, true);	
 		});
-		setTimeout( function() {get_freeSlots(park)}, 5*60*1000);
-	} else {
-		setTimeout( function() {get_freeSlots(park)}, 20*1000);
+	});
+	$(document).on('click', '#switch_off', function() {	
+		ajax_active = false;
+		$('#switch_on').parent().toggleClass('disabled');
+		$('#switch_off').parent().toggleClass('disabled');
+	});
+	$(document).on('click', '#switch_on', function() {
+		ajax_active = true;
+		$('#switch_on').parent().toggleClass('disabled');
+		$('#switch_off').parent().toggleClass('disabled');
+	});
+
+	{{for park in parks:}}
+		//setTimeout( function() {get_freeSlots({{=park['park_id']}})}, (20+Math.floor((Math.random()*10)+1))*1000 );
+		setTimeout(	function() {get_freeSlots({{=park['park_id']}})}, (Math.floor((Math.random()*10)+1))*250 );
+	{{pass}} 
+
+	function parseAnswer(park, json) {
+		html = json.plain_html;
+		/*freeslots = json.freeslots;
+		if (parseInt($('#freeslots_' + park).text()) !== parseInt(freeslots)) {
+			progress = $('#park_' + park + ' .progress').html(html);	
+		}*/
+		progress = $('#park_' + park + ' .placeholder_progress');
+		if (html) {
+			progress.fadeIn(2000, function() {
+				progress.html(html);
+			});
+			setTimeout( function() {get_freeSlots(park)}, 5*60*1000);
+		} else {
+			setTimeout( function() {get_freeSlots(park)}, 20*1000);
+		}
+		$(progress).fadeTo(0.5, 1);
+		$('#spinner_' + park).hide();	
 	}
-	$(progress).fadeTo(0.5, 1);
-	$('#spinner_' + park).hide();	
-}
 
-function get_freeSlots(park, rapid) {
-	if (ajax_active !== true && rapid !== true) return;
-	progress = $('#park_' + park + ' .placeholder_progress');
-	freeslots = $('#freeslots_' + park).text()
-	$.ajax({
-		'dataType':'json', 
-		'url':'/parkbz/default/freeslots/' + park + '/' + freeslots,
-		'beforeSend': function (xhr) {
-			$(progress).fadeTo(0, 0.5);
-			$('#spinner_' + park).show();
-		},
-		'success':function(data){
-			parseAnswer(park, data);
-		},
-	}); 
-}
-if (!navigator.geolocation) {  
-	$('#geo_distance').hide() 
-}
+	function get_freeSlots(park, rapid) {
+		if (ajax_active !== true && rapid !== true) return;
+		progress = $('#park_' + park + ' .placeholder_progress');
+		freeslots = $('#freeslots_' + park).text()
+		$.ajax({
+			'dataType':'json', 
+			'url':'/parkbz/default/freeslots/' + park + '/' + freeslots,
+			'beforeSend': function (xhr) {
+				$(progress).fadeTo(0, 0.5);
+				$('#spinner_' + park).show();
+			},
+			'success':function(data){
+				parseAnswer(park, data);
+			},
+		}); 
+	}
+	if (!navigator.geolocation) {  
+		$('#geo_distance').hide();
+	}
 
-$(document).on('click', '#geo_distance', function() {
-	navigator.geolocation.getCurrentPosition(successCallback,
-                                             errorCallback,
-                                             {maximumAge:600000, timeout:0});
-});
+	$(document).on('click', '#geo_distance', function() {
+		navigator.geolocation.getCurrentPosition(successCallback,
+		                                         errorCallback,
+		                                         {enableHighAccuracy: true, timeout : 5000});
+	});
 
 	function successCallback(position) {
 		var directionsDisplay;
@@ -135,51 +135,18 @@ $(document).on('click', '#geo_distance', function() {
 		}
 	}
 
-
-/*function initialize() {
-	directionsDisplay = new google.maps.DirectionsRenderer();
-	var chicago = 
-  var mapOptions = {
-    zoom:7,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    center: chicago
-  }
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  directionsDisplay.setMap(map);
-}
-
-function calcRoute(start) {
-
-  var end   = document.getElementById('end').value;
-  var request = {
-      origin:start,
-      destination:end,
-      travelMode: google.maps.DirectionsTravelMode.DRIVING
-  };
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-    }
-  });
-}*/
-
-
-
-
-
-function errorCallback(error) {
-      switch(error.code) {
-        case error.TIMEOUT:
-          // Quick fallback when no suitable cached position exists.
-          //doFallback();
-          // Acquire a new position object.
-          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-          break;
-		default:
-			console.log('errore'); // treat the other error cases.
-	};
-}
-
+	function errorCallback(error) {
+		alert("Geo service not available");
+		return;
+		switch(error.code) {
+			case error.TIMEOUT:
+				// Acquire a new position object.
+				navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+				break;
+			default:
+				console.log('errore'); // treat the other error cases.
+		};
+	}
 
 
 </script>
