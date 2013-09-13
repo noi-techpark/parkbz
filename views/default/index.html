@@ -1,13 +1,10 @@
 {{extend 'layout.html'}}
 <section class="span10 offset1">
 	<div class="btn-group nav pull-right">
-		{{if request.vars.geo:}}<button id="geo_distance" class="btn" title="Reload all"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button>{{pass}}
-		<button id="force_all" class="btn" title="Get your position"><i class="icon-refresh"></i></button>
-		<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
-		<ul class="dropdown-menu">
-			<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>
-			<li><a id="switch_off" href="#">{{=T('Turn live update off')}}</a></li>
-		</ul>
+		{{if request.vars.geo:}}<button id="geo_distance" class="btn" title="Reload all"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button>{{pass}}<button id="force_all" class="btn" title="Get your position"><i class="icon-refresh"></i></button><button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button><ul class="dropdown-menu">
+		<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>
+		<li><a id="switch_off" href="#">{{=T('Turn live update off')}}</a></li>
+	</ul>
 	</div>
 	<table id='parks' class="table table-striped table-bordered table-condensed">
 	<thead><tr class=info><th>{{=T('Parking')}}</th><th>{{=T("Free slots")}} <a class="hidden-phone pull-right" title="{{=T('Data are updated every 5 minutes')}}"><i class="icon-info-sign"></i></a></th></tr></thead>	
@@ -103,7 +100,7 @@
 		$('#geo_distance img').show();
 		navigator.geolocation.getCurrentPosition(successCallback,
 		                                         errorCallback,
-		                                         {enableHighAccuracy: true, timeout : 30000});
+		                                         {enableHighAccuracy: true, timeout : 90000});
 	});
 
 	function successCallback(position) {
