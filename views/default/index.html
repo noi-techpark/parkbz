@@ -1,7 +1,7 @@
 {{extend 'layout.html'}}
 <section class="span10 offset1">
 	<div class="btn-group nav pull-right">
-		{{if request.vars.geo:}}<button id="geo_distance" class="btn" title="Reload all"><i class="icon-screenshot"></i></button>{{pass}}
+		{{if request.vars.geo:}}<button id="geo_distance" class="btn" title="Reload all"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button>{{pass}}
 		<button id="force_all" class="btn" title="Get your position"><i class="icon-refresh"></i></button>
 		<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
 		<ul class="dropdown-menu">
@@ -29,6 +29,8 @@
 <script>
 	var ajax_active = true;
 	$('span.spinner').hide();
+	$('#geo_distance img.spinner').hide();
+
 	$('#parks').on('click', '.refresh', function() {
 		id = $(this).parents('tr').attr('id').split('_')[1];
 		get_freeSlots(id);
@@ -97,12 +99,16 @@
 	$(document).on('click', '#geo_distance', function() {
 		$(".duration").remove();
 		$(".distance").remove();
+		$('#geo_distance i').hide()
+		$('#geo_distance img').show();
 		navigator.geolocation.getCurrentPosition(successCallback,
 		                                         errorCallback,
-		                                         {enableHighAccuracy: true, timeout : 15000});
+		                                         {enableHighAccuracy: true, timeout : 30000});
 	});
 
 	function successCallback(position) {
+		$('#geo_distance i').show()
+		$('#geo_distance img').hide();
 		var directionsDisplay;
 		var directionsService = new google.maps.DirectionsService();
 		var start = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -138,6 +144,8 @@
 	}
 
 	function errorCallback(error) {
+		$('#geo_distance i').show()
+		$('#geo_distance img').hide();
 		alert("Geo service not available");
 		return;
 		switch(error.code) {
