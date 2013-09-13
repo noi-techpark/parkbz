@@ -99,7 +99,7 @@
 		$(".distance").remove();
 		navigator.geolocation.getCurrentPosition(successCallback,
 		                                         errorCallback,
-		                                         {enableHighAccuracy: true, timeout : 5000});
+		                                         {enableHighAccuracy: true, timeout : 15000});
 	});
 
 	function successCallback(position) {
