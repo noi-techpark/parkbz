@@ -525,6 +525,18 @@ form.form-inline {
 	margin-bottom: 0;
 }
 
+td h4 .label {
+	padding-top: 4px;
+	padding-right: 6px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	margin-right: 5px;
+}
+td h4 .label i {
+	padding-right: 4px;
+}
+
+
 /* Desktop
 ------------------------- */
 @media (max-width: 980px) {
@@ -552,6 +564,7 @@ form.form-inline {
   /*.pie_label {
 		margin-left: 60px;
   }*/
+
 
 }
 

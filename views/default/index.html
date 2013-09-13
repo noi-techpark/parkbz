@@ -1,7 +1,8 @@
 {{extend 'layout.html'}}
 <section class="span10 offset1">
 	<div class="btn-group nav pull-right">
-		<button id="force_all" class="btn" title="Reload all"><i class="icon-refresh"></i></button>
+		{{if request.vars.geo:}}<button id="geo_distance" class="btn" title="Reload all"><i class="icon-screenshot"></i></button>{{pass}}
+		<button id="force_all" class="btn" title="Get your position"><i class="icon-refresh"></i></button>
 		<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
 		<ul class="dropdown-menu">
 			<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>
@@ -13,7 +14,7 @@
 	<tbody>
 	{{for park in parks:}}
 		<tr id="park_{{=park['park_id']}}">
-		<td><h4><a href="{{=get_park_link(park)}}">{{=park['name']}}</a></h4>
+		<td><h4><a id="park_link{{=park['park_id']}}" href="{{=get_park_link(park)}}" data-lgt={{=park['longitude']}} data-lat={{=park['latitude']}}>{{=park['name']}} </a></h4>
 <address><strong><abbr title="{{=T('Address')}}">{{=T('Address')}}:</abbr></strong> {{=park['address']}} - <strong><abbr title="{{=T('Phone')}}">{{=T('Phone')}}:</abbr></strong> {{=(park['phone'] or '--')}}</address>
 		</td>
 		<td title="{{=T('Click to update')}}" class="refresh accordion-toggle">
@@ -53,6 +54,7 @@ $(document).on('click', '#switch_on', function() {
 	//setTimeout( function() {get_freeSlots({{=park['park_id']}})}, (20+Math.floor((Math.random()*10)+1))*1000 );
 	setTimeout(	function() {get_freeSlots({{=park['park_id']}})}, (Math.floor((Math.random()*10)+1))*250 );
 {{pass}} 
+
 function parseAnswer(park, json) {
 	html = json.plain_html;
 	/*freeslots = json.freeslots;
@@ -88,4 +90,96 @@ function get_freeSlots(park, rapid) {
 		},
 	}); 
 }
+if (!navigator.geolocation) {  
+	$('#geo_distance').hide() 
+}
+
+$(document).on('click', '#geo_distance', function() {
+	navigator.geolocation.getCurrentPosition(successCallback,
+                                             errorCallback,
+                                             {maximumAge:600000, timeout:0});
+});
+
+	function successCallback(position) {
+		var directionsDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		var start = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		var position;
+		var destinations = [];
+		{{for park in parks:}}
+			position = new google.maps.LatLng({{=park['latitude']}}, {{=park['longitude']}});
+			destinations.push(position);
+		{{pass}} 	
+		var service = new google.maps.DistanceMatrixService();
+		service.getDistanceMatrix( {
+			origins: [start],
+			destinations:destinations,
+			travelMode: google.maps.DirectionsTravelMode.DRIVING
+		}, parseDistanceResponse );
+
+	}
+
+	function parseDistanceResponse(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			var destinations = response.destinationAddresses;
+			var results = response.rows[0].elements;	//First origin
+			for (var j = 0; j < results.length; j++) {
+				var element = results[j];
+				var distance = element.distance.text;
+				var duration = element.duration.text;
+				console.log(destinations[j], distance, duration);
+				// icon-road, icon-time
+				$('tbody tr:nth-child('+(j+1)+') td h4').append("<span class='label label-success'><i class='icon-road'></i>"+distance+"</span><span class='label label-info'><i class='icon-time'></i>"+duration+"</span>");
+
+	  		}
+		}
+	}
+
+
+/*function initialize() {
+	directionsDisplay = new google.maps.DirectionsRenderer();
+	var chicago = 
+  var mapOptions = {
+    zoom:7,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: chicago
+  }
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  directionsDisplay.setMap(map);
+}
+
+function calcRoute(start) {
+
+  var end   = document.getElementById('end').value;
+  var request = {
+      origin:start,
+      destination:end,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
+}*/
+
+
+
+
+
+function errorCallback(error) {
+      switch(error.code) {
+        case error.TIMEOUT:
+          // Quick fallback when no suitable cached position exists.
+          //doFallback();
+          // Acquire a new position object.
+          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+          break;
+		default:
+			console.log('errore'); // treat the other error cases.
+	};
+}
+
+
+
 </script>
