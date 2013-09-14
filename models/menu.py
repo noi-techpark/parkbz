@@ -3,7 +3,7 @@ settings = Storage()
 
 settings.migrate = True
 settings.title = 'Bolzano parking'
-settings.subtitle = 'Parking situation'
+settings.subtitle = 'Real-time parking situation'
 settings.author = 'Paolo Valleri'
 settings.author_email = 'paolo.valleri at gmail.com'
 settings.keywords = ''
@@ -24,7 +24,7 @@ response.meta.author = '%(author)s <%(author_email)s>' % settings
 response.meta.keywords = settings.keywords
 response.google_analytics_id = "UA-34703572-1"
 response.meta.description = settings.description 
-response.page_title=T("Bolzano parking situation")
+response.page_title=T("Real-time Bolzano parking situation")
 response.google_map_key = 'AIzaSyA9DDSrqpql5y89lZfnnwu6dkOiCcLf9Bk'
 
 response.menu = [
