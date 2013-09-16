@@ -98,6 +98,7 @@
 		$(".distance").remove();
 		$('#geo_distance i').hide()
 		$('#geo_distance img').show();
+		$('#geo_distance').tooltip('hide');
 		navigator.geolocation.getCurrentPosition(successCallback,
 		                                         errorCallback,
 		                                         {enableHighAccuracy: true, timeout : 90000});
