@@ -35,3 +35,16 @@ def __get_parks_info(address_only=False):
 def get_park_link(park): 
 	url = URL('default', T('parking', lazy=False), args=[park['park_id'], XML(park['name'])], extension=False)
 	return url
+
+def get_fb_group_box():
+    script = SCRIPT( """
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk')); """ )
+    fb_root = DIV(_id='fb-root')
+    div_fb = TAG('<div class="fb-like-box" data-href="http://www.facebook.com/integreenlife" data-width="270" data-show-faces="true" data-stream="false" data-header="false"></div>')
+    return CAT(fb_root,script, div_fb)

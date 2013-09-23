@@ -1,5 +1,5 @@
 {{extend 'layout.html'}}
-<section class="span10 offset1">
+<section class="span9">
 	<div class="btn-group nav pull-right">
 		<button id="geo_distance" data-trigger="manual" data-placement="left" class="btn" title="{{=T('Find the closest park to you')}}"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button><button id="force_all" class="btn" title="{{=T("Reload data")}}"><i class="icon-refresh"></i></button><button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button><ul class="dropdown-menu">
 		<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>
@@ -23,6 +23,15 @@
 	{{pass}}	
 	</tbody></table>
 </section>
+<section class="span3">
+	<a href="https://twitter.com/integreenlife" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @integreenlife</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+	{{=get_fb_group_box()}}
+
+</section>
+
 <script>
 	var ajax_active = true;
 	$('span.spinner').hide();
