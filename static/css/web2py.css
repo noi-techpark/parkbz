@@ -673,7 +673,20 @@ html, body {
 .carousel .carousel-indicators .active {
     background-color: #AA0031;
 }
+.has-switch {
+    min-width: 80px !important;
+    margin-left: -10px;
+}
 
+.form-container form {
+    padding-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-collapse: separate;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
 
 
 

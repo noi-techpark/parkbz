@@ -4,6 +4,7 @@ import socket
 def index():
 	try:
 		parks = __get_parks_info(address_only=True)
+		#parks = []
 		return {'parks': parks}
 	except socket.timeout:
 		return 'Data not available, the frontEnd is currently unreachable'

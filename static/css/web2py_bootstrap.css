@@ -143,7 +143,7 @@ textarea { width:90%}
 /* bootstrap has a label as input's wrapper while web2py has a div */
 div>input[type="radio"],div>input[type="checkbox"]{margin:0;}
 /* bootstrap has button instead of input */
-input[type="button"], input[type="submit"]{margin-right:8px;}
+ /* input[type="button"], input[type="submit"]{margin-right:8px;}*/
 
 /* web2py radio widget adjustment */
 .generic-widget input[type='radio'] {margin:-1px 0 0 0; vertical-align: middle;}

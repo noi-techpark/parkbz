@@ -34,6 +34,3 @@ response.menu = [
 	]),
 	(T('Index'),URL('default','index')==URL(),URL('default','index'),[]),
 	(T('Widget'),URL('default','widget')==URL(),URL('default','widget')),]
-
-if "auth" in locals():
-    response.menu += auth.wikimenu()
