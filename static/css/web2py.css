@@ -577,7 +577,7 @@ td h4 .label i {
   }
   /* Widen masthead and social buttons to fill body padding */
   header {
-    margin-top: -20px; /* Offset bottom margin on .navbar */
+    margin-top: -5px; /* Offset bottom margin on .navbar */
   }
   /* Adjust sidenav width */
   .bs-docs-sidebar .bs-docs-sidenav {
