@@ -26,7 +26,7 @@ def parking():
 	response.page_title = "%s %s, %s" % (T('Parking'), park['name'], T('Bolzano') )
 	response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
 	response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
-	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
+#	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
 	return {'park': park, 'park_id':park_id}
 
 def doc():
