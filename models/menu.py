@@ -26,6 +26,7 @@ response.google_analytics_id = "UA-34703572-1"
 response.meta.description = settings.description 
 response.page_title=T("Real-time Bolzano parking situation")
 response.google_map_key = 'AIzaSyA9DDSrqpql5y89lZfnnwu6dkOiCcLf9Bk'
+response.header_msg = XML("<i class='icon-bullhorn icon-white'></i> %s" % T('Servizio sperimentale'))
 
 response.menu = [
 	(T('Index'),URL('default','index')==URL(),URL('default','index'),[]),

@@ -79,9 +79,9 @@
   <header class="mastheader" id="header">
     <div class='container'>
 	{{if response.header_msg:}}
-	<div class="alert alert-error pull-right span4">
+	<div class="alert alert-info pull-right span4">
               <button data-dismiss="alert" class="close" type="button">×</button>
-	      <strong>Heads up!</strong> {{=XML(response.header_msg)}}
+	      <strong>{{=XML(response.header_msg)}}</strong>
         </div>
 	{{pass}}
 	<h1>{{=response.title}}</h1>
