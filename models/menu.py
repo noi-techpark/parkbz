@@ -28,9 +28,5 @@ response.page_title=T("Real-time Bolzano parking situation")
 response.google_map_key = 'AIzaSyA9DDSrqpql5y89lZfnnwu6dkOiCcLf9Bk'
 
 response.menu = [
-	(SPAN('INTEGREEN', _class="hidden-phone"), False, 'http://www.integreen-life.bz.it', [
-        (A(CAT(TAG.I(_class="icon-info-sign"), " %s" % T('Parking situation')), _href='http://parking.integreen-life.bz.it', _title="Bolzano parking situation") , False, None),
-		(A(CAT(TAG.I(_class="icon-road"), " %s" %  T('Traffic monitoring')),_href='http://traffic.integreen-life.bz.it', _title="Bluetooth traffic monitoring"), False, None),
-	]),
 	(T('Index'),URL('default','index')==URL(),URL('default','index'),[]),
 	(T('Widget'),URL('default','widget')==URL(),URL('default','widget')),]
