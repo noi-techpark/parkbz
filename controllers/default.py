@@ -18,16 +18,18 @@ def trend():
 	return {'parks': parks, 'park_id':park_id}
 
 def parking():
-	response.files.append(URL('static','js/OpenLayers.js'))
-	park_id = request.args(0) or 'index'
-	if not(park_id and park_id.isdigit()): raise HTTP(404)
-	park = __get_park_data(int(park_id))
-	response.title = "%s %s" %(T('Parking'), park['name'])
-	response.page_title = "%s %s, %s" % (T('Parking'), park['name'], T('Bolzano') )
-	response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
-	response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
-#	response.menu.append( (T('Trend'), False, URL('default', 'trend', args=[park['park_id'], park['name']])))
-	return {'park': park, 'park_id':park_id}
+    response.files.append(URL('static','js/OpenLayers.js'))
+    park_id = request.args(0) or 'index'
+    if not(park_id and park_id.isdigit()): raise HTTP(404)
+    try:
+        park = __get_park_data(int(park_id))
+    except:
+        return 'Data not available, the frontEnd is currently unreachable'
+    response.title = "%s %s" %(T('Parking'), park['name'])
+    response.page_title = "%s %s, %s" % (T('Parking'), park['name'], T('Bolzano') )
+    response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
+    response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
+    return {'park': park, 'park_id':park_id}
 
 def doc():
 	methods = server.system.listMethods()
