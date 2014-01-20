@@ -4,7 +4,7 @@ import httplib
 __all__ = ['TimeoutTransport']
 
 class TimeoutTransport(xmlrpclib.Transport):
-    timeout = 10.0
+    timeout = 20.0
     def set_timeout(self, timeout):
         self.timeout = timeout
     def make_connection(self, host):
