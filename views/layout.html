@@ -86,7 +86,7 @@
 	<h1>{{=response.title}}</h1>
 	<h2 class='lead'>{{=response.subtitle}}</h2>	
     </div>
-    {{if not(request.user_agent().is_mobile)}}
+    {{if not(request.user_agent().is_mobile):}}
     <a class='visible-desktop' id="githubSticker" href="https://github.com/ilvalle/parkbz"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
     {{pass}}
   </header>
