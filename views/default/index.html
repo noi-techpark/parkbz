@@ -3,7 +3,7 @@
 <section class="span9">
 	<div class="btn-group nav pull-right">
 		<button id="geo_distance" data-trigger="manual" data-placement="left" class="btn" title="{{=T('Find the closest park to you')}}"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button><button id="force_all" class="btn" title="{{=T("Reload data")}}"><i class="icon-refresh"></i></button>
-		{{if not(request.user_agent().is_mobile:}}
+		{{if not(request.user_agent().is_mobile):}}
 		<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
 		<ul class="dropdown-menu">
 		<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>

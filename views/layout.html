@@ -60,6 +60,7 @@
 <body>
 <div id="wrap">
   <!-- Navbar ================================================== -->
+  {{if not(request.user_agent().is_mobile):}}
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="flash">{{=response.flash or ''}}</div>
     <div class="navbar-inner">
@@ -73,6 +74,7 @@
       </div>
     </div>
   </div><!--/top navbar -->
+  {{pass}}
 
   
   <header class="mastheader" id="header">
