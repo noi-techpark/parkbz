@@ -84,10 +84,20 @@
 			});
 			setTimeout( function() {get_freeSlots(park)}, 5*60*1000);
 		} else {
-			setTimeout( function() {get_freeSlots(park)}, 20*1000);
+			setTimeout( function() {get_freeSlots(park)}, 60*1000);
 		}
 		$(progress).fadeTo(0.5, 1);
-		$('#spinner_' + park).hide();	
+		$('#spinner_' + park).hide();
+		$.web2py.hide_flash();
+	}
+	
+	function parseErrorAnswer(park) {
+        progress = $('#park_' + park + ' .placeholder_progress');
+        progress.html("Currently not available");
+        $(progress).fadeTo(0.5, 1);
+        $('#spinner_' + park).hide();
+        setTimeout( function() {get_freeSlots(park)}, 5*30*1000);
+        $.web2py.hide_flash();
 	}
 
 	function get_freeSlots(park, rapid) {
@@ -95,14 +105,17 @@
 		progress = $('#park_' + park + ' .placeholder_progress');
 		freeslots = $('#freeslots_' + park).text()
 		$.ajax({
-			'dataType':'json', 
-			'url':'/parkbz/default/freeslots/' + park + '/' + freeslots,
-			'beforeSend': function (xhr) {
+			dataType:'json', 
+			url:'/parkbz/default/freeslots/' + park + '/' + freeslots,
+			beforeSend: function (xhr) {
 				$(progress).fadeTo(0, 0.5);
 				$('#spinner_' + park).show();
 			},
-			'success':function(data){
+			success:function(data){
 				parseAnswer(park, data);
+			},
+			error: function (e, status) {
+			    parseErrorAnswer(park);
 			},
 		}); 
 	}
