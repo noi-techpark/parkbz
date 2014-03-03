@@ -17,7 +17,7 @@
 	response.files.insert(3,URL('static','js/web2py_bootstrap.js'))
 	response.files.append(URL('static', 'js/modernizr.custom.js'))
 	response.files.append(URL('static','js/app.js'))
-	    if not(is_mobile) or (request.function != 'index'):
+	    if request.function != 'index':
 	        response.files.append(URL('static','js/jquery.flot.js'))
 	        response.files.append(URL('static','js/jquery.flot.time.js'))
 	        response.files.append(URL('static','js/jquery.flot.selection.js'))
@@ -29,6 +29,8 @@
 	        response.files.append(URL('static','js/jquery.flot.axislabels.js'))
 	        response.files.append(URL('static','js/jquery.flot.canvas.js'))
 	        response.files.append(URL('static','js/jquery.flot.pie.js'))
+   	        response.files.append(URL('static','js/leaflet.js'))
+   	        response.files.append(URL('static','css/leaflet.css'))
         pass
         if not(is_mobile):
             response.files.append(URL('static','css/typeahead.js-bootstrap.css'))

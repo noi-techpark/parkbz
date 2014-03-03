@@ -24,43 +24,14 @@
 </section>
 
 <script type="text/javascript">
-	// Map
-	var zoom = 17;
-	var lon  = {{=park['longitude']}};
-	var lat  = {{=park['latitude']}};
-	var map = new OpenLayers.Map("map_canvas", {
-		projection: "EPSG:900913",
-	});
-	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-	var position       = new OpenLayers.LonLat(lon, lat).transform( fromProjection, toProjection);
 
-	// layers
-	var layer_osm = new OpenLayers.Layer.OSM();
+    var map = L.map('map_canvas').setView([{{=park['latitude']}}, {{=park['longitude']}}], 15);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-	var options_parking = {
-		opacity: 1, 
-		isBaseLayer: false, 
-		visibility: true, 
-		singleTile: true,
-	};
-	var wmscURL = [ "http://ipchannels.integreen-life.bz.it/cgi-bin/mapserv?" ];
-	var layer_parking = new OpenLayers.Layer.WMS( 'Südtirol',wmscURL, {
-		layers: ['elgis:parkingarea'], 
-		map: "relay_2.map",
-		format: 'image/png',
-		transparent: true,
-		exceptions:'application-vnd.ogc.se_inimage'	
-	}, options_parking);
-	
-	var layer_markers = new OpenLayers.Layer.Markers( "Markers" );
-	layer_markers.addMarker(new OpenLayers.Marker(position));
-
-	map.addLayer(layer_osm);
-	/*map.addLayer(layer_parking);*/
-	map.addLayer(layer_markers);
-	map.setCenter(position, zoom );
-
+    var marker = L.marker([{{=park['latitude']}}, {{=park['longitude']}}]).addTo(map);
+    //map.fitBounds(marker);
 	// pie chart
 	var options = {
 		series: {
