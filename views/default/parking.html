@@ -31,6 +31,7 @@
     }).addTo(map);
 
     var marker = L.marker([{{=park['latitude']}}, {{=park['longitude']}}]).addTo(map);
+    marker.bindPopup("<b>{{=park['name']}}</b>")
     //map.fitBounds(marker);
 	// pie chart
 	var options = {
