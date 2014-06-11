@@ -1,0 +1,14 @@
+<div class="carpark-aux">
+	<h2>{{=park['name']}}</h2>
+	<ul>
+		<li class="address"><a href="#">{{=park['address']}}</a></li>
+		<li class="phone"><a href="tel:{{=(park['phone'] or '--')}}">{{=(park['phone'] or '--')}}</a></li>
+	</ul>
+	<div class="slots"><strong class="available-slots {{='full' if park['freeslots'] < 10 else ('almost-full' if park['freeslots'] < 70 else 'available')}}"><span class="number">{{=park['freeslots']}}</span> posti liberi</strong> su <strong>{{=park['slots']}} posti totali</strong></div>
+	<div class="forecast">
+		<h3>Previsione 24h</h3>
+		<div class="graph">
+			<img src="images/plc-graph.gif" alt="Placeholder image to be changed with the real graph" /> 	
+		</div>
+	</div>	
+</div>
