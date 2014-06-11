@@ -3,7 +3,7 @@ import socket
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
     try:
-        parks = __get_parks_info(address_only=True)
+        parks = __get_parks_info()
         #parks = []
         return {'parks': parks}
     except socket.timeout:
