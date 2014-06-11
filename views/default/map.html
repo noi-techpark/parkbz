@@ -1,12 +1,23 @@
 {{extend 'layout.html'}}
-
-<div class="well maincontainer">
-   	<h1>Demo: Openlayers displays geodata through wms</h1>
-   	<div>
-   		<span class="label label-success">0-30 %</span>
-   		<span class="label label-warning">30-80 %</span>
-   		<span class="label label-important">80-100 %</span>
-   	</div>
-   	<div id="testmap" style="height: 400px; width: 100%"><!--  --></div>
+<div class="map-cont box">
+    <div id="map" style="height: 500px"></div>
 </div>
-
+<script>
+    var map = L.map('map').setView([46.498333, 11.355151], 15);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    $.getJSON('{{=URL('default', 'get_geojson')}}', function( data ) { 
+        L.geoJson(data, {
+            onEachFeature: onEachFeature}).addTo(map); 
+    });
+    
+    function onEachFeature (feature, layer) {
+        var popupContent;
+        if (feature.properties && feature.properties.popupContent) {
+            popupContent = feature.properties.popupContent;
+        }
+ 
+        layer.bindPopup(popupContent);
+    }
+</script>

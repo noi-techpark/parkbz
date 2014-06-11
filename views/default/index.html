@@ -1,44 +1,11 @@
 {{right_sidebar_enabled=True}}
 {{extend 'layout.html'}}
-<section class="span9">
-	<div class="btn-group nav pull-right">
-		<button id="geo_distance" data-trigger="manual" data-placement="left" class="btn" title="{{=T('Find the closest park to you')}}"><img alt='' class='spinner' src='/parkbz/static/img/spinner.gif'><i class="icon-screenshot"></i></button><button id="force_all" class="btn" title="{{=T("Reload data")}}"><i class="icon-refresh"></i></button>
-		{{if not(request.user_agent().is_mobile):}}
-		<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
-		<ul class="dropdown-menu">
-		<li class="disabled"><a id="switch_on"  href="#">{{=T('Turn live update on')}}</a></li>
-		<li><a id="switch_off" href="#">{{=T('Turn live update off')}}</a></li>
-	    </ul>
-	    {{pass}}
-	</div>
-	<table id='parks' class="table table-striped table-bordered table-condensed">
-	<thead><tr class=info><th>{{=T('Parking')}}</th><th>{{=T("Free slots")}} <a class="hidden-phone pull-right" title="{{=T('Data are updated every 5 minutes')}}"><i class="icon-info-sign"></i></a></th></tr></thead>	
-	<tbody>
-	{{for park in parks:}}
-		<tr id="park_{{=park['park_id']}}">
-		<td><h4><a id="park_link{{=park['park_id']}}" href="{{=get_park_link(park)}}" data-lgt={{=park['longitude']}} data-lat={{=park['latitude']}}>{{=park['name']}} </a></h4>
-<address><strong><abbr title="{{=T('Address')}}">{{=T('Address')}}:</abbr></strong> {{=park['address']}} - <strong><abbr title="{{=T('Phone')}}">{{=T('Phone')}}:</abbr></strong> {{=(park['phone'] or '--')}}</address>
-		</td>
-		<td title="{{=T('Click to update')}}" class="refresh accordion-toggle">
-			<span id="{{='spinner_%s' % park['park_id']}}" class="spinner pull-right">
-				<img alt='' src="/parkbz/static/img/spinner.gif">
-			</span>
-			<div class="placeholder_progress">{{#include 'default/park_bar.html'}}</div>		
-		</td>
+	{{for pos,park in enumerate(parks):}}
+        <div id="park_{{=park['park_id']}}" class="carpark box {{='odd' if (pos+1)%2==1 else ''}} {{='third' if (pos+1)%3==0 else ''}}">
+	    {{include 'default/park_box.html'}}
+    	</div>
 	{{pass}}	
-	</tbody></table>
-</section>
 
-{{block right_sidebar}}
-	<!--a href="https://twitter.com/integreenlife" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">{{=T('Follow')}} @integreenlife</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script-->
-	{{=LOAD(a="parkbz", c='feedback', f='index', ajax=True)}}	
-	{{=get_fb_group_box()}}
-	<p></p>
-<a class="twitter-timeline" href="https://twitter.com/integreenlife" data-widget-id="384688214738354176">Tweets by @integreenlife</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</section>
-{{end}}
 
 <script>
 	var ajax_active = true;
@@ -183,6 +150,6 @@
 		};
 	}
 
-	$('#geo_distance').tooltip('show')
+	//$('#geo_distance').tooltip('show')
 
 </script>

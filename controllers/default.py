@@ -9,7 +9,40 @@ def index():
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'
 
+def test_1():
+    out = server.DataManager.getNumberOfFreeSlots(104)
+    return response.render('layout_ratchet.html', {})
+    
+def test_2():    
+    out = server.DataManager.getParkingStation(104)
+    return out
 
+def map():
+    try:
+        parks = __get_parks_info(address_only=True)
+        #parks = []
+        return {'parks': parks}
+    except socket.timeout:
+        return 'Data not available, the frontEnd is currently unreachable'
+
+def get_geojson():
+    try:
+        parks = __get_parks_info(address_only=True)
+
+        features= [{"type": "Feature",
+                    "properties": {
+                        "popupContent": response.render('default/park_box.html', {'park':p})
+                    },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [p['longitude'], p['latitude']]
+                    },} for p in parks] 
+ 
+        return response.json({"type": "FeatureCollection", 'features': features}) 
+    except socket.timeout:
+        return 'Data not available, the frontEnd is currently unreachable'
+        
+    
 def trend():
 	park_id = request.args(0) or 'index'
 	if not(park_id and park_id.isdigit()): raise HTTP(404)

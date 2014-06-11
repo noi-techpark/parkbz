@@ -13,35 +13,21 @@
         response.files.insert(0,URL('static','js/jquery.min.js'))   
     pass
 	response.files.insert(3,URL('static','js/web2py.js'))
-	response.files.insert(3,URL('static','js/bootstrap.min.js'))
-	response.files.insert(3,URL('static','js/web2py_bootstrap.js'))
-	response.files.append(URL('static', 'js/modernizr.custom.js'))
+	response.files.insert(3,URL('static','js/utility.js'))
 	response.files.append(URL('static','js/app.js'))
-	    if request.function != 'index':
-	        response.files.append(URL('static','js/jquery.flot.js'))
-	        response.files.append(URL('static','js/jquery.flot.time.js'))
-	        response.files.append(URL('static','js/jquery.flot.selection.js'))
-	        response.files.append(URL('static','js/jquery.event.drag.js'))
-	        response.files.append(URL('static','js/jquery.flot.navigate.js'))
-	        response.files.append(URL('static','js/jquery.flot.crosshair.js'))
-	        response.files.append(URL('static','js/jquery.flot.tooltip.js'))
-	        response.files.append(URL('static','js/jquery.flot.resize.js'))
-	        response.files.append(URL('static','js/jquery.flot.axislabels.js'))
-	        response.files.append(URL('static','js/jquery.flot.canvas.js'))
-	        response.files.append(URL('static','js/jquery.flot.pie.js'))
-   	        response.files.append(URL('static','js/leaflet.js'))
-   	        response.files.append(URL('static','css/leaflet.css'))
-        pass
-        if not(is_mobile):
-            response.files.append(URL('static','css/typeahead.js-bootstrap.css'))
-        	response.files.append(URL('static','js/typeahead.min.js'))
-	        response.files.append(URL('static','js/hogan-2.0.0.js'))
-	        response.files.append(URL('static','js/bootstrap-switch.min.js'))
-        	response.files.append(URL('static','css/bootstrap-switch.css'))	
-        pass
-	pass
+    response.files.append(URL('static','js/jquery.flot.js'))
+    response.files.append(URL('static','js/jquery.flot.time.js'))
+    response.files.append(URL('static','js/jquery.flot.selection.js'))
+    response.files.append(URL('static','js/jquery.event.drag.js'))
+    response.files.append(URL('static','js/jquery.flot.navigate.js'))
+    response.files.append(URL('static','js/jquery.flot.crosshair.js'))
+    response.files.append(URL('static','js/jquery.flot.tooltip.js'))
+    response.files.append(URL('static','js/jquery.flot.resize.js'))
+    response.files.append(URL('static','js/jquery.flot.axislabels.js'))
+    response.files.append(URL('static','js/jquery.flot.canvas.js'))
+    response.files.append(URL('static','js/jquery.flot.pie.js'))
+    response.files.append(URL('static','js/leaflet.js'))
+    response.files.append(URL('static','css/leaflet.css'))
 	response.include_meta()
 	response.include_files()
-# 805k
-# 400k
 }}
