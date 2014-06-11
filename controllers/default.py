@@ -19,7 +19,7 @@ def test_2():
 
 def map():
     try:
-        parks = __get_parks_info(address_only=True)
+        parks = __get_parks_info()
         #parks = []
         return {'parks': parks}
     except socket.timeout:
@@ -27,7 +27,7 @@ def map():
 
 def get_geojson():
     try:
-        parks = __get_parks_info(address_only=True)
+        parks = __get_parks_info()
 
         features= [{"type": "Feature",
                     "properties": {
