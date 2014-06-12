@@ -322,6 +322,14 @@ only screen and (min-resolution: 2dppx){
 
 
 /* --- added to fix tooltip ---*/
-#map .car-park{min-width:300px;padding:0}
+#map .carpark{width:auto;min-width:300px;float:none;margin:0;position:static;}
+#map .carpark-aux{padding:0;border:0;}
+#map .carpark li a{display:inline-block}
+#map .slots{right:27px}
+#map .available-slots{padding-top:1em}
+#map .available-slots .number{margin-bottom:0}
+#map .forecast h3{right:28px;top:9.6em}
+#map .leaflet-container a.leaflet-popup-close-button{border:0}
+#map a{color:#009CDD}
 
 

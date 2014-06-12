@@ -27,16 +27,17 @@ def map():
 def get_geojson():
     try:
         parks = __get_parks_info()
-
+        parking_id = int(request.vars.parking_id) if  request.vars.parking_id and  request.vars.parking_id.isdigit() else None
         features= [{"type": "Feature",
                     "properties": {
-                        "popupContent": response.render('default/park_box.html', {'park':p, 'tooltip': True})
+                        "popupContent": response.render('default/park_box.html', {'park':p, 'tooltip': True}),
+                        "openPopup": True if parking_id == p['park_id'] else False
                     },
                     "geometry": {
                         "type": "Point",
                         "coordinates": [p['longitude'], p['latitude']]
                     },} for p in parks] 
- 
+
         return response.json({"type": "FeatureCollection", 'features': features}) 
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'

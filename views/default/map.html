@@ -4,12 +4,18 @@
 </div>
 <script>
     var map = L.map('map').setView([46.498333, 11.355151], 15);
+    var popup_selected;
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    $.getJSON('{{=URL('default', 'get_geojson')}}', function( data ) { 
-        L.geoJson(data, {
-            onEachFeature: onEachFeature}).addTo(map); 
+    $.getJSON('{{=URL('default', 'get_geojson', vars=request.vars)}}', function( data ) { 
+        geojsonLayer = L.geoJson(data, {
+            onEachFeature: onEachFeature
+        }).addTo(map);
+        map.fitBounds(geojsonLayer.getBounds());
+        if (popup_selected) {
+            popup_selected.openPopup();
+        }
     });
     
     function onEachFeature (feature, layer) {
@@ -17,7 +23,9 @@
         if (feature.properties && feature.properties.popupContent) {
             popupContent = feature.properties.popupContent;
         }
- 
-        layer.bindPopup(popupContent);
+        var popup = layer.bindPopup(popupContent);
+        if (feature.properties && feature.properties.openPopup) {
+            popup_selected = popup;
+        }
     }
 </script>
