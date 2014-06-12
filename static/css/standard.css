@@ -319,3 +319,9 @@ only screen and (min-resolution: 2dppx){
 	ul{list-style-type:none;margin-left:0;padding-left:0}
 
 }
+
+
+/* --- added to fix tooltip ---*/
+#map .car-park{min-width:300px;padding:0}
+
+

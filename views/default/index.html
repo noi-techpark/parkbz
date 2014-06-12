@@ -1,11 +1,8 @@
 {{right_sidebar_enabled=True}}
 {{extend 'layout.html'}}
 	{{for pos,park in enumerate(parks):}}
-        <div id="park_{{=park['park_id']}}" class="carpark box {{='odd' if (pos+1)%2==1 else ''}} {{='third' if (pos+1)%3==0 else ''}}">
 	    {{include 'default/park_box.html'}}
-    	</div>
 	{{pass}}	
-
 
 <script>
 	var ajax_active = true;

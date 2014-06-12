@@ -4,18 +4,17 @@ import socket
 def index():
     try:
         parks = __get_parks_info()
-        #parks = []
         return {'parks': parks}
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'
 
-def test_1():
-    out = server.DataManager.getNumberOfFreeSlots(104)
-    return response.render('layout_ratchet.html', {})
+#def test_1():
+#    out = server.DataManager.getNumberOfFreeSlots(104)
+#    return response.render('layout_ratchet.html', {})
     
-def test_2():    
-    out = server.DataManager.getParkingStation(104)
-    return out
+#def test_2():    
+#    out = server.DataManager.getParkingStation(104)
+#    return out
 
 def map():
     try:
@@ -31,7 +30,7 @@ def get_geojson():
 
         features= [{"type": "Feature",
                     "properties": {
-                        "popupContent": response.render('default/park_box.html', {'park':p})
+                        "popupContent": response.render('default/park_box.html', {'park':p, 'tooltip': True})
                     },
                     "geometry": {
                         "type": "Point",
@@ -43,25 +42,25 @@ def get_geojson():
         return 'Data not available, the frontEnd is currently unreachable'
         
     
-def trend():
-	park_id = request.args(0) or 'index'
-	if not(park_id and park_id.isdigit()): raise HTTP(404)
-	parks = __get_parks_info()
-	return {'parks': parks, 'park_id':park_id}
+#def trend():
+#	park_id = request.args(0) or 'index'
+#	if not(park_id and park_id.isdigit()): raise HTTP(404)
+#	parks = __get_parks_info()
+#	return {'parks': parks, 'park_id':park_id}
 
-def parking():
-    response.files.append(URL('static','js/OpenLayers.js'))
-    park_id = request.args(0) or 'index'
-    if not(park_id and park_id.isdigit()): raise HTTP(404)
-    try:
-        park = __get_park_data(int(park_id))
-    except:
-        return 'Data not available, the frontEnd is currently unreachable'
-    response.title = "%s %s" %(T('Parking'), park['name'])
-    response.page_title = "%s %s, %s" % (T('Parking'), park['name'], T('Bolzano') )
-    response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
-    response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
-    return {'park': park, 'park_id':park_id}
+#def parking():
+#    response.files.append(URL('static','js/OpenLayers.js'))
+#    park_id = request.args(0) or 'index'
+#    if not(park_id and park_id.isdigit()): raise HTTP(404)
+#    try:
+#        park = __get_park_data(int(park_id))
+#    except:
+#        return 'Data not available, the frontEnd is currently unreachable'
+#    response.title = "%s %s" %(T('Parking'), park['name'])
+#    response.page_title = "%s %s, %s" % (T('Parking'), park['name'], T('Bolzano') )
+#    response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
+#    response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
+#    return {'park': park, 'park_id':park_id}
 
 def doc():
 	methods = server.system.listMethods()
@@ -111,16 +110,16 @@ def freeslots():
 	extension = 'json' if request.extension != 'jsonp' else 'jsonp'
 	return response.render('generic.%s' % extension, json)
 
-def search():
-	import re
-	if not (request.vars.query): return response.json([])
-	query = request.vars.query.lower()
-	parks = __get_parks_info(address_only=True)
-	json_l = []
-	for park in parks:
-		if query in park['name'].lower() or query in park['address'].lower():
-			cur_park = {'value':park['name'], 'name':park['name'], 'address':park['address'], 'tokens':[park['name'],park['address']] } 
-			cur_park['link'] = get_park_link(park)
-			json_l.append(cur_park)
-
-	return response.json(json_l)
+#def search():
+#	import re
+#	if not (request.vars.query): return response.json([])
+#	query = request.vars.query.lower()
+#	parks = __get_parks_info(address_only=True)
+#	json_l = []
+#	for park in parks:
+#		if query in park['name'].lower() or query in park['address'].lower():
+#			cur_park = {'value':park['name'], 'name':park['name'], 'address':park['address'], 'tokens':[park['name'],park['address']] } 
+#			cur_park['link'] = get_park_link(park)
+#			json_l.append(cur_park)
+#
+#	return response.json(json_l)
