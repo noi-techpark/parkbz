@@ -13,7 +13,7 @@
 	<div class="forecast">
 		<h3>Previsione 24h</h3>
 
-		<div class="graph" id="graph_{{=park['park_id']}}" style="height: 300px">
+		<div class="graph" id="graph_{{=park['park_id']}}" style="height: 136px">
 
 		</div>
 	</div>	
@@ -23,13 +23,13 @@
     var options = {
 			    series: {
 				    lines: {
-					    show: false
+					    show: false, 
 				    },
 				    points: {
 					    show: false
 				    },
 				    bars: {
-				        show: true
+				        show: true, barWidth: 0.6, fill: 1,  lineWidth:0
 				    }
 			    },
 			    grid: {
@@ -39,20 +39,20 @@
 				colors: ["#fff", "#e4f4f4"]
 			},
 			borderColor: "#FFFFFF",
-			tickColor: "#CCCCCC",
+			//tickColor: "#CCCCCC",
 			//aboveData: false,
-			borderWidth: 1,
+			//borderWidth: 1,
 			clickable: true,
-			hoverable: true,
+			hoverable: false,
 			autoHighlight: true,
-			markings: function(axes) {
+			/*markings: function(axes) {
 				var markings = [];
 				var xaxis = axes.xaxis;
 				for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
 					markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: "rgba(232, 232, 255, 0.2)" });
 				}
 				return markings;
-			}
+			}*/
 		},
 			    
 			    xaxis: {
@@ -65,14 +65,17 @@
 				    mode: "x"
 			    },
 			    legend: false,
-			    threshold: {
-					below: 20,
-					color: "rgb(200, 20, 30)"
-				},
+			    
 		    };
     var data = [{
-			label: "United States",
-			data: [[1990, 18.9], [1991, 18.7], [1992, 18.4], [1993, 19.3], [1994, 19.5], [1995, 19.3], [1996, 19.4], [1997, 20.2], [1998, 19.8], [1999, 19.9], [2000, 20.4], [2001, 20.1], [2002, 20.0], [2003, 19.8], [2004, 20.4]]
+			label: "United States", threshold: [{
+					below: 21,
+					color: "rgb(247,154,8)"
+				}, {
+					below: 19,
+					color: "rgb(200, 20, 30)"
+				}], color: "rgb(111,170,41)",
+			data: [[1990, 18.9], [1991, 18.7], [1992, 18.4], [1993, 30], [1994, 19.5], [1995, 19.3], [1996, 19.4], [1997, 20.2], [1998, 19.8]]
 		}];	    
     var placeholder = $("{{='#graph_%s' % park['park_id']}}");
     var plot = $.plot(placeholder, data, options);
