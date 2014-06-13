@@ -32,7 +32,7 @@
 
 	{{for park in parks:}}
 		//setTimeout( function() {get_freeSlots({{=park['park_id']}})}, (20+Math.floor((Math.random()*10)+1))*1000 );
-		setTimeout(	function() {get_freeSlots({{=park['park_id']}})}, (Math.floor((Math.random()*10)+1))*250 );
+		//setTimeout(	function() {get_freeSlots({{=park['park_id']}})}, (Math.floor((Math.random()*10)+1))*250 );
 	{{pass}} 
 
 	function parseAnswer(park, json) {
