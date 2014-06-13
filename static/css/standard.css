@@ -87,13 +87,12 @@ author: Madeincima.it
 		.actions .controls{background:#f5f5f5;}
 		.actions .controls li{float:left}
 		.actions .controls a{display:block;width:40px;height:35px;text-indent:-9999px;background:url(../images/ico-controls.png) 11px 9px no-repeat}
-		.actions .switcher{position:absolute;top:0;left:50%;margin-left:-40px}
-		.controls a.grid{border-right:1px solid #e8e8e8}
-		.controls a.map{background-position:-28px 9px}
-		.controls a.locate{background-position:-64px 9px;border-right:1px solid #e8e8e8}
-		.controls a.update{background-position:-103px 9px}
-		.actions .switcher .active.grid{background-color:#fff;background-position:11px -20px;-webkit-border-top-left-radius:5px;-moz-border-top-left-radius:5px;border-top-left-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-bottom-left-radius:5px;border-bottom-left-radius:5px}
-		.actions .switcher .active.map{background-color:#fff;background-position:-28px -20px;-webkit-border-top-right-radius:5px;-moz-border-top-right-radius:5px;border-top-right-radius:5px;-webkit-border-bottom-right-radius:5px;-moz-border-bottom-right-radius:5px;border-bottom-right-radius:5px}
+		.actions .switcher{position:absolute;top:0;left:50%;margin-left:-40px;background:#fff}
+        .controls a.grid{border-right:1px solid #e8e8e8;background-position:11px -20px;}
+        .controls a.map{background-position:-28px -20px;}
+        .actions .switcher .active.grid{background-color:#F5F5F5;background-position:11px 9px;cursor:auto;-webkit-border-top-left-radius:5px;-moz-border-top-left-radius:5px;border-top-left-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-bottom-left-radius:5px;border-bottom-left-radius:5px}
+        .actions .switcher .active.map{background-color:#F5F5F5;background-position:-28px 9px;cursor:auto;-webkit-border-top-right-radius:5px;-moz-border-top-right-radius:5px;border-top-right-radius:5px;-webkit-border-bottom-right-radius:5px;-moz-border-bottom-right-radius:5px;border-bottom-right-radius:5px}
+
 		.actions .other{position:absolute;top:0;right:0%;margin-left:-40px}
 	
 	.carpark{float:left;width:100%;position:relative;margin-bottom:20px}
@@ -104,7 +103,7 @@ author: Madeincima.it
 		.carpark li.address{background:url(../images/ico-address.gif) 0 0 no-repeat;width:53%}
 		.phone{background:url(../images/ico-phone.gif) 0 0 no-repeat}
 	
-	.slots{position:absolute;top:0;right:3%;font-size:.85em}
+	.slots{position:absolute;top:0;right:3%;font-size:.85em; min-width:100px;}
 		.available-slots{display:block;padding:2em .2em 1em .2em;margin-bottom:.2em;white-space:nowrap;text-align:center;color:#fff;text-transform:uppercase;font-size:1em;background:#ccc;border-top:4px solid #ccc;}
 		.available-slots .number{font-size:3.3em;margin-bottom:.37em;display:block}
 		.available{background:#6faa29;border-color:#83bc3f;text-shadow:1px 1px 1px #417108}
@@ -113,7 +112,7 @@ author: Madeincima.it
 	
 	.forecast h3{position:absolute;top:9em;right:3.3%;color:#009cdd;border-bottom:1px dotted #009cdd;padding:0 12px .2em 0;font-weight:normal;font-size:.9em;background:url(../images/bg-arrow.gif) right .7em no-repeat;cursor:pointer;white-space:nowrap}
 		.forecast h3.open{background-position:right -2.2em}
-		.forecast .graph{border:1px solid #ededed;background:#f8f8f8;margin-bottom:3%}
+		.forecast .graph{border:1px solid #ededed;background:#f8f8f8;margin-bottom:3%; overflow:hidden;}
 		.forecast .graph img{width:100%} /* to remove when the real graph will be in place */
 	
 	.map-cont{padding:3px;clear:both}
@@ -323,13 +322,15 @@ only screen and (min-resolution: 2dppx){
 
 /* --- added to fix tooltip ---*/
 #map .carpark{width:auto;min-width:300px;float:none;margin:0;position:static;}
-#map .carpark-aux{padding:0;border:0;}
+#map .carpark-aux{padding:0;border:0;font-size:1.2em;}
 #map .carpark li a{display:inline-block}
 #map .slots{right:27px}
-#map .available-slots{padding-top:1em}
+#map .available-slots{padding-top: 0.4em}
 #map .available-slots .number{margin-bottom:0}
-#map .forecast h3{right:28px;top:9.6em}
+#map .forecast h3{right:28px;to:8,7em}
 #map .leaflet-container a.leaflet-popup-close-button{border:0}
 #map a{color:#009CDD}
-
+#map.leaflet-container a.leaflet-popup-close-button{border:0}
+#map .carpark h2{margin:0.5em 0;padding:.2em}
+#map .carpark li{margin-bottom:1em}
 

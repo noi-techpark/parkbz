@@ -19,6 +19,10 @@
 	</div>	
 </div>
 </div>
+{{if globals().get('pos', False) and ((pos+1)%3==0):}}
+<div class="clear-box"></div>
+{{pass}}
+
 <script>
     var options = {
 			    series: {
