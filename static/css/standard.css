@@ -77,9 +77,9 @@ author: Madeincima.it
 	
 	.main{float:left;width:100%;padding:1.5em 0 1em 0;width:100%position:relative;z-index:0}
 	
-	.actions{position:relative;z-index:100;float:left;width:100%;margin-bottom:20px}
+	.actions{position:relative;float:left;width:100%;margin-bottom:20px}
 		.actions a{border:0}
-		.actions .time{position:relative}
+		.actions .time{position:relative;position:relative;z-index:150}
 		.actions .time span{float:left;padding:.7em 28px .7em .8em;color:#009cdd;background:#fff url(../images/bg-arrow-thin.png) 90% 1.1em no-repeat;cursor:pointer}
 		.actions .time span.open{background-position:90% -1.4em}
 		.actions .time ul{display:none;position:absolute;top:3.5em;left:0;min-width:120px;background:#fff}
@@ -90,6 +90,8 @@ author: Madeincima.it
 		.actions .switcher{position:absolute;top:0;left:50%;margin-left:-40px;background:#fff}
         .controls a.grid{border-right:1px solid #e8e8e8;background-position:11px -20px;}
         .controls a.map{background-position:-28px -20px;}
+        .controls a.locate{background-position:-64px 9px;border-right:1px solid #e8e8e8}
+        .controls a.update{background-position:-103px 9px}
         .actions .switcher .active.grid{background-color:#F5F5F5;background-position:11px 9px;cursor:auto;-webkit-border-top-left-radius:5px;-moz-border-top-left-radius:5px;border-top-left-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-bottom-left-radius:5px;border-bottom-left-radius:5px}
         .actions .switcher .active.map{background-color:#F5F5F5;background-position:-28px 9px;cursor:auto;-webkit-border-top-right-radius:5px;-moz-border-top-right-radius:5px;border-top-right-radius:5px;-webkit-border-bottom-right-radius:5px;-moz-border-bottom-right-radius:5px;border-bottom-right-radius:5px}
 
@@ -115,7 +117,7 @@ author: Madeincima.it
 		.forecast .graph{border:1px solid #ededed;background:#f8f8f8;margin-bottom:3%; overflow:hidden;}
 		.forecast .graph img{width:100%} /* to remove when the real graph will be in place */
 	
-	.map-cont{padding:3px;clear:both}
+	.map-cont{padding:3px;clear:both; position:relative;z-index:0;}
 		.map-cont img{width:100%;display:block} /* to remove when the real map will be in place */
 	
 	.aside{float:left;width:100%;background:url(../images/bg-pattern.jpg) 0 0 repeat;padding:2em 0;position:relative}
@@ -211,7 +213,7 @@ author: Madeincima.it
 	.previewbox{background:#fff url(../images/plc-preview.gif) 0 0 no-repeat;height:97px;padding:8px 0;}
 	textarea{resize:none;overflow-y:scroll;font-size:1.1em;line-height:155%;background:#3d3c45;color:#f9f9f9;border:0;padding:10px 2%;box-shadow: inset 1px 1px 5px #27272b;-webkit-box-shadow: inset 1px 1px 5px #27272b;-moz-box-shadow: inset 1px 1px 5px #27272b;width:96%;height:95px}
 	
-	.carpark-selector{position:absolute;top:-6px;right:0;}
+	.carpark-selector{position:absolute;top:-6px;right:0;z-index:150}
 	.carpark-selector span{float:left;padding:.4em 28px .4em .8em;color:#fff;background:#0a99d4 url(../images/bg-arrow-thin-w.png) 94% .8em no-repeat;cursor:pointer;box-shadow:none;width:130px}
 	.carpark-selector span.open{background-position:94% -1.6em}
 	.carpark-selector ul{display:none;position:absolute;top:2.8em;left:0;min-width:140px;background:#fff;box-shadow:none}
