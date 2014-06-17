@@ -12,11 +12,16 @@
         geojsonLayer = L.geoJson(data, {
             onEachFeature: onEachFeature
         }).addTo(map);
-        map.fitBounds(geojsonLayer.getBounds());
         if (popup_selected) {
-            popup_selected.openPopup();
+            map.on("viewreset", function() {
+                popup_selected.openPopup();
+                initTooltip();
+            });
         }
-        initTooltip();
+        map.fitBounds(geojsonLayer.getBounds(), {padding: [15,15]});
+        map.on("popupopen", function() {
+            initTooltip();
+        });
     });
     
     function onEachFeature (feature, layer) {
