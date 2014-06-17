@@ -42,6 +42,9 @@ def get_geojson():
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'
         
+def prediction():
+    parking_id = int(request.vars.parking_id) if  request.vars.parking_id and  request.vars.parking_id.isdigit() else None
+    return response.json([[1990, 18.9], [1991, 18.7], [1992, 18.4], [1993, 30], [1994, 19.5], [1995, 19.3], [1996, 19.4], [1997, 20.2], [1998, 19.8]])
     
 #def trend():
 #	park_id = request.args(0) or 'index'
