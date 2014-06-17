@@ -19,7 +19,7 @@ $(document).on('click', '.forecast h3', function(){
 	});
 });
 
-$('.actions .time span,.carpark-selector span,.lang span').on('click',function(){
+$(document).on('click', '.actions .time span,.carpark-selector span,.lang span', function(){
 	if(!$(this).hasClass('open')){
 		var docHeight = $(document).height();
 		$('<div class="overlay-dropdown" style="width:100%;height:'+docHeight+'px;position:absolute;top:0;left:0;bottom:0;right:0;z-index:120"></div>').appendTo('body');
@@ -28,7 +28,7 @@ $('.actions .time span,.carpark-selector span,.lang span').on('click',function()
 	$(this).toggleClass('open').next().fadeToggle('fast');
 });
 
-$('.buttons .share-btn').on('click',function(){
+$(document).on('click', '.buttons .share-btn', function(){
 	$(this).toggleClass('open');
 		$('.widget').slideToggle('fast');
 		$('.share').fadeToggle('fast');
