@@ -14,7 +14,7 @@ if (!('indexOf' in Array.prototype)) {
 
 var template_js = '<p class="repo-name"><a href="{{link}}"><strong>{{name}}</strong></a></p><small>{{address}}</small>';
 
-$(document).on("slidend", ".forecast h3", function(e) {
+$(document).on("slidend", ".forecast h3.open", function(e) {
     var ph = $(this).siblings('.graph')[0];
     var prediction_url = $(this).data("url");
     var chart = new plot(ph, prediction_url);
