@@ -1,6 +1,6 @@
 {{extend 'layout.html'}}
 <div class="map-cont box">
-    <div id="map" style="height: 500px"></div>
+    <div id="map"></div>
 </div>
 <script>
     var map = L.map('map').setView([46.498333, 11.355151], 15);
@@ -19,8 +19,12 @@
             });
         }
         map.fitBounds(geojsonLayer.getBounds(), {padding: [15,15]});
-        map.on("popupopen", function() {
+        map.on("popupopen", function(e) {
             initTooltip();
+            popup_open = e.popup;
+        });
+        map.on("popupclose", function() {
+            popup_open = undefined;
         });
     });
     

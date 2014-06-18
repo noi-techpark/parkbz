@@ -7,9 +7,6 @@ function initTooltip(){
             $(this).replaceWith('<span>'+tel+'</span>');
         });
     }
-
-	// Handle graph
-    $('.forecast .graph').hide();
 };
 
 $(document).on('click', '.forecast h3', function(){

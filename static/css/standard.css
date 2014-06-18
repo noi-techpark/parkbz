@@ -119,19 +119,19 @@ author: Madeincima.it
 	
 	.forecast h3{position:absolute;top:9em;right:3.3%;color:#009cdd;border-bottom:1px dotted #009cdd;padding:0 12px .2em 0;font-weight:normal;font-size:.9em;background:url(../images/bg-arrow.gif) right .7em no-repeat;cursor:pointer;white-space:nowrap}
 		.forecast h3.open{background-position:right -2.2em}
-		.forecast .graph{border:1px solid #ededed;background:#f8f8f8;margin-bottom:3%; overflow:hidden;}
-		.forecast .graph img{width:100%} /* to remove when the real graph will be in place */
+		.forecast .graph{border:1px solid #ededed;background:#f8f8f8;margin-bottom:3%;display:none;}
 	
 	.map-cont{padding:3px;clear:both; position:relative;z-index:0;}
 		.map-cont img{width:100%;display:block} /* to remove when the real map will be in place */
-	
+	    #map{height:450px}
+	    
 	.aside{float:left;width:100%;background:url(../images/bg-pattern.jpg) 0 0 repeat;padding:2em 0;position:relative}
 		.aside .buttons{color:#fff;text-align:center;font-size:1.3em;margin:0 auto;width:60%;min-width:13em;max-width:340px}
 		.aside .buttons strong{display:block;font-size:1.2em;line-height:100%;font-family: 'titillium_websemibold',arial,sans-serif;font-weight:normal;margin-bottom:0.2em;text-shadow:1px 1px 1px #065b7e}
 		.aside .buttons a{display:block;color:#fff;border:0;padding:.8em 0 .9em 0;white-space:nowrap}
 		.aside .buttons em{font-style:normal;font-family: 'titillium_webbold',arial,sans-serif}
-		.share-btn{background:#0a99d4 url(../images/) 0 0 no-repeat;text-shadow:1px 1px 1px #065b7e;display:none}
-		.developers-btn{background:#76c419 url(../images/) 0 0 no-repeat;text-shadow:1px 1px 1px #3e6f03}
+		.share-btn{background:#0a99d4;text-shadow:1px 1px 1px #065b7e;display:none}
+		.developers-btn{background:#76c419;no-repeat;text-shadow:1px 1px 1px #3e6f03}
 		.widget-cont{display:none}
 	
 	.addthisbox{margin-bottom:2em}
@@ -166,6 +166,7 @@ author: Madeincima.it
 @media only screen and (orientation:landscape) and (max-device-width:37.5em){
 
 	.logo{width:25%;}
+	#map{height:280px}
 
 } 
 
@@ -224,7 +225,7 @@ author: Madeincima.it
 	.carpark-selector ul{display:none;position:absolute;top:2.8em;left:0;min-width:140px;background:#fff;box-shadow:none}
 	.carpark-selector a{border-bottom:1px solid #e6e6e6;display:block;padding:.5em .5em .5em .8em}
 	.carpark-selector .last a{border:0}
-	#map{max-height:715px;overflow:hidden}
+    #map{max-height:715px;height:600px;overflow:hidden}
 	
 } 
 

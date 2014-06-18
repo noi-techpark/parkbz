@@ -13,8 +13,11 @@ if (!('indexOf' in Array.prototype)) {
 }
 
 var template_js = '<p class="repo-name"><a href="{{link}}"><strong>{{name}}</strong></a></p><small>{{address}}</small>';
-
+var popup_open;
 $(document).on("slidend", ".forecast h3.open", function(e) {
+    if (popup_open != undefined) {
+        popup_open._adjustPan();    // _adjustPan is an internal function, it could change in the future
+    }
     var ph = $(this).siblings('.graph')[0];
     var prediction_url = $(this).data("url");
     var chart = new plot(ph, prediction_url);
