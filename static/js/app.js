@@ -161,7 +161,7 @@ function plot (placeholder, url) {
 
 
 setInterval( function() {
-    $('.carpark').trigger('reload');    
+    $('.carpark').trigger('reload', true);    
 }, 300000 );
 setTimeout( function() { 
     $('.carpark').trigger('reload', true);
