@@ -1,7 +1,7 @@
 {{if globals().get('tooltip', False):}}
-<div id="park_{{=park['park_id']}}" class="carpark">
+<div id="park_{{=park['park_id']}}" class="carpark" data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'freeslots.json', vars={'parking_id':park['park_id']})}}">
 {{else:}}
-<div id="park_{{=park['park_id']}}" class="carpark box {{='odd' if (pos+1)%2==1 else ''}} {{='third' if (pos+1)%3==0 else ''}}">
+<div id="park_{{=park['park_id']}}" class="carpark box {{='odd' if (pos+1)%2==1 else ''}} {{='third' if (pos+1)%3==0 else ''}}" data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'freeslots.json', vars={'parking_id':park['park_id']})}}">
 {{pass}}
 <div class="carpark-aux">
 	<h2>{{=park['name']}}</h2>
@@ -9,7 +9,7 @@
 		<li class="address"><a href="{{=URL('default', 'map', vars={'parking_id':park['park_id']})}}">{{=park['address']}}</a></li>
 		<li class="phone"><a href="tel:{{=(park['phone'] or '--')}}">{{=(park['phone'] or '--')}}</a></li>
 	</ul>
-	<div class="slots"><strong class="available-slots {{='full' if park['freeslots'] < 10 else ('almost-full' if park['freeslots'] < 70 else 'available')}}"><span class="number">{{=park['freeslots']}}</span> posti liberi</strong> su <strong>{{=park['slots']}} posti totali</strong></div>
+	<div class="slots"><strong class="available-slots"><span class="number">...</span> posti liberi</strong> su <strong>{{=park['slots']}} posti totali</strong><div class="updating"></div></div>
 	<div class="forecast">
 		<h3 data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'prediction.json', vars={'parking_id':park['park_id']})}}">Previsione 24h</h3>
 		<div class="graph" id="graph_{{=park['park_id']}}"  style="height: 136px">

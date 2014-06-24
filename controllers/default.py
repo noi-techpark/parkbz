@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+# TODO
+# mostrare dati aggiornati solo se clicca
+# language
+# Add tutti tu the widget
+
 import socket
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
@@ -96,7 +101,7 @@ def get_history():
 	
 def freeslots():
 	#if not(request.ajax): raise HTTP(403) #jsonp is not considered as ajax request
-	park_id = request.args(0) or 'index'
+	park_id = request.vars.parking_id
 	if not(park_id and park_id.isdigit()): raise HTTP(404)
 	data = __get_park_data(int(park_id))	
 	if request.extension == 'jsonp':

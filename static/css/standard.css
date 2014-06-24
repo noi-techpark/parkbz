@@ -157,7 +157,12 @@ author: Madeincima.it
 		.footer-2 p{clear:both}
 		
 	#github{display:none}
-
+    .updating{position:absolute;top:-4px;bottom:0;right:0;left:0;background:rgba(246,246,246,0.97) url(../images/updating.gif) 50% 50% no-repeat}
+    .available-slots{position:relative}
+    .notice{background:#6fab2c;padding:.65em .8em;color:#fff;margin-top:4em}
+    .error{background:#ea8780}
+    .updating-s{position:absolute;top:0;bottom:0;right:0;left:0;background:rgba(246,246,246,0.97) url(../images/updating-blue.gif) 50% 50% no-repeat;cursor:auto}
+    .updating-s, .actions .notice { display:none}
 } 
 
 
@@ -226,7 +231,7 @@ author: Madeincima.it
 	.carpark-selector a{border-bottom:1px solid #e6e6e6;display:block;padding:.5em .5em .5em .8em}
 	.carpark-selector .last a{border:0}
     #map{max-height:715px;height:600px;overflow:hidden}
-	
+    .notice{position:absolute;top:0;right:52px;margin:0}
 } 
 
 

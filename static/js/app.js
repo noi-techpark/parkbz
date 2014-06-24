@@ -23,6 +23,54 @@ $(document).on("slidend", ".forecast h3.open", function(e) {
     var chart = new plot(ph, prediction_url);
 });
 
+$(document).on("click", "#updateall", function(e) {
+    $('.carpark').trigger('reload');
+});
+
+$(document).on("reload", '.carpark', function(e, avoid_notification) {
+    el = $(this);
+    park_id = $(el).data('id');
+    park_url = $(el).data('url');
+    realtime_slots(park_id, park_url, avoid_notification);
+});
+
+
+function realtime_slots (id, url, avoid_notification) {
+    var el = $( '#park_'+id);
+    $(".updating", el).show();
+    $.ajax({
+		url: url,
+		method: 'GET',
+	    dataType: 'json',
+	    complete: function() {
+            $(".updating", el).hide();
+	    }, 
+	    success: function(json) {
+	        //if (n_realtime_active_operations === 0) {
+            //    $(that.placeholder).trigger($.Event('loaded',{}));
+            //}
+            $('.number', el).html(json.freeslots);
+            if (! avoid_notification) {
+                $(".actions .notice").show();
+                $(".actions .notice").delay(5000).fadeOut(500);
+            }
+            if (json.freeslots < 10){
+                css_class = 'full';
+            } else if (json.freeslots < 70){
+                css_class = 'almost-full'
+            } else {
+                css_class = 'available'
+            }
+            $('.available-slots', el).removeClass('almost-full','available','full');
+            $('.available-slots', el).addClass(css_class);
+            //{{='full' if park['freeslots'] < 10 else ('almost-full' if park['freeslots'] < 70 else 'available')}}
+	    },
+	    error: function (e, status) {
+		    console.log('errore');
+	    },
+	});
+}
+
 function plot (placeholder, url) {
     this.default_options = {
 	    series: {
@@ -110,3 +158,14 @@ function plot (placeholder, url) {
     };
 	this.init(placeholder, url);
 }
+
+
+setInterval( function() {
+    $('.carpark').trigger('reload');    
+}, 300000 );
+setTimeout( function() { 
+    $('.carpark').trigger('reload', true);
+}, Math.floor((Math.random()*10)+1)*250);
+
+
+

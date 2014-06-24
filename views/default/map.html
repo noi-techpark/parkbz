@@ -22,6 +22,7 @@
         map.on("popupopen", function(e) {
             initTooltip();
             popup_open = e.popup;
+            $('.carpark').trigger('reload', true);
         });
         map.on("popupclose", function() {
             popup_open = undefined;
