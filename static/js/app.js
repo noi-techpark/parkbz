@@ -72,7 +72,7 @@ function realtime_slots (id, url, avoid_notification) {
 }
 
 function plot (placeholder, url) {
-    timezoneJS.timezone.zoneFileBasePath = '/parkbz/static/js/tz';
+    timezoneJS.timezone.zoneFileBasePath = '/parkbzNew/static/js/tz';
 
     this.default_options = {
         xaxis: { mode: "time", timezone: "Europe/Rome", alignTicksWithAxis:true,},
