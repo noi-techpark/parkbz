@@ -3,8 +3,10 @@
 # mostrare dati aggiornati solo se clicca
 # language
 # Add tutti tu the widget
-
+rest_url='http://ipchannels.integreen-life.bz.it/parkingFrontEnd/rest'
 import socket
+import requests
+
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
     try:
@@ -49,7 +51,20 @@ def get_geojson():
         
 def prediction():
     parking_id = int(request.vars.parking_id) if  request.vars.parking_id and  request.vars.parking_id.isdigit() else None
-    return response.json([[1990, 18.9], [1991, 18.7], [1992, 18.4], [1993, 30], [1994, 19.5], [1995, 19.3], [1996, 19.4], [1997, 20.2], [1998, 19.8]])
+    params={'station':parking_id}
+    r = requests.get("%s/%s" %(rest_url, "get-data-types"), params=params)
+    if r.status_code != 200: return response.json([])
+    forecast_types = filter(lambda e: 'forecast' in e[0].lower() and len(e) > 3, r.json())
+    forecast_types = sorted(forecast_types,key=lambda x: int(x[3]))
+    output=[]
+    for pos, f in enumerate(forecast_types):
+        params['type'] = f[0]
+        params['period'] = f[3]    
+        r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
+        data = r.json()
+        output.insert(0, [int(data['timestamp']), int(data['value'])])
+    return response.json(output)
+
     
 #def trend():
 #	park_id = request.args(0) or 'index'

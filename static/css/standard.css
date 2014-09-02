@@ -54,8 +54,11 @@ author: Madeincima.it
 	p,ul,ol,li,form,fieldset,table,td,th,h1,h2,h3,h4,h5,sup{margin:0;padding:0}
 	ul,li{list-style-type:none}
 	a {color:#009cdd;text-decoration:none;border-bottom:1px dotted #009cdd;padding-bottom:.2em}
-		a:hover {text-decoration:none;border:0}
-		a:focus{outline:none}
+	a:hover {
+        border-bottom: 1px solid #fff;
+        text-decoration: none;
+    }
+	a:focus{outline:none}
 	.clear{clear:both}
 	.ext{text-indent:-9999px;font-size:0;display:block;line-height:0}
 	img{max-width:100%}

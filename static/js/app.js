@@ -72,21 +72,24 @@ function realtime_slots (id, url, avoid_notification) {
 }
 
 function plot (placeholder, url) {
+    timezoneJS.timezone.zoneFileBasePath = '/parkbz/static/js/tz';
+
     this.default_options = {
+        xaxis: { mode: "time", timezone: "Europe/Rome", alignTicksWithAxis:true,},
 	    series: {
 		    lines: {
-			    show: false,
+			    show: false
 		    },
 		    points: {
 			    show: false
 		    },
 		    bars: {
-		        show: true, barWidth: 0.6, fill: 1,  lineWidth:0
+		        show: true, barWidth: 900*1000*0.8, fill: 1, linewidth:0,
 		    }
 	    },
 	    grid: {
 			color: "#444444",
-			/*	backgroundColor: "#DDDDDD",*/
+
 			backgroundColor: {
 				colors: ["#fff", "#e4f4f4"]
 			},
@@ -97,35 +100,23 @@ function plot (placeholder, url) {
 			clickable: true,
 			hoverable: false,
 			autoHighlight: true,
-			/*markings: function(axes) {
-				var markings = [];lea
-				var xaxis = axes.xaxis;
-				for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-					markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: "rgba(232, 232, 255, 0.2)" });
-				}
-				return markings;
-			}*/
 		},
-	    xaxis: {
-		    tickDecimals: 0
-	    },
 	    yaxis: {
 		    min: 0
 	    },
-	    selection: {
-		    mode: "x"
-	    },
+
 	    legend: false,
 	};
 
     this.data = [{
 		    threshold: [{
-				below: 21,
+				below: 70,
 				color: "rgb(247,154,8)"
 			}, {
-				below: 19,
+				below: 10,
 				color: "rgb(200, 20, 30)"
-			}], color: "rgb(111,170,41)",
+			}],
+            color: "rgb(111,170,41)",
 			data: []
 	}];
 
