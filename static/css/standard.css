@@ -120,11 +120,12 @@ author: Madeincima.it
 		.almost-full{background:#f79a08;border-color:#feaa27;text-shadow:1px 1px 1px #ad6c05}
 		.full{background:#d21919;border-color:#e02b2b;text-shadow:1px 1px 1px #990707}
 	
-	.forecast h3{position:absolute;top:9em;right:3.3%;color:#009cdd;border-bottom:1px dotted #009cdd;padding:0 12px .2em 0;font-weight:normal;font-size:.9em;background:url(../images/bg-arrow.gif) right .7em no-repeat;cursor:pointer;white-space:nowrap}
+	.forecast h3{position:absolute;right:0;top:-3.2em;color:#009cdd;border-bottom:1px dotted #009cdd;padding:0 12px .2em 0;font-weight:normal;font-size:.9em;background:url(../images/bg-arrow.gif) right .7em no-repeat;cursor:pointer;white-space:nowrap}
 		.forecast h3.open{background-position:right -2.2em}
 		.forecast .graph{border:1px solid #ededed;background:#f8f8f8;margin-bottom:3%;display:none;}
-	
-	.map-cont{padding:3px;clear:both; position:relative;z-index:0;}
+	    .forecast{position:relative}
+        .forecast .updating{top:0}
+        .map-cont{padding:3px;clear:both; position:relative;z-index:0;}
 		.map-cont img{width:100%;display:block} /* to remove when the real map will be in place */
 	    #map{height:450px}
 	    

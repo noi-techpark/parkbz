@@ -37,13 +37,13 @@ $(document).on("reload", '.carpark', function(e, avoid_notification) {
 
 function realtime_slots (id, url, avoid_notification) {
     var el = $( '#park_'+id);
-    $(".updating", el).show();
+    $(".slots .updating", el).show();
     $.ajax({
 		url: url,
 		method: 'GET',
 	    dataType: 'json',
 	    complete: function() {
-            $(".updating", el).hide();
+            $(".slots .updating", el).hide();
 	    }, 
 	    success: function(json) {
 	        //if (n_realtime_active_operations === 0) {
@@ -128,7 +128,7 @@ function plot (placeholder, url) {
     this.loadData = function(url) {
 	    var that = this;
         that.n_active_operations = that.n_active_operations + 1;
-        $(that.placeholder).trigger($.Event('loading',{}));
+        $(that.ph).trigger($.Event('loading',{}));
 		$.ajax({
 			url: url,
 			method: 'GET',
@@ -137,8 +137,9 @@ function plot (placeholder, url) {
 		        that.onDataReceived(json, url)
                 that.n_active_operations = that.n_active_operations - 1;
 		        if (that.n_active_operations === 0) {
-                    $(that.placeholder).trigger($.Event('loaded',{}));
+                    $(that.ph).trigger($.Event('loaded',{}));
                 }
+                $(that.ph).siblings(".updating").hide();
 		    },
 		});
 	};
