@@ -49,3 +49,12 @@ def get_fb_group_box():
     fb_root = DIV(_id='fb-root')
     div_fb = TAG('<div class="fb-like-box" data-href="http://www.facebook.com/integreenlife" data-width="270" data-show-faces="true" data-stream="false" data-header="false"></div>')
     return CAT(fb_root,script, div_fb)
+    
+def _vars(name, single=True, post=False, is_string=False):
+    var_ = request.get_vars.__getitem__(name)[0] if isinstance(request.get_vars.__getitem__(name), list) and single else request.get_vars.__getitem__(name)
+    if not(var_):
+        var_ = request.post_vars.__getitem__(name)[0] if isinstance(request.post_vars.__getitem__(name), list) and single else request.post_vars.__getitem__(name)
+    if is_string: return str(var_)
+    var_ = int(var_) if var_ else None
+    return var_
+    

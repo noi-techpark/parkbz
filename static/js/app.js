@@ -13,6 +13,8 @@ if (!('indexOf' in Array.prototype)) {
 }
 
 var template_js = '<p class="repo-name"><a href="{{link}}"><strong>{{name}}</strong></a></p><small>{{address}}</small>';
+var type='free';
+var period=undefined;
 var popup_open;
 $(document).on("slidend", ".forecast h3.open", function(e) {
     if (popup_open != undefined) {
@@ -34,12 +36,23 @@ $(document).on("reload", '.carpark', function(e, avoid_notification) {
     realtime_slots(park_id, park_url, avoid_notification);
 });
 
+$(document).on("click", '.actions .time a', function(e) {
+    var el = $(this);
+    type = $(el).data('type'); //'Parking forecast'
+    period = $(el).data('period');
+    $('.time span.box.round').html(el.html());
+    $('.carpark').trigger('reload', true);
+    $('.times.round.box').fadeToggle('fast');
+    $('.overlay-dropdown').remove();
+});
 
 function realtime_slots (id, url, avoid_notification) {
     var el = $( '#park_'+id);
     $(".slots .updating", el).show();
+    var params = { type:type, period:period };
+    url_request = url + '&' + jQuery.param(params);
     $.ajax({
-		url: url,
+		url: url_request,
 		method: 'GET',
 	    dataType: 'json',
 	    complete: function() {
@@ -84,7 +97,7 @@ function plot (placeholder, url) {
 			    show: false
 		    },
 		    bars: {
-		        show: true, barWidth: 900*1000*0.8, fill: 1, linewidth:0,
+		        show: true, barWidth: 900*1000*0.8, fill: 1, linewidth:0,align: "center",
 		    }
 	    },
 	    grid: {

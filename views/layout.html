@@ -38,18 +38,7 @@
     <main id="main" class="main">
         <div class="aux">			
 			<div class="actions">
-				<div class="time">
-					<span class="box round">adesso</span>
-					<ul class="box round">
-						<li><a href="#">tra 15 min</a></li>
-						<li><a href="#">tra 30 min</a></li>
-						<li><a href="#">tra 1 ora</a></li>
-						<li><a href="#">tra 2 ore</a></li>
-						<li><a href="#">tra 4 ore</a></li>
-						<li><a href="#">tra 8 ore</a></li>
-						<li><a href="#">tra 24 ore</a></li>
-					</ul>	
-				</div>
+     			{{=LOAD('default','get_times', ajax=True, _class='time')}}
 				<div class="switcher controls box round">
 					<ul>
 						<li><a href="{{=URL('default', 'index')}}" class="grid {{='active' if request.function != 'map' else ''}}">Visualizzazione griglia</a></li>

@@ -344,7 +344,7 @@ only screen and (min-resolution: 2dppx){
 #map .slots{right:27px}
 #map .available-slots{padding-top: 0.4em}
 #map .available-slots .number{margin-bottom:0}
-#map .forecast h3{right:28px;to:8,7em}
+#map .forecast h3{right:6px;to:-2.9em}
 #map .leaflet-container a.leaflet-popup-close-button{border:0}
 #map a{color:#009CDD}
 #map.leaflet-container a.leaflet-popup-close-button{border:0}

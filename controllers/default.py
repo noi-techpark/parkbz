@@ -115,24 +115,23 @@ def get_history():
 	return response.render('generic.json', {'park_%s' % park_id:{'data':output, 'park_id':park_id}})	
 	
 def freeslots():
-	#if not(request.ajax): raise HTTP(403) #jsonp is not considered as ajax request
-	park_id = request.vars.parking_id
-	if not(park_id and park_id.isdigit()): raise HTTP(404)
-	data = __get_park_data(int(park_id))	
-	if request.extension == 'jsonp':
-		json = {'data':data}
-		render = 'default/single_view.html'		
-	else:
-		json = {'freeslots':data['freeslots']}	
-		render = 'default/park_bar.html'
-	freeslots = request.args(1) or 'index'
-	if data['freeslots'] == -1:
-		json['plain_html'] = response.render('default/park_bar_error.html', park=data )
-	elif not(freeslots and freeslots.isdigit()) or int(freeslots) != data['freeslots']:
-		json['plain_html'] = response.render(render, park=data )
+    parking_id = _vars('parking_id')
+    type_r = _vars('type', is_string=True) or 'free'
+    period = _vars('period')
+    params={'station':parking_id, 'type':type_r}
+    if period:
+        params['period'] = period
+    r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
+    return response.json({'freeslots':r.json()['value']})
 
-	extension = 'json' if request.extension != 'jsonp' else 'jsonp'
-	return response.render('generic.%s' % extension, json)
+def get_times():
+    r = requests.get("%s/%s" %(rest_url, "get-data-types"))
+    forecast_types = filter(lambda e: 'forecast' in e[0].lower() and len(e) > 3, r.json())
+    forecast_types = sorted(forecast_types,key=lambda x: int(x[3]))
+    ul = UL([LI(A(f[3], **{'_data-type':f[0], '_data-period':f[3]})) for f in forecast_types], _class="box round times")
+    span = SPAN(T('adesso'), _class="box round")
+    return CAT(span, ul)
+
 
 #def search():
 #	import re
