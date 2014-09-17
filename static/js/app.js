@@ -14,6 +14,8 @@ if (!('indexOf' in Array.prototype)) {
 
 var template_js = '<p class="repo-name"><a href="{{link}}"><strong>{{name}}</strong></a></p><small>{{address}}</small>';
 var type='free';
+var default_msg = "posti liberi";
+var msg = default_msg;
 var period=undefined;
 var popup_open;
 $(document).on("slidend", ".forecast h3.open", function(e) {
@@ -40,6 +42,11 @@ $(document).on("click", '.actions .time a', function(e) {
     var el = $(this);
     type = $(el).data('type'); //'Parking forecast'
     period = $(el).data('period');
+    if ($(el).data('default-msg')){
+        msg = el.html();
+    } else {
+        msg = default_msg;
+    }
     $('.time span.box.round').html(el.html());
     $('.carpark').trigger('reload', true);
     $('.times.round.box').fadeToggle('fast');
@@ -63,6 +70,7 @@ function realtime_slots (id, url, avoid_notification) {
             //    $(that.placeholder).trigger($.Event('loaded',{}));
             //}
             $('.number', el).html(json.freeslots);
+            $('.value_type', el).html(msg);
             if (! avoid_notification) {
                 $(".actions .notice").show();
                 $(".actions .notice").delay(5000).fadeOut(500);
@@ -74,7 +82,9 @@ function realtime_slots (id, url, avoid_notification) {
             } else {
                 css_class = 'available'
             }
-            $('.available-slots', el).removeClass('almost-full','available','full');
+            $('.available-slots', el).removeClass('almost-full');
+            $('.available-slots', el).removeClass('available');
+            $('.available-slots', el).removeClass('full');
             $('.available-slots', el).addClass(css_class);
             //{{='full' if park['freeslots'] < 10 else ('almost-full' if park['freeslots'] < 70 else 'available')}}
 	    },

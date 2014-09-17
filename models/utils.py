@@ -54,7 +54,7 @@ def _vars(name, single=True, post=False, is_string=False):
     var_ = request.get_vars.__getitem__(name)[0] if isinstance(request.get_vars.__getitem__(name), list) and single else request.get_vars.__getitem__(name)
     if not(var_):
         var_ = request.post_vars.__getitem__(name)[0] if isinstance(request.post_vars.__getitem__(name), list) and single else request.post_vars.__getitem__(name)
-    if is_string: return str(var_)
+    if is_string: return str(var_) if var_ else var_
     var_ = int(var_) if var_ else None
     return var_
     

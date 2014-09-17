@@ -9,7 +9,7 @@
 		<li class="address"><a href="{{=URL('default', 'map', vars={'parking_id':park['park_id']})}}">{{=park['address']}}</a></li>
 		<li class="phone"><a href="tel:{{=(park['phone'] or '--')}}">{{=(park['phone'] or '--')}}</a></li>
 	</ul>
-	<div class="slots"><strong class="available-slots"><span class="number">...</span> posti liberi</strong> su <strong>{{=park['slots']}} posti totali</strong><div class="updating"></div></div>
+	<div class="slots"><strong class="available-slots"><span class="number">...</span><span class='value_type'></span></strong> su <strong>{{=park['slots']}} posti totali</strong><div class="updating"></div></div>
 	<div class="forecast">
 		<h3 data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'prediction.json', vars={'parking_id':park['park_id']})}}">Previsione 24h</h3>
 		<div class="graph" id="graph_{{=park['park_id']}}"  style="height: 136px">

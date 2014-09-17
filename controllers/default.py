@@ -127,8 +127,10 @@ def freeslots():
 def get_times():
     r = requests.get("%s/%s" %(rest_url, "get-data-types"))
     forecast_types = filter(lambda e: 'forecast' in e[0].lower() and len(e) > 3, r.json())
+    forecast_types = filter(lambda f: int(f[3]) % 3600 == 0, forecast_types)
     forecast_types = sorted(forecast_types,key=lambda x: int(x[3]))
-    ul = UL([LI(A(f[3], **{'_data-type':f[0], '_data-period':f[3]})) for f in forecast_types], _class="box round times")
+    forecast_types.insert(0, [None, None, None, None, T('adesso')])
+    ul = UL([LI(A(("tra %s" % (("%s ora" % (int(f[3])/3600)) if f[3]=="3600" else ("%s ore" % (int(f[3])/3600)))) if f[3] else f[4] , **{'_data-type':f[0], '_data-period':f[3], '_data-default-msg': f[0]!=None})) for f in forecast_types], _class="box round times")
     span = SPAN(T('adesso'), _class="box round")
     return CAT(span, ul)
 
