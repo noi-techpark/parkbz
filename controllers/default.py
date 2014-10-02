@@ -130,21 +130,7 @@ def get_times():
     forecast_types = filter(lambda f: int(f[3]) % 3600 == 0, forecast_types)
     forecast_types = sorted(forecast_types,key=lambda x: int(x[3]))
     forecast_types.insert(0, [None, None, None, None, T('adesso')])
-    ul = UL([LI(A(("tra %s" % (("%s ora" % (int(f[3])/3600)) if f[3]=="3600" else ("%s ore" % (int(f[3])/3600)))) if f[3] else f[4] , **{'_data-type':f[0], '_data-period':f[3], '_data-default-msg': f[0]!=None})) for f in forecast_types], _class="box round times")
+    ul = UL([LI(A(("tra %s" % (("%s ora" % (int(f[3])/3600)) if f[3]=="3600" else ("%s ore" % (int(f[3])/3600)))) if f[3] else f[4] , **{'_data-type':f[0], '_data-period':f[3], '_data-default-msg': f[0]!=None}),  _class='') for f in forecast_types], _class="box round times")
+    ul[0]['_class'] += 'current'
     span = SPAN(T('adesso'), _class="box round")
     return CAT(span, ul)
-
-
-#def search():
-#	import re
-#	if not (request.vars.query): return response.json([])
-#	query = request.vars.query.lower()
-#	parks = __get_parks_info(address_only=True)
-#	json_l = []
-#	for park in parks:
-#		if query in park['name'].lower() or query in park['address'].lower():
-#			cur_park = {'value':park['name'], 'name':park['name'], 'address':park['address'], 'tokens':[park['name'],park['address']] } 
-#			cur_park['link'] = get_park_link(park)
-#			json_l.append(cur_park)
-#
-#	return response.json(json_l)

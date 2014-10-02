@@ -31,3 +31,5 @@ response.header_msg = XML("<i class='icon-bullhorn icon-white'></i> %s" % T('Ser
 response.menu = [
 	(T('Index'),URL('default','index')==URL(),URL('default','index'),[]),
 	(T('Widget'),URL('default','widget')==URL(),URL('default','widget')),]
+	
+response.static_version = "0.0.2"

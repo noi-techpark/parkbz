@@ -51,6 +51,8 @@ $(document).on("click", '.actions .time a', function(e) {
     $('.carpark').trigger('reload', true);
     $('.times.round.box').fadeToggle('fast');
     $('.overlay-dropdown').remove();
+    $('.actions .time li.current').removeClass('current');
+    $(el).parent('li').addClass('current');
 });
 
 function realtime_slots (id, url, avoid_notification) {
