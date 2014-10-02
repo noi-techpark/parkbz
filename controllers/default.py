@@ -6,6 +6,7 @@
 rest_url='http://ipchannels.integreen-life.bz.it/parkingFrontEnd/rest'
 import socket
 import requests
+import datetime
 
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
@@ -122,7 +123,13 @@ def freeslots():
     if period:
         params['period'] = period
     r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
-    return response.json({'freeslots':r.json()['value']})
+    json_response = {'freeslots':r.json()['value']}
+    if 'exceptionMessage' in r.json():
+        return r.json()
+    if type_r != 'free':
+        created_on = datetime.datetime.fromtimestamp(r.json()['created_on']/1e3)
+        json_response['created_on'] = "%s:%s" %(created_on.hour, created_on.minute)
+    return response.json(json_response)
 
 def get_times():
     r = requests.get("%s/%s" %(rest_url, "get-data-types"))
@@ -134,3 +141,6 @@ def get_times():
     ul[0]['_class'] += 'current'
     span = SPAN(T('adesso'), _class="box round")
     return CAT(span, ul)
+
+
+

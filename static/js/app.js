@@ -17,6 +17,7 @@ var type='free';
 var default_msg = "posti liberi";
 var msg = default_msg;
 var period=undefined;
+var text;
 var popup_open;
 $(document).on("slidend", ".forecast h3.open", function(e) {
     if (popup_open != undefined) {
@@ -42,6 +43,7 @@ $(document).on("click", '.actions .time a', function(e) {
     var el = $(this);
     type = $(el).data('type'); //'Parking forecast'
     period = $(el).data('period');
+    text = $(el).html();
     if ($(el).data('default-msg')){
         msg = el.html();
     } else {
@@ -72,10 +74,10 @@ function realtime_slots (id, url, avoid_notification) {
             //    $(that.placeholder).trigger($.Event('loaded',{}));
             //}
             $('.number', el).html(json.freeslots);
-            $('.value_type', el).html(msg);
+            
             if (! avoid_notification) {
-                $(".actions .notice").show();
-                $(".actions .notice").delay(5000).fadeOut(500);
+                $(".actions .notice-update").show();
+                $(".actions .notice-update").delay(5000).fadeOut(500);
             }
             if (json.freeslots < 10){
                 css_class = 'full';
@@ -89,6 +91,15 @@ function realtime_slots (id, url, avoid_notification) {
             $('.available-slots', el).removeClass('full');
             $('.available-slots', el).addClass(css_class);
             //{{='full' if park['freeslots'] < 10 else ('almost-full' if park['freeslots'] < 70 else 'available')}}
+            if (json.created_on) {
+                $(".notice-time span").html(json.created_on);
+                $(".notice-time").show();
+                $(el).addClass('forecast');
+                $(".value_time", el).html(msg);
+            } else {
+                $(".notice-time").hide();
+                $(el).removeClass('forecast');
+            }
 	    },
 	    error: function (e, status) {
 		    console.log('errore');

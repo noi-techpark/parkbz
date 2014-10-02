@@ -39,6 +39,7 @@
         <div class="aux">			
 			<div class="actions">
      			{{=LOAD('default','get_times', ajax=True, _class='time')}}
+     			<div class="notice round notice-time">{{=T('Previsione aggiornata alle')}} <span class='msg'></span></div>
 				<div class="switcher controls box round">
 					<ul>
 						<li><a href="{{=URL('default', 'index')}}" class="grid {{='active' if request.function != 'map' else ''}}">Visualizzazione griglia</a></li>
@@ -50,7 +51,7 @@
 						<li><a href="#" id="updateall" class="update">Aggiorna i dati <div class="updating-s round"></div></a></li>
 					</ul>	
 				</div>
-				<div class="notice round">Dati aggiornati!</div>
+				<div class="notice notice-update round">Dati aggiornati!</div>
 			</div>	
         {{include}}
         </div>
