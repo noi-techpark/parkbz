@@ -11,7 +11,7 @@
 	</ul>
 	<div class="slots"><strong class="available-slots"><span class="number">...</span><span class='value_type'>{{=T('posti liberi')}}</span><span class="value_time"></span></strong> su <strong>{{=park['slots']}} posti totali</strong><div class="updating"></div></div>
 	<div class="forecast">
-		<h3 data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'prediction.json', vars={'parking_id':park['park_id']})}}">Previsione 24h</h3>
+		<h3 data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'prediction.json', vars={'parking_id':park['park_id']})}}" data-slots='{{=park['slots']}}'>Previsione 24h</h3>
 		<div class="graph" id="graph_{{=park['park_id']}}"  style="height: 136px">
 		</div>
 		<div class="updating"></div>

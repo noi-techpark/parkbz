@@ -25,7 +25,8 @@ $(document).on("slidend", ".forecast h3.open", function(e) {
     }
     var ph = $(this).siblings('.graph')[0];
     var prediction_url = $(this).data("url");
-    var chart = new plot(ph, prediction_url);
+    var slots = $(this).data("slots");
+    var chart = new plot(ph, prediction_url, slots);
 });
 
 $(document).on("click", "#updateall", function(e) {
@@ -107,7 +108,7 @@ function realtime_slots (id, url, avoid_notification) {
 	});
 }
 
-function plot (placeholder, url) {
+function plot (placeholder, url, slots) {
     timezoneJS.timezone.zoneFileBasePath = '/parkbzNew/static/js/tz';
 
     this.default_options = {
@@ -138,7 +139,7 @@ function plot (placeholder, url) {
 			autoHighlight: true,
 		},
 	    yaxis: {
-		    min: 0, max: 1000,
+		    min: 0, max: this.slots,
 		    axisLabel: free_slot_text,
 		    axisLabelFontFamily: "Helvetica Neue,Helvetica,Arial,sans-serif",
 			axisLabelFontSizePixels: 12,
@@ -167,6 +168,8 @@ function plot (placeholder, url) {
 
     this.onDataReceived = function (json, url) {
         this.data[0].data = json;
+        this.default_options.yaxis.max = this.slots;
+        console.log(this.slots);
         var plot = $.plot(this.ph, this.data, this.default_options);
     };
 
@@ -189,11 +192,12 @@ function plot (placeholder, url) {
 		});
 	};
 
-    this.init = function(placeholder, url) {
+    this.init = function(placeholder, url, slots) {
+        this.slots = slots;
         this.ph = placeholder;
         this.loadData(url);
     };
-	this.init(placeholder, url);
+	this.init(placeholder, url, slots);
 }
 
 
