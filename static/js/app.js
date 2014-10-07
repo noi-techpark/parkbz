@@ -169,7 +169,6 @@ function plot (placeholder, url, slots) {
     this.onDataReceived = function (json, url) {
         this.data[0].data = json;
         this.default_options.yaxis.max = this.slots;
-        console.log(this.slots);
         var plot = $.plot(this.ph, this.data, this.default_options);
     };
 
