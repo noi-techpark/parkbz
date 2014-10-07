@@ -361,3 +361,8 @@ only screen and (min-resolution: 2dppx){
 #map .carpark h2{margin:0.5em 0;padding:.2em}
 #map .carpark li{margin-bottom:1em}
 
+.axisLabels.yaxisLabel {
+    text-transform:uppercase;
+    font-size: 0.8em;
+}
+

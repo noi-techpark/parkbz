@@ -142,7 +142,7 @@ function plot (placeholder, url, slots) {
 		    min: 0, max: this.slots,
 		    axisLabel: free_slot_text,
 		    axisLabelFontFamily: "Helvetica Neue,Helvetica,Arial,sans-serif",
-			axisLabelFontSizePixels: 12,
+			//axisLabelFontSizePixels: 1em,
 	    },
 	    tooltip: true, 
 		tooltipOpts: {
