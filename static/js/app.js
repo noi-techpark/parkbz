@@ -134,12 +134,21 @@ function plot (placeholder, url) {
 			//aboveData: false,
 			//borderWidth: 1,
 			clickable: true,
-			hoverable: false,
+			hoverable: true,
 			autoHighlight: true,
 		},
 	    yaxis: {
-		    min: 0
+		    min: 0, max: 1000,
+		    axisLabel: free_slot_text,
+		    axisLabelFontFamily: "Helvetica Neue,Helvetica,Arial,sans-serif",
+			axisLabelFontSizePixels: 12,
 	    },
+	    tooltip: true, 
+		tooltipOpts: {
+			content:      free_slot_text + " %y",
+			xDateFormat: "%b %d, %H:%M:%S",
+			defaultTheme:  true,
+		},
 
 	    legend: false,
 	};
