@@ -181,7 +181,7 @@ function plot (placeholder, url, slots) {
         var thatC = this;
         setTimeout(function(){
             o = thatC.plot.pointOffset({ x: 0, y: thatC.slots});
-		    $(thatC.ph).append("<div style='position:absolute;left:" + (290) + "px;top:" + 2 + "px;color:#666;font-size:smaller'>Capacità</div>");
+		    $(thatC.ph).append("<div style='position:absolute;right:" + (22) + "px;top:" + 2 + "px;color:#666;font-size:smaller'>Capacità</div>");
         }, 10);
     };
 
