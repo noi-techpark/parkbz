@@ -1,8 +1,6 @@
 parkbz
 ======
 
-A web2py application to test the opendata web services for the parking areas in the city of bolzano
+Parkbz is a web2py HTML5 application based on the opendata services provided by the integreen project.
 
 This application is part of the integreen project www.integreen-life.bz.it
-
-Live demo http://parking.integreen-life.bz.it
