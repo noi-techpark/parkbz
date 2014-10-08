@@ -368,3 +368,12 @@ only screen and (min-resolution: 2dppx){
     padding-bottom: 10px;
 }
 
+.capacity {
+    top: 0px;
+    right: 22px;
+    background-color: white;
+    position: absolute;
+    font-size: 0.8em;
+    padding-right: 2px;
+    padding-left: 2px;
+}

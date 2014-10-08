@@ -178,11 +178,12 @@ function plot (placeholder, url, slots) {
         this.default_options.yaxis.max = this.slots + (0.1*this.slots);
         this.default_options.grid.markings[0].yaxis = {from:this.slots, to:this.slots}; // RED line 
         this.plot = $.plot(this.ph, this.data, this.default_options);
-        var thatC = this;
-        setTimeout(function(){
-            o = thatC.plot.pointOffset({ x: 0, y: thatC.slots});
-		    $(thatC.ph).append("<div style='position:absolute;right:" + (22) + "px;top:" + 2 + "px;color:#666;font-size:smaller'>Capacità</div>");
-        }, 10);
+        //var thatC = this;
+        //setTimeout(function(){
+            //o = thatC.plot.pointOffset({ x: 0, y: thatC.slots});
+        $(this.ph).append("<div class='capacity'>Capacità</div>");
+		    //$(thatC.ph).append("<div class='capacity'>Capacità</div>");
+        //}, 10);
     };
 
     this.loadData = function(url) {
