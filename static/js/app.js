@@ -126,7 +126,6 @@ function plot (placeholder, url, slots) {
 	    },
 	    grid: {
 			color: "#444444",
-
 			backgroundColor: {
 				colors: ["#fff", "#e4f4f4"]
 			},
@@ -137,11 +136,18 @@ function plot (placeholder, url, slots) {
 			clickable: true,
 			hoverable: true,
 			autoHighlight: true,
+			markings: [
+			    { color: "#FF0000", lineWidth: 1, yaxis: {} }
+		    ],
 		},
 	    yaxis: {
 		    min: 0, max: this.slots,
 		    axisLabel: free_slot_text,
 		    axisLabelFontFamily: "Helvetica Neue,Helvetica,Arial,sans-serif",
+		    axisLabelPadding: 2,
+		    //tickSize: 200,
+		    ticks: 4, //[0, [this.slots, "\u03c0/2"]],
+		    //axisLabelUseCanvas: true,
 			//axisLabelFontSizePixels: 1em,
 	    },
 	    tooltip: true, 
@@ -167,9 +173,16 @@ function plot (placeholder, url, slots) {
 	}];
 
     this.onDataReceived = function (json, url) {
+        console.log('onDataReceived');
         this.data[0].data = json;
-        this.default_options.yaxis.max = this.slots;
-        var plot = $.plot(this.ph, this.data, this.default_options);
+        this.default_options.yaxis.max = this.slots + (0.1*this.slots);
+        this.default_options.grid.markings[0].yaxis = {from:this.slots, to:this.slots}; // RED line 
+        this.plot = $.plot(this.ph, this.data, this.default_options);
+        var thatC = this;
+        setTimeout(function(){
+            o = thatC.plot.pointOffset({ x: 0, y: thatC.slots});
+		    $(thatC.ph).append("<div style='position:absolute;left:" + (290) + "px;top:" + 2 + "px;color:#666;font-size:smaller'>Capacità</div>");
+        }, 10);
     };
 
     this.loadData = function(url) {
@@ -197,6 +210,7 @@ function plot (placeholder, url, slots) {
         this.loadData(url);
     };
 	this.init(placeholder, url, slots);
+	this.plot;
 }
 
 

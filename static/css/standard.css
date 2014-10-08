@@ -364,5 +364,7 @@ only screen and (min-resolution: 2dppx){
 .axisLabels.yaxisLabel {
     text-transform:uppercase;
     font-size: 0.8em;
+    letter-spacing:1px;
+    padding-bottom: 10px;
 }
 
