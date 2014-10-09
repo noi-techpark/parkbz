@@ -137,9 +137,9 @@ def get_times():
     forecast_types = filter(lambda f: int(f[3]) % 3600 == 0, forecast_types)
     forecast_types = sorted(forecast_types,key=lambda x: int(x[3]))
     forecast_types.insert(0, [None, None, None, None, T('adesso')])
-    ul = UL([LI(A(("tra %s" % (("%s ora" % (int(f[3])/3600)) if f[3]=="3600" else ("%s ore" % (int(f[3])/3600)))) if f[3] else f[4] , **{'_data-type':f[0], '_data-period':f[3], '_data-default-msg': f[0]!=None}),  _class='') for f in forecast_types], _class="box round times")
+    ul = UL([LI(A(("tra %s" % (("%s %s" % (int(f[3])/3600, T('hour'))) if f[3]=="3600" else ("%s %s" % (int(f[3])/3600, T('hours'))))) if f[3] else f[4] , **{'_data-type':f[0], '_data-period':f[3], '_data-default-msg': f[0]!=None}),  _class='') for f in forecast_types], _class="box round times")
     ul[0]['_class'] += 'current'
-    span = SPAN(T('adesso'), _class="box round")
+    span = SPAN(T('now'), _class="box round")
     return CAT(span, ul)
 
 

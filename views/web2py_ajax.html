@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var ajax_error_500 = '{{=XML(T('An error occured, please %s the page') % A(T('reload'), _href=URL(args=request.args, vars=request.vars))) }}'
     var free_slot_text = '{{=T("Free slots")}}';
+    var capacity = '{{=T("Capacity")}}';
 </script>
 {{
     is_mobile = request.user_agent().is_mobile

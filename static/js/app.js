@@ -14,7 +14,7 @@ if (!('indexOf' in Array.prototype)) {
 
 var template_js = '<p class="repo-name"><a href="{{link}}"><strong>{{name}}</strong></a></p><small>{{address}}</small>';
 var type='free';
-var default_msg = "posti liberi";
+var default_msg = free_slot_text;
 var msg = default_msg;
 var period=undefined;
 var text;
@@ -181,7 +181,7 @@ function plot (placeholder, url, slots) {
         //var thatC = this;
         //setTimeout(function(){
             //o = thatC.plot.pointOffset({ x: 0, y: thatC.slots});
-        $(this.ph).append("<div class='capacity'>Capacità</div>");
+        $(this.ph).append("<div class='capacity'>" + capacity + "</div>");
 		    //$(thatC.ph).append("<div class='capacity'>Capacità</div>");
         //}, 10);
     };
