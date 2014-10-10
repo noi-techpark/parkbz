@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 {
-'!langcode!': 'it',
 '!langname!': 'Italiano',
 '"update" is an optional expression like "field1=\'newvalue\'". You cannot update or delete the results of a JOIN': '"update" è un\'espressione opzionale come "campo1=\'nuovo valore\'". Non si può fare "update" o "delete" dei risultati di un JOIN ',
 '%(nrows)s records found': '%(nrows)s records found',
@@ -30,7 +29,7 @@
 'appadmin is disabled because insecure channel': 'Amministrazione (appadmin) disabilitata: comunicazione non sicura',
 'Are you sure you want to delete this object?': 'Are you sure you want to delete this object?',
 'Available Databases and Tables': 'Database e tabelle disponibili',
-'Available slots': 'Available slots',
+'Available slots': 'Posti disponibili',
 'Back': 'Back',
 'Bolzano': 'Bolzano',
 'Bolzano parking situation': 'Situazione dei parcheggi a Bolzano',
