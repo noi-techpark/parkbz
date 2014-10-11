@@ -6,12 +6,13 @@ This application is part of the integreen project www.integreen-life.bz.it
 
 Run locally
 ===========
-* wget http://www.web2py.com/examples/static/web2py_src.zip
-* unzip web2py_src.zip
-* cd web2py
-* git clone https://github.com/ilvalle/parkbz.git applications/parkbz
-* python web2py.py
-* visit: http://127.0.0.1:8000/parkbz
+* <code>pip install requests</code> or <code>easy_install requests</code> (http://docs.python-requests.org/en/latest/user/install/)
+* <code>wget http://www.web2py.com/examples/static/web2py_src.zip</code>
+* <code>unzip web2py_src.zip</code>
+* <code>cd web2py</code>
+* <code>git clone https://github.com/ilvalle/parkbz.git applications/parkbz</code>
+* <code>python web2py.py</code>
+* <code>visit: http://127.0.0.1:8000/parkbz</code>
 
 
 Contribute
