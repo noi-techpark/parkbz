@@ -4,9 +4,14 @@ parkbz
 Parkbz is a web2py HTML5 app based on opendata services provided by the integreen project. 
 This application is part of the integreen project www.integreen-life.bz.it
 
+Dependecy
+========
+* requests (http://docs.python-requests.org/en/latest/) install it by using
+    * pip (https://pypi.python.org/pypi/pip) <code>sudo apt-get install python-pip</code>
+    * OR if you have easy\_install already installed <code>sudo easy_install requests</code>
+
 Run locally
 ===========
-* <code>sudo pip install --upgrade requests</code> or <code>sudo easy_install requests</code> (http://docs.python-requests.org/en/latest/user/install/)
 * <code>wget http://www.web2py.com/examples/static/web2py_src.zip</code>
 * <code>unzip web2py_src.zip</code>
 * <code>cd web2py</code>
@@ -22,3 +27,7 @@ Contribute
 * make the change you wish
 * commit and push them
 * on github you will have now the possibility to create a PR
+
+License
+=======
+Parkbz is distributed under the terms of the AGPL license agreement
