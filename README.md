@@ -6,7 +6,7 @@ This application is part of the integreen project www.integreen-life.bz.it
 
 Run locally
 ===========
-* <code>sudo pip install requests</code> or <code>sudo easy_install requests</code> (http://docs.python-requests.org/en/latest/user/install/)
+* <code>sudo pip install --upgrade requests</code> or <code>sudo easy_install requests</code> (http://docs.python-requests.org/en/latest/user/install/)
 * <code>wget http://www.web2py.com/examples/static/web2py_src.zip</code>
 * <code>unzip web2py_src.zip</code>
 * <code>cd web2py</code>
