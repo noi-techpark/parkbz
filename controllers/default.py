@@ -17,11 +17,6 @@ def index():
 # Return the template of the map, the map is populated by the geojson requested with ajax
 def map():
     return {}
-#    try:
-        #parks = __get_parks_info()
-        #return {'parks': parks}
-#    except socket.timeout:
-#        return 'Data not available, the frontEnd is currently unreachable'
 
 # Return the geojson with the point of each parking area with the html of the specific tooltip
 def get_geojson():
