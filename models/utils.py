@@ -16,7 +16,10 @@ def __get_park_data(park, address_only=False):
     except:
         data['name'] = name.strip()
     if not(address_only):
-        data['freeslots'] = server.DataManager.getNumberOfFreeSlots(park)
+        params={'station':park, 'type':'free'}
+        r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
+        data['freeslots'] = r.json()['value']
+       # data['freeslots'] = server.DataManager.getNumberOfFreeSlots(park)
         data['slots_taken'] = data['slots'] - data['freeslots']
         data['slots_taken_rate'] = (data['slots_taken'] * 100) / data['slots']
         data['freeslots_rate'] = 100 - data['slots_taken_rate']
@@ -36,20 +39,7 @@ def __get_parks_info(address_only=False):
 def get_park_link(park): 
 	url = URL('default', T('parking', lazy=False), args=[park['park_id'], XML(park['name'])], extension=False)
 	return url
-
-def get_fb_group_box():
-    script = SCRIPT( """
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/it_IT/all.js#xfbml=1";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk')); """ )
-    fb_root = DIV(_id='fb-root')
-    div_fb = TAG('<div class="fb-like-box" data-href="http://www.facebook.com/integreenlife" data-width="270" data-show-faces="true" data-stream="false" data-header="false"></div>')
-    return CAT(fb_root,script, div_fb)
-    
+  
 def _vars(name, single=True, post=False, is_string=False):
     var_ = request.get_vars.__getitem__(name)[0] if isinstance(request.get_vars.__getitem__(name), list) and single else request.get_vars.__getitem__(name)
     if not(var_):

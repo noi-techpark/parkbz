@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 # TODO
-# mostrare dati aggiornati solo se clicca
-# language
 # Add tutti tu the widget
-rest_url='http://ipchannels.integreen-life.bz.it/parkingFrontEnd/rest'
+
 import socket
 import requests
 import datetime
@@ -16,22 +14,16 @@ def index():
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'
 
-#def test_1():
-#    out = server.DataManager.getNumberOfFreeSlots(104)
-#    return response.render('layout_ratchet.html', {})
-    
-#def test_2():    
-#    out = server.DataManager.getParkingStation(104)
-#    return out
-
+# Return the template of the map, the map is populated by the geojson requested with ajax
 def map():
-    try:
-        parks = __get_parks_info()
-        #parks = []
-        return {'parks': parks}
-    except socket.timeout:
-        return 'Data not available, the frontEnd is currently unreachable'
+    return {}
+#    try:
+        #parks = __get_parks_info()
+        #return {'parks': parks}
+#    except socket.timeout:
+#        return 'Data not available, the frontEnd is currently unreachable'
 
+# Return the geojson with the point of each parking area with the html of the specific tooltip
 def get_geojson():
     try:
         parks = __get_parks_info()
@@ -49,7 +41,8 @@ def get_geojson():
         return response.json({"type": "FeatureCollection", 'features': features}) 
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'
-        
+
+# Return the data of the parking freeslots prediction for the given parking area
 def prediction():
     parking_id = int(request.vars.parking_id) if  request.vars.parking_id and  request.vars.parking_id.isdigit() else None
     params={'station':parking_id}
@@ -66,55 +59,16 @@ def prediction():
         output.insert(0, [int(data['timestamp']), int(data['value'])])
     return response.json(output)
 
-    
-#def trend():
-#	park_id = request.args(0) or 'index'
-#	if not(park_id and park_id.isdigit()): raise HTTP(404)
-#	parks = __get_parks_info()
-#	return {'parks': parks, 'park_id':park_id}
+#def widget():
+#	try:
+#		parks = __get_parks_info()
+#		return {'parks': parks}
+#	except socket.timeout:
+#		return 'Data not available, the frontEnd is currently unreachable'
+#	except Exception:
+#		return 'Internal error'
 
-#def parking():
-#    response.files.append(URL('static','js/OpenLayers.js'))
-#    park_id = request.args(0) or 'index'
-#    if not(park_id and park_id.isdigit()): raise HTTP(404)
-#    try:
-#        park = __get_park_data(int(park_id))
-#    except:
-#        return 'Data not available, the frontEnd is currently unreachable'
-#    response.title = "%s %s" %(T('Parking'), park['name'])
-#    response.page_title = "%s %s, %s" % (T('Parking'), park['name'], T('Bolzano') )
-#    response.subtitle = "%s, 39100 %s" % (park['address'], T('Bolzano'))
-#    response.meta.description = "%s %s - 39100 %s" % (T('Map and number of free slots of the parking'), park['name'], T('Bolzano'))
-#    return {'park': park, 'park_id':park_id}
-
-def doc():
-	methods = server.system.listMethods()
-	methods.sort()
-	return {'server':server, 'methods':methods}
-
-def widget():
-	try:
-		parks = __get_parks_info()
-		return {'parks': parks}
-	except socket.timeout:
-		return 'Data not available, the frontEnd is currently unreachable'
-	except Exception:
-		return 'Internal error'
-
-def get_history():
-	from datetime import datetime
-	if not(request.ajax): raise HTTP(403)
-	park_id = request.args(0) or 'index'
-	n_days = int(request.vars.interval) if request.vars.interval and request.vars.interval.isdigit() else 7
-	if not(park_id and park_id.isdigit()): raise HTTP(404)
-	data = server.DataManager.getFreeSlotsByTimeAndParkingArea(int(park_id), 24*60*n_days)
-	output = []
-	for element in data:
-		epoch = (datetime.strptime(str(element[1]), "%Y%m%dT%H:%M:%S") - datetime(1970,1,1)).total_seconds() 
-		milli_epoch = epoch * 1000
-		output.append([milli_epoch,element[0]])
-	return response.render('generic.json', {'park_%s' % park_id:{'data':output, 'park_id':park_id}})	
-	
+# Return the number of freeslots for the given parking area
 def freeslots():
     parking_id = _vars('parking_id')
     type_r = _vars('type', is_string=True) or 'free'
@@ -131,6 +85,7 @@ def freeslots():
         json_response['created_on'] = "%s:%s" %(created_on.hour, created_on.minute)
     return response.json(json_response)
 
+# Return a list of available forecasts
 def get_times():
     r = requests.get("%s/%s" %(rest_url, "get-data-types"))
     forecast_types = filter(lambda e: 'forecast' in e[0].lower() and len(e) > 3, r.json())
@@ -141,6 +96,4 @@ def get_times():
     ul[0]['_class'] += 'current'
     span = SPAN(T('now'), _class="box round")
     return CAT(span, ul)
-
-
 
