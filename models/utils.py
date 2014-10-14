@@ -2,7 +2,8 @@ from xmlrpclib import ServerProxy
 from applications.parkbz.modules.utils import TimeoutTransport
 
 server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc", transport=TimeoutTransport())
-
+### TODO XML_RPC requests must be migrated to REST webservices
+###
 def __get_park_data(park, address_only=False):
     data = cache.ram('park_%s' % park, lambda: server.DataManager.getParkingStation(park), time_expire=3600)
     if not(isinstance(data, dict)) or ('status' in data and data['status'] != 200): 

@@ -33,3 +33,10 @@ response.menu = [
 	(T('Widget'),URL('default','widget')==URL(),URL('default','widget')),]
 	
 response.static_version = "0.0.2"
+rest_url='http://ipchannels.integreen-life.bz.it/parkingFrontEnd/rest'
+
+#Language managment 
+languages = {'it':'Italiano', 'en':'English', 'de':'Deutsch'}
+
+if request.uri_language in languages:
+	T.force(request.uri_language)
