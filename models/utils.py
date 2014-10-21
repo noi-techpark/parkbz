@@ -20,7 +20,6 @@ def __get_park_data(park, address_only=False):
         params={'station':park, 'type':'free'}
         r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
         data['freeslots'] = r.json()['value']
-       # data['freeslots'] = server.DataManager.getNumberOfFreeSlots(park)
         data['slots_taken'] = data['slots'] - data['freeslots']
         data['slots_taken_rate'] = (data['slots_taken'] * 100) / data['slots']
         data['freeslots_rate'] = 100 - data['slots_taken_rate']
