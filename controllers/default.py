@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# TODO
-# Add tutti tu the widget
-
 import socket
 import requests
 import datetime
