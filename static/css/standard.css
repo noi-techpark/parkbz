@@ -108,10 +108,10 @@ author: Madeincima.it
 	
 	.carpark{float:left;width:100%;position:relative;margin-bottom:20px}
 	.carpark-aux{border:3px solid #fff;padding:.9em 3% 0 3%;}
-		.carpark h2{font-family:"titillium_websemibold",Arial,sans-serif;font-size:1.7em;font-weight:normal;margin:.5em 0 1.1em 0}
+		.carpark h2{padding-right:50%;line-height:100%;font-family:"titillium_websemibold",Arial,sans-serif;font-size:1.7em;font-weight:normal;margin:0.4em 0 1.1em 0}
 		.carpark li{margin-bottom:1.2em;font-size:1.1em;padding-left:22px;line-height:150%;}
 		.carpark li a{font-size:1em;}
-		.carpark li.address{background:url(../images/ico-address.gif) 0 0 no-repeat;width:53%}
+		.carpark li.address{background:url(../images/ico-address.gif) 0 0 no-repeat;width:50%}
 		.phone{background:url(../images/ico-phone.gif) 0 0 no-repeat}
 	
 	.slots{position:absolute;top:0;right:3%;font-size:.85em; min-width:100px;}
@@ -350,7 +350,7 @@ only screen and (min-resolution: 2dppx){
 /* --- added to fix tooltip ---*/
 #map .carpark{width:auto;min-width:300px;float:none;margin:0;position:static;}
 #map .carpark-aux{padding:0;border:0;font-size:1.2em;}
-#map .carpark li.address{width:50%}
+#map .carpark li.address{width:50%;margin-bottom:1.8em}
 #map .slots{right:27px}
 #map .available-slots{padding-top: 0.4em}
 #map .available-slots .number{margin-bottom:0}
@@ -358,8 +358,9 @@ only screen and (min-resolution: 2dppx){
 #map .leaflet-container a.leaflet-popup-close-button{border:0}
 #map a{color:#009CDD}
 #map.leaflet-container a.leaflet-popup-close-button{border:0}
-#map .carpark h2{margin:0.5em 0;padding:.2em}
-#map .carpark li{margin-bottom:1.5em;font-size:1.65em;}
+#map .carpark h2{margin:0.5em 0 1em 0;padding:0.2em;font-size:1.55em;}
+#map .carpark li{margin-bottom:1.5em}
+#map .carpark li.phone{margin-bottom:1.2em}
 
 .axisLabels.yaxisLabel {
     text-transform:uppercase;
