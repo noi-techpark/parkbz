@@ -6,9 +6,10 @@ This application is part of the integreen project www.integreen-life.bz.it
 
 Dependecy
 ========
-* requests (http://docs.python-requests.org/en/latest/) install it by using
+* python 2.7.*
+* requests (http://docs.python-requests.org/en/latest/) install it by using one of the following
     * pip (https://pypi.python.org/pypi/pip) <code>sudo apt-get install python-pip</code>
-    * OR if you have easy\_install already installed <code>sudo easy_install requests</code>
+    * easy\_install <code>sudo easy_install requests</code>
 
 Run locally
 ===========
