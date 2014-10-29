@@ -7,7 +7,7 @@ This application is part of the integreen project www.integreen-life.bz.it
 Dependecy
 ========
 * python 2.7.*
-* requests (http://docs.python-requests.org/en/latest/) install it by using one of the following
+* requires (http://docs.python-requests.org/en/latest/) install it by using one of the following
     * pip (https://pypi.python.org/pypi/pip) <code>sudo apt-get install python-pip</code>
     * easy\_install <code>sudo easy_install requests</code>
 
@@ -20,6 +20,14 @@ Run locally
 * <code>python web2py.py</code>
 * <code>visit: http://127.0.0.1:8000/parkbz</code>
 
+```bash
+wget http://www.web2py.com/examples/static/web2py_src.zip
+unzip web2py_src.zip
+cd web2py
+git clone https://github.com/ilvalle/parkbz.git applications/parkbz
+python web2py.py
+visit: http://127.0.0.1:8000/parkbz
+```
 
 Contribute
 ==========
