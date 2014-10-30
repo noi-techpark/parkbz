@@ -2,6 +2,7 @@
 import socket
 import requests
 import datetime
+session.forget(response)
 
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
@@ -23,7 +24,8 @@ def get_geojson():
         features= [{"type": "Feature",
                     "properties": {
                         "popupContent": response.render('default/park_box.html', {'park':p, 'tooltip': True}),
-                        "openPopup": True if parking_id == p['park_id'] else False
+                        "openPopup": True if parking_id == p['park_id'] else False,
+                        "freeslots": p['freeslots']
                     },
                     "geometry": {
                         "type": "Point",

@@ -8,8 +8,18 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
     $.getJSON('{{=URL('default', 'get_geojson', vars=request.vars)}}', function( data ) { 
         geojsonLayer = L.geoJson(data, {
+            pointToLayer: function (feature, latlng) {
+                var freeslots = feature.properties.freeslots;
+                icon = ((freeslots > 70)? "green" : ((freeslots > 10) ? "yellow" : "red"))
+                var markerIcon = new L.Icon.Default({
+                    iconUrl: "./static/js/images/marker-icon-" + icon + ".png",
+                    iconRetinaUrl: "./static/js/images/marker-icon-" + icon + "-2x.png",
+                });
+                return L.marker(latlng, {icon: markerIcon});
+            },
             onEachFeature: onEachFeature
         }).addTo(map);
         if (popup_selected) {
