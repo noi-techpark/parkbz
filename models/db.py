@@ -22,7 +22,7 @@
 #mail.settings.server = settings.email_server
 #mail.settings.sender = settings.email_sender
 #mail.settings.login = settings.email_login
-T.is_writable = False
+T.is_writable = True
 
 if not request.is_local:
 	from gluon.contrib.memcache import MemcacheClient
