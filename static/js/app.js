@@ -173,7 +173,9 @@ function plot (placeholder, url, slots) {
 	}];
 
     this.onDataReceived = function (json, url) {
-        console.log('onDataReceived');
+        if(json.length == 0) {
+            return this.data_not_available();
+        }
         this.data[0].data = json;
         this.default_options.yaxis.max = this.slots + (0.1*this.slots);
         this.default_options.grid.markings[0].yaxis = {from:this.slots, to:this.slots}; // RED line 
@@ -204,6 +206,10 @@ function plot (placeholder, url, slots) {
 		    },
 		});
 	};
+
+    this.data_not_available = function() {
+        $(this.ph).html(data_not_available_str);
+    }
 
     this.init = function(placeholder, url, slots) {
         this.slots = slots;

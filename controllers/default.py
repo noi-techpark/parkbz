@@ -50,7 +50,10 @@ def prediction():
         params['period'] = f[3]    
         r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
         data = r.json()
-        output.insert(0, [int(data['timestamp']), int(data['value'])])
+        t = datetime.datetime.fromtimestamp(r.json()['timestamp']/1e3) + datetime.timedelta(seconds=3600)
+        if t > request.now:
+            output.insert(0, [int(data['timestamp']), int(data['value'])])
+
     return response.json(output)
 
 #def widget():
@@ -85,8 +88,8 @@ def get_times():
     forecast_types = filter(lambda e: 'forecast' in e[0].lower() and len(e) > 3, r.json())
     forecast_types = filter(lambda f: int(f[3]) % 3600 == 0, forecast_types)
     forecast_types = sorted(forecast_types,key=lambda x: int(x[3]))
-    forecast_types.insert(0, [None, None, None, None, T('adesso')])
-    ul = UL([LI(A(("tra %s" % (("%s %s" % (int(f[3])/3600, T('hour'))) if f[3]=="3600" else ("%s %s" % (int(f[3])/3600, T('hours'))))) if f[3] else f[4] , **{'_data-type':f[0], '_data-period':f[3], '_data-default-msg': f[0]!=None}),  _class='') for f in forecast_types], _class="box round times")
+    forecast_types.insert(0, [None, None, None, None, T('now')])
+    ul = UL([LI(A(("%s %s" % (T('in'), (("%s %s" % (int(f[3])/3600, T('hour')))) if f[3]=="3600" else ("%s %s" % (int(f[3])/3600, T('hours'))))) if f[3] else f[4] , **{'_data-type':f[0], '_data-period':f[3], '_data-default-msg': f[0]!=None}),  _class='') for f in forecast_types], _class="box round times")
     ul[0]['_class'] += 'current'
     span = SPAN(T('now'), _class="box round")
     return CAT(span, ul)
