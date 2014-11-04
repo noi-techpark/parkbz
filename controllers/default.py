@@ -10,7 +10,7 @@ def index():
         parks = __get_parks_info()
         return {'parks': parks}
     except socket.timeout:
-        return 'Data not available, the frontEnd is currently unreachable'
+        return 'FrontEnd is currently unreachable'
 
 # Return the template of the map, the map is populated by the geojson requested with ajax
 def map():
@@ -53,7 +53,6 @@ def prediction():
         t = datetime.datetime.fromtimestamp(r.json()['timestamp']/1e3) + datetime.timedelta(seconds=3600)
         if t > request.now:
             output.insert(0, [int(data['timestamp']), int(data['value'])])
-
     return response.json(output)
 
 #def widget():
@@ -84,6 +83,12 @@ def freeslots():
 
 # Return a list of available forecasts
 def get_times():
+    # Check if the forecasts data are available
+    params={'type': 'Parking forecast', 'period': 7200, 'station':108}
+    r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
+    t = datetime.datetime.fromtimestamp(r.json()['timestamp']/1e3)
+    if t < request.now:
+        return ''
     r = requests.get("%s/%s" %(rest_url, "get-data-types"))
     forecast_types = filter(lambda e: 'forecast' in e[0].lower() and len(e) > 3, r.json())
     forecast_types = filter(lambda f: int(f[3]) % 3600 == 0, forecast_types)
