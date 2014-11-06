@@ -85,7 +85,7 @@ author: Madeincima.it
 	
 	.main{float:left;width:100%;padding:1.5em 0 1em 0;width:100%position:relative;z-index:0}
 	
-	.actions{position:relative;float:left;width:100%;margin-bottom:20px}
+	.actions{position:relative;float:left;width:100%;margin-bottom:20px; height: 40px;}
 		.actions a{border:0}
 		.actions .time{position:relative;position:relative;z-index:150}
 		.actions .time span{float:left;padding:.7em 28px .7em .8em;color:#009cdd;background:#fff url(../images/bg-arrow-thin.png) 90% 1.1em no-repeat;cursor:pointer}
