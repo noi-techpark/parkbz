@@ -7,7 +7,7 @@ session.forget(response)
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
     try:
-        parks = __get_parks_info()
+        parks = __get_parks_info(address_only=True)
         return {'parks': parks}
     except socket.timeout:
         return 'FrontEnd is currently unreachable'
@@ -55,15 +55,6 @@ def prediction():
             output.insert(0, [int(data['timestamp']), int(data['value'])])
     return response.json(output)
 
-#def widget():
-#	try:
-#		parks = __get_parks_info()
-#		return {'parks': parks}
-#	except socket.timeout:
-#		return 'Data not available, the frontEnd is currently unreachable'
-#	except Exception:
-#		return 'Internal error'
-
 # Return the number of freeslots for the given parking area
 def freeslots():
     parking_id = _vars('parking_id')
@@ -76,6 +67,9 @@ def freeslots():
     json_response = {'freeslots':r.json()['value']}
     if 'exceptionMessage' in r.json():
         return r.json()
+    t = datetime.datetime.fromtimestamp(r.json()['timestamp']/1e3) + datetime.timedelta(seconds=3600)
+    if t < request.now:
+        return response.json([])
     if type_r != 'free':
         created_on = datetime.datetime.fromtimestamp(r.json()['created_on']/1e3)
         json_response['created_on'] = "%s:%s" %(created_on.hour, created_on.minute)
