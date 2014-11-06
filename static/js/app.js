@@ -56,6 +56,7 @@ $(document).on("click", '.actions .time a', function(e) {
     $('.overlay-dropdown').remove();
     $('.actions .time li.current').removeClass('current');
     $(el).parent('li').addClass('current');
+    $('.map-cont').trigger('forecast', true);
 });
 
 function realtime_slots (id, url, avoid_notification) {
@@ -71,6 +72,14 @@ function realtime_slots (id, url, avoid_notification) {
             $(".slots .updating", el).hide();
 	    }, 
 	    success: function(json) {
+            $('.available-slots', el).removeClass('almost-full');
+            $('.available-slots', el).removeClass('available');
+            $('.available-slots', el).removeClass('full');
+	        if(json.length == 0) {
+                $('.number', el).html("...");
+                return
+            }
+
 	        //if (n_realtime_active_operations === 0) {
             //    $(that.placeholder).trigger($.Event('loaded',{}));
             //}
@@ -87,9 +96,7 @@ function realtime_slots (id, url, avoid_notification) {
             } else {
                 css_class = 'available'
             }
-            $('.available-slots', el).removeClass('almost-full');
-            $('.available-slots', el).removeClass('available');
-            $('.available-slots', el).removeClass('full');
+
             $('.available-slots', el).addClass(css_class);
             //{{='full' if park['freeslots'] < 10 else ('almost-full' if park['freeslots'] < 70 else 'available')}}
             if (json.created_on) {
@@ -103,7 +110,11 @@ function realtime_slots (id, url, avoid_notification) {
             }
 	    },
 	    error: function (e, status) {
-		    console.log('errore');
+            $('.available-slots', el).removeClass('almost-full');
+            $('.available-slots', el).removeClass('available');
+            $('.available-slots', el).removeClass('full');
+            $('.number', el).html("...");
+            return
 	    },
 	});
 }
@@ -197,7 +208,7 @@ function plot (placeholder, url, slots) {
 			method: 'GET',
 		    dataType: 'json',
 		    success: function(json) {
-		        that.onDataReceived(json, url)
+		        that.onDataReceived(json, url);
                 that.n_active_operations = that.n_active_operations - 1;
 		        if (that.n_active_operations === 0) {
                     $(that.ph).trigger($.Event('loaded',{}));
@@ -205,12 +216,12 @@ function plot (placeholder, url, slots) {
                 $(that.ph).siblings(".updating").hide();
 		    },
 		});
-	};
+    };
 
     this.data_not_available = function() {
         $(this.ph).html(data_not_available_str);
-    }
-
+    };
+    
     this.init = function(placeholder, url, slots) {
         this.slots = slots;
         this.ph = placeholder;

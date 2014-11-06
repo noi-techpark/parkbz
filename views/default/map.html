@@ -5,40 +5,50 @@
 <script>
     var map = L.map('map').setView([46.498333, 11.355151], 15);
     var popup_selected;
+    var geojsonLayer;
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    $.getJSON('{{=URL('default', 'get_geojson', vars=request.vars)}}', function( data ) { 
-        geojsonLayer = L.geoJson(data, {
-            pointToLayer: function (feature, latlng) {
-                var freeslots = feature.properties.freeslots;
-                icon = ((freeslots > 70)? "green" : ((freeslots > 10) ? "yellow" : "red"))
-                var markerIcon = new L.Icon.Default({
-                    iconUrl: "./static/js/images/marker-icon-" + icon + ".png",
-                    iconRetinaUrl: "./static/js/images/marker-icon-" + icon + "-2x.png",
-                });
-                return L.marker(latlng, {icon: markerIcon});
-            },
-            onEachFeature: onEachFeature
-        }).addTo(map);
-        if (popup_selected) {
-            map.on("viewreset", function() {
-                popup_selected.openPopup();
-                initTooltip();
-            });
+    function load_geojson() {
+        var url = '{{=URL('default', 'get_geojson')}}';
+        var params = { type:type, period:period };
+        var url_request = url + '?' + jQuery.param(params);
+        if (geojsonLayer !== undefined){
+            console.log('rimuovo layer');
+            map.removeLayer(geojsonLayer);
         }
-        map.fitBounds(geojsonLayer.getBounds(), {padding: [15,15]});
-        map.on("popupopen", function(e) {
-            initTooltip();
-            popup_open = e.popup;
-            $('.carpark').trigger('reload', true);
+        $.getJSON(url_request, function( data ) { 
+            geojsonLayer = L.geoJson(data, {
+                pointToLayer: function (feature, latlng) {
+                    var freeslots = feature.properties.freeslots;
+                    icon = ((freeslots > 70)? "green" : ((freeslots > 10) ? "yellow" : "red"))
+                    var markerIcon = new L.Icon.Default({
+                        iconUrl: "./static/js/images/marker-icon-" + icon + ".png",
+                        iconRetinaUrl: "./static/js/images/marker-icon-" + icon + "-2x.png",
+                    });
+                    return L.marker(latlng, {icon: markerIcon});
+                },
+                onEachFeature: onEachFeature
+            }).addTo(map);
+            if (popup_selected) {
+                map.on("viewreset", function() {
+                    popup_selected.openPopup();
+                    initTooltip();
+                });
+            }
+            map.fitBounds(geojsonLayer.getBounds(), {padding: [15,15]});
+            map.on("popupopen", function(e) {
+                initTooltip();
+                popup_open = e.popup;
+                $('.carpark').trigger('reload', true);
+            });
+            map.on("popupclose", function() {
+                popup_open = undefined;
+            });
         });
-        map.on("popupclose", function() {
-            popup_open = undefined;
-        });
-    });
-    
+    }
+    load_geojson();
     function onEachFeature (feature, layer) {
         var popupContent;
         if (feature.properties && feature.properties.popupContent) {
@@ -49,4 +59,10 @@
             popup_selected = popup;
         }
     }
+    
+    $(document).on('forecast', '.map-cont', function(e, avoid_notification) {
+        console.log('evento');
+        load_geojson();
+    });
+
 </script>
