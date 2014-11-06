@@ -28,20 +28,34 @@ def __get_park_data(park, address_only=False):
     return data
 
 def __get_parks_info(address_only=False):
-	parks_id = cache.ram('parkingIds', lambda: server.DataManager.getParkingIds(), time_expire=3600)
-	if parks_id == -1:
-		return 'errore'
-	parks = []
-	for park in parks_id:
-		data = __get_park_data(park, address_only)
-		parks.append( data )
-	parks_ordered = sorted(parks, key=lambda p: p['name'])
-	return parks_ordered
+    r = requests.get("%s/%s" %(rest_url, "get-station-details"))
+    parks = r.json()
+	# Backward compatibility
+    for p in parks:
+        p['park_id'] = p['id']
+        p['address'] = T(p['mainaddress'])
+        try:
+            p['name'] = p['name'][p['name'].index('-') + 1:].strip()
+        except:
+            data['name'] = p['name'].strip()
+        p['name'] = T(p['name'], language=None)
+        p['phone'] = p['phonenumber']
+        p['slots'] = p['capacity']
+        if not(address_only):
+            p['freeslots'] = __get_freeslots(p['id'])
+    parks_ordered = sorted(parks, key=lambda p: p['name'])
+    return parks_ordered
 
-def get_park_link(park): 
-	url = URL('default', T('parking', lazy=False), args=[park['park_id'], XML(park['name'])], extension=False)
-	return url
-  
+def __get_freeslots(park_id):
+    type_r = _vars('type', is_string=True) or 'free'
+    period = _vars('period')
+    params={'station':park_id, 'type':type_r}
+    if period:
+        params['period'] = period
+    r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
+    freeslots = r.json()['value']
+    return freeslots
+
 def _vars(name, single=True, post=False, is_string=False):
     var_ = request.get_vars.__getitem__(name)[0] if isinstance(request.get_vars.__getitem__(name), list) and single else request.get_vars.__getitem__(name)
     if not(var_):
@@ -49,4 +63,3 @@ def _vars(name, single=True, post=False, is_string=False):
     if is_string: return str(var_) if var_ else var_
     var_ = int(var_) if var_ else None
     return var_
-    
