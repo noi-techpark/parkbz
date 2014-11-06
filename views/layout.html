@@ -73,8 +73,6 @@
 						<a class="addthis_button_google_plusone_share"></a>
 						<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
 					</div>
-					<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-					<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fd055665d176cbf"></script>
 		    	</div>
 	    	</div>	
 	    	
@@ -114,15 +112,6 @@
 	    </div>
     </aside>
     
-    <!--footer id="footer-1" class="footer-1">
-    	<div class="aux">
-	    	<h3>le altre app del <strong>progetto Bolzano Traffic</strong></h3>
-			<ul>
-				<li class="bztraffic"><a href="#"><img src="{{=URL('static','images/logo-bztraffic.jpg')}}" alt="BZ Traffic" /></a></li>
-			</ul>	
-    	</div>
-    </footer-->
-    
     <footer id="footer-2" class="footer-2">
     	<div class="aux">
 		    <div class="aux2">
@@ -134,7 +123,7 @@
 		    </div>
 		    <div class="text">		    
 			    <p>Codice licenziato sotto <a href="http://www.gnu.org/licenses/agpl-3.0.html">GNU Affero General Public License</a> pubblicato su <a href="https://github.com/ilvalle/parkbz">github</a><br />Powered by the <a href="http://web2py.com/">web2py</a> python web framework</p>
-				<p>Contatto: project [at] integreen-life.bz.it</p>
+				<p>{{=T('Contact')}}: project [at] integreen-life.bz.it</p>
 			</div>
     	</div>
     </footer>
@@ -147,5 +136,6 @@
     'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
   });</script>
   {{pass}}
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fd055665d176cbf"></script>
 </body>
 </html>
