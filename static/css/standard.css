@@ -245,7 +245,7 @@ author: Madeincima.it
     #map{max-height:715px;height:600px;overflow:hidden}
     .notice{position:absolute;top:0;right:52px;margin:0}
     .forecast .notice{margin-top:0}
-    .notice-time{margin-top:0;right:auto;left:110px;position:absolute;display: none;}
+    .notice-time{margin-top:0;right:auto;left:130px;position:absolute;display: none;}
 } 
 
 

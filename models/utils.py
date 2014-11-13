@@ -12,8 +12,8 @@ def __get_parks_info(address_only=False):
         try:
             p['name'] = p['name'][p['name'].index('-') + 1:].strip()
         except:
-            data['name'] = p['name'].strip()
-        p['name'] = T(p['name'], language=None)
+            p['name'] = p['name'].strip()
+        p['name'] = T(p['name'])
         p['phone'] = p['phonenumber']
         p['slots'] = p['capacity']
         if not(address_only):
