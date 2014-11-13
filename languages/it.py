@@ -55,6 +55,7 @@
 'Cognome': 'Cognome',
 'Community': 'Community',
 'Components and Plugins': 'Components and Plugins',
+'Contact': 'Contact',
 'contains': 'contains',
 'Controller': 'Controller',
 'Copyright': 'Copyright',

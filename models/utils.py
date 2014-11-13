@@ -1,35 +1,10 @@
-from xmlrpclib import ServerProxy
-from applications.parkbz.modules.utils import TimeoutTransport
-import copy
-server = ServerProxy("http://ipchannels.integreen-life.bz.it/parkingFrontEnd/xmlrpc", transport=TimeoutTransport())
-### TODO XML_RPC requests must be migrated to REST webservices
-###
-def __get_park_data(park, address_only=False):
-    data = cache.ram('park_%s' % park, lambda: server.DataManager.getParkingStation(park), time_expire=3600)
-    if not(isinstance(data, dict)) or ('status' in data and data['status'] != 200): 
-        cache.ram('park_%s' % park, lambda: None, time_expire=0)
-        raise HTTP(404)
-    data = copy.deepcopy(data)  # Due to language translations, we have to work with a fresh copy of the one in cache
-    name = data['name']
-    data['park_id']	= park
-    try:
-        data['name'] = name[name.index('-') + 1:].strip()
-    except:
-        data['name'] = name.strip()
-    data['name'] = T(data['name'], language=None)
-    data['address'] = T(data['address'], language=None)
-    if not(address_only):
-        params={'station':park, 'type':'free'}
-        r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
-        data['freeslots'] = r.json()['value']
-        data['slots_taken'] = data['slots'] - data['freeslots']
-        data['slots_taken_rate'] = (data['slots_taken'] * 100) / data['slots']
-        data['freeslots_rate'] = 100 - data['slots_taken_rate']
-    return data
-
+# Return basic info for all available parking lots
 def __get_parks_info(address_only=False):
     r = requests.get("%s/%s" %(rest_url, "get-station-details"))
+    if 'exceptionMessage' in r.json():
+        return []
     parks = r.json()
+
 	# Backward compatibility
     for p in parks:
         p['park_id'] = p['id']
@@ -42,19 +17,39 @@ def __get_parks_info(address_only=False):
         p['phone'] = p['phonenumber']
         p['slots'] = p['capacity']
         if not(address_only):
-            p['freeslots'] = __get_freeslots(p['id'])
+            value = __get_last_value(_parking_id = p['id'])
+            p['freeslots'] = value['freeslots'] if 'freeslots' in value else -1
     parks_ordered = sorted(parks, key=lambda p: p['name'])
     return parks_ordered
 
-def __get_freeslots(park_id):
-    type_r = _vars('type', is_string=True) or 'free'
-    period = _vars('period')
-    params={'station':park_id, 'type':type_r}
+# return the last available value if valid (not out-of-date)
+def __get_last_value(_type=None, _period=None, _parking_id=None, _seconds=None, with_timestamp=False):
+    params={}
+    params['station'] = _parking_id or _vars('parking_id')
+    params['name'] = _type or _vars('type', is_string=True) or 'free'
+    params['seconds'] = _seconds or 1800
+    period = _period or _vars('period')
     if period:
         params['period'] = period
-    r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
-    freeslots = r.json()['value']
-    return freeslots
+
+    r = requests.get("%s/%s" %(rest_url, "get-records"), params=params)
+    data=r.json()
+
+    if 'exceptionMessage' in data or len(data) == 0:
+        return r.json()
+
+    obj=data[len(data)-1]
+    t = datetime.datetime.fromtimestamp(obj['timestamp']/1e3) + datetime.timedelta(seconds=3600)
+    if t < request.now:
+        return response.json({})
+    response = {'freeslots':obj['value']}
+    if params['name'] != 'free':
+        created_on = datetime.datetime.fromtimestamp(obj['created_on']/1e3)
+        response['created_on'] = "%s:%s" %(created_on.hour, created_on.minute)
+
+    if with_timestamp:
+        response['timestamp'] = obj['timestamp']
+    return response
 
 def _vars(name, single=True, post=False, is_string=False):
     var_ = request.get_vars.__getitem__(name)[0] if isinstance(request.get_vars.__getitem__(name), list) and single else request.get_vars.__getitem__(name)

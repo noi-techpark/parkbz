@@ -46,42 +46,23 @@ def prediction():
     forecast_types = sorted(forecast_types,key=lambda x: int(x[3]))
     output=[]
     for pos, f in enumerate(forecast_types):
-        params['type'] = f[0]
-        params['period'] = f[3]    
-        r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
-        data = r.json()
-        t = datetime.datetime.fromtimestamp(r.json()['timestamp']/1e3) + datetime.timedelta(seconds=3600)
-        if t > request.now:
-            output.insert(0, [int(data['timestamp']), int(data['value'])])
+        value = __get_last_value(_type=f[0], _period=f[3], _parking_id=parking_id, with_timestamp=True)
+        if 'freeslots' in value:
+            output.insert(0, [int(value['timestamp']), int(value['freeslots'])])
     return response.json(output)
 
 # Return the number of freeslots for the given parking area
 def freeslots():
-    parking_id = _vars('parking_id')
-    type_r = _vars('type', is_string=True) or 'free'
-    period = _vars('period')
-    params={'station':parking_id, 'type':type_r}
-    if period:
-        params['period'] = period
-    r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
-    json_response = {'freeslots':r.json()['value']}
-    if 'exceptionMessage' in r.json():
-        return r.json()
-    t = datetime.datetime.fromtimestamp(r.json()['timestamp']/1e3) + datetime.timedelta(seconds=3600)
-    if t < request.now:
-        return response.json([])
-    if type_r != 'free':
-        created_on = datetime.datetime.fromtimestamp(r.json()['created_on']/1e3)
-        json_response['created_on'] = "%s:%s" %(created_on.hour, created_on.minute)
-    return response.json(json_response)
+    value = __get_last_value()
+    if 'freeslots' not in value:
+        raise HTTP(503, 'Data not available')
+    return response.json(value)
 
 # Return a list of available forecasts
 def get_times():
     # Check if the forecasts data are available
-    params={'type': 'Parking forecast', 'period': 7200, 'station':108}
-    r = requests.get("%s/%s" %(rest_url, "get-last-record"), params=params)
-    t = datetime.datetime.fromtimestamp(r.json()['timestamp']/1e3)
-    if t < request.now:
+    last = __get_last_value(_type= 'Parking forecast', _period=7200, _parking_id = 108)
+    if 'freeslots' not in last:
         return ''
     r = requests.get("%s/%s" %(rest_url, "get-data-types"))
     forecast_types = filter(lambda e: 'forecast' in e[0].lower() and len(e) > 3, r.json())
@@ -92,4 +73,3 @@ def get_times():
     ul[0]['_class'] += 'current'
     span = SPAN(T('now'), _class="box round")
     return CAT(span, ul)
-
