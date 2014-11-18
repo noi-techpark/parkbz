@@ -19,9 +19,11 @@ $(document).on('click', '.forecast h3', function(){
 $(document).on('click', '.actions .time span,.carpark-selector span,.lang span', function(){
 	if(!$(this).hasClass('open')){
 		var docHeight = $(document).height();
-		$('<div class="overlay-dropdown" style="width:100%;height:'+docHeight+'px;position:absolute;top:0;left:0;bottom:0;right:0;z-index:120"></div>').appendTo('body');
-		overlayDropdown(this);
-	} else {$('.overlay-dropdown').remove();}
+		//$('<div class="overlay-dropdown" style="width:100%;height:'+docHeight+'px;position:absolute;top:0;left:0;bottom:0;right:0;z-index:120"></div>').appendTo('body');
+		//overlayDropdown(this);
+	} else {
+	    $('.overlay-dropdown').remove();
+	}
 	$(this).toggleClass('open').next().fadeToggle('fast');
 });
 
@@ -33,6 +35,7 @@ $(document).on('click', '.buttons .share-btn', function(){
 });
 
 function overlayDropdown (e){
+    $('.overlay-dropdown').off('click');
 	$('.overlay-dropdown').on('click',function(){
 		e.click();
 		$('.overlay-dropdown').remove();

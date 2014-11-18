@@ -40,20 +40,22 @@ $(document).on("reload", '.carpark', function(e, avoid_notification) {
     realtime_slots(park_id, park_url, avoid_notification);
 });
 
-$(document).on("click", '.actions .time a', function(e) {
+$(document).on("click", '.times a', function(e) {
     var el = $(this);
     type = $(el).data('type'); //'Parking forecast'
     period = $(el).data('period');
     text = $(el).html();
     if ($(el).data('default-msg')){
         msg = el.html();
+        $('main').addClass('forecast');
     } else {
         msg = default_msg;
+        $('main').removeClass('forecast');
     }
     $('.time span.box.round').html(el.html());
     $('.carpark').trigger('reload', true);
     $('.times.round.box').fadeToggle('fast');
-    $('.overlay-dropdown').remove();
+//    $('.overlay-dropdown').remove();
     $('.actions .time li.current').removeClass('current');
     $(el).parent('li').addClass('current');
     $('.map-cont').trigger('forecast', true);
@@ -62,6 +64,7 @@ $(document).on("click", '.actions .time a', function(e) {
 function realtime_slots (id, url, avoid_notification) {
     var el = $( '#park_'+id);
     $(".slots .updating", el).show();
+    $(".actions .notice-update").hide();
     var params = { type:type, period:period };
     url_request = url + '&' + jQuery.param(params);
     $.ajax({
@@ -76,7 +79,9 @@ function realtime_slots (id, url, avoid_notification) {
             $('.available-slots', el).removeClass('available');
             $('.available-slots', el).removeClass('full');
 	        if(json.length == 0) {
+                $(".notice-time").hide();
                 $('.number', el).html("...");
+                $(".value_time", el).html('')
                 return
             }
 
@@ -107,13 +112,16 @@ function realtime_slots (id, url, avoid_notification) {
             } else {
                 $(".notice-time").hide();
                 $(el).removeClass('forecast');
+                $(".value_time", el).html('');
             }
 	    },
 	    error: function (e, status) {
             $('.available-slots', el).removeClass('almost-full');
             $('.available-slots', el).removeClass('available');
             $('.available-slots', el).removeClass('full');
+            $(".notice-time").hide();
             $('.number', el).html("...");
+            $(".value_time", el).html('');
             return
 	    },
 	});

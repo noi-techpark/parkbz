@@ -54,8 +54,8 @@ def prediction():
 # Return the number of freeslots for the given parking area
 def freeslots():
     value = __get_last_value()
-    if 'freeslots' not in value:
-        raise HTTP(503, 'Data not available')
+    #if 'freeslots' not in value:
+    #    raise HTTP(503, 'Data not available')
     return response.json(value)
 
 # Return a list of available forecasts
