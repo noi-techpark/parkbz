@@ -6,12 +6,7 @@
     var data_not_available_str = '{{=T("Predictions currently unavailable")}}';
 </script>
 {{
-    is_mobile = request.user_agent().is_mobile
-    if is_mobile:
-    	response.files.insert(0,URL('static','js/jquery-2.0.3.min.js'))   
-    else:
-        response.files.insert(0,URL('static','js/jquery.min.js'))   
-    pass
+    response.files.insert(0,URL('static','js/jquery.min.js'))
 	response.files.insert(3,URL('static','js/web2py.js'))
 	response.files.insert(3,URL('static','js/utility.js'))
 	response.files.append(URL('static','js/app.js'))
