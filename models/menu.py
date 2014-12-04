@@ -17,6 +17,7 @@ settings.email_login = ''
 settings.login_method = 'local'
 settings.login_config = ''
 settings.plugins = []
+settings.logo_url = URL('static','images/logo-bolzano-parking.png', scheme='http', host=True)
 
 response.title = settings.title
 response.subtitle = settings.subtitle
