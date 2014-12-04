@@ -218,6 +218,7 @@
 'RAM Cache Keys': 'RAM Cache Keys',
 'Ram Cleared': 'Ram Cleared',
 'Real-time Bolzano parking situation': 'Real-time Bolzano parking situation',
+'Real-time parking lot availability in the city of Bolzano': 'Real-time parking lot availability in the city of Bolzano',
 'Recipes': 'Recipes',
 'Record': 'Record',
 'record does not exist': 'il record non esiste',
