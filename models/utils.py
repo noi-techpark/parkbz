@@ -31,8 +31,15 @@ def __get_last_value(_type=None, _period=None, _parking_id=None, _seconds=None, 
     period = _period or _vars('period')
     if period:
         params['period'] = period
+    
+    if 'forecast' in params['name']:
+        method = "get-records-in-timeframe"
+        params['from'] = "%s000" % (_epoch(request.now)-3600)
+        params['to'] = "%s000" % _epoch(request.now + datetime.timedelta(seconds=int(period)+3600))
+    else:
+        method = "get-records"
 
-    r = requests.get("%s/%s" %(rest_url, "get-records"), params=params)
+    r = requests.get("%s/%s" %(rest_url, method), params=params)
     data=r.json()
 
     if 'exceptionMessage' in data or len(data) == 0:
@@ -58,3 +65,7 @@ def _vars(name, single=True, post=False, is_string=False):
     if is_string: return str(var_) if var_ else var_
     var_ = int(var_) if var_ else None
     return var_
+    
+def _epoch (d):
+    return int((d - datetime.datetime(1970,1,1)).total_seconds())
+
