@@ -32,6 +32,11 @@ def get_geojson():
                         "coordinates": [p['longitude'], p['latitude']]
                     },} for p in parks] 
 
+        response.headers['Content-Type'] = 'application/json'
+        response.headers['access-control-allow-headers'] = 'x-requested-with'
+        response.headers['access-control-allow-methods'] = 'GET'
+        response.headers['access-control-allow-origin'] = '*'
+        response.headers['access-control-max-age'] = 900
         return response.json({"type": "FeatureCollection", 'features': features}) 
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'
