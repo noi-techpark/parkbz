@@ -25,10 +25,11 @@ def map():
 def get_geojson():
     try:
         parks = __get_parks_info()
+        url_base = _vars('url_base')
         parking_id = int(request.vars.parking_id) if  request.vars.parking_id and  request.vars.parking_id.isdigit() else None
         features= [{"type": "Feature",
                     "properties": {
-                        "popupContent": response.render('default/park_box.html', {'park':p, 'tooltip': True}),
+                        "popupContent": response.render('default/park_box.html', {'park':p, 'tooltip': True, url_base:url_base}),
                         "openPopup": True if parking_id == p['park_id'] else False,
                         "freeslots": p['freeslots']
                     },

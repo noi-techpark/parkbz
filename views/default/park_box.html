@@ -1,5 +1,10 @@
 {{if globals().get('tooltip', False):}}
-<div id="park_{{=park['park_id']}}" class="carpark" data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'freeslots.json', vars={'parking_id':park['park_id']})}}">
+{{if globals().get('url_base', False) and url_base:}}
+{{url="http://%s/default/freeslots.json?parking_id=%s" % (url_base, park['park_id'])}}
+{{else:}}
+{{url=URL('default', 'freeslots.json', vars={'parking_id':park['park_id']})}}
+{{pass}}
+<div id="park_{{=park['park_id']}}" class="carpark" data-id="{{=park['park_id']}}" data-url="{{=url}}">
 {{else:}}
 <div id="park_{{=park['park_id']}}" class="carpark box {{='odd' if (pos+1)%2==1 else ''}} {{='third' if (pos+1)%3==0 else ''}}" data-id="{{=park['park_id']}}" data-url="{{=URL('default', 'freeslots.json', vars={'parking_id':park['park_id']})}}">
 {{pass}}
