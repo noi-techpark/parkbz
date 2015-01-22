@@ -4,6 +4,11 @@ import requests
 import datetime
 session.forget(response)
 
+response.headers['access-control-allow-headers'] = 'x-requested-with'
+response.headers['access-control-allow-methods'] = 'GET'
+response.headers['access-control-allow-origin'] = '*'
+response.headers['access-control-max-age'] = 900
+
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def index():
     try:
@@ -33,10 +38,6 @@ def get_geojson():
                     },} for p in parks] 
 
         response.headers['Content-Type'] = 'application/json'
-        response.headers['access-control-allow-headers'] = 'x-requested-with'
-        response.headers['access-control-allow-methods'] = 'GET'
-        response.headers['access-control-allow-origin'] = '*'
-        response.headers['access-control-max-age'] = 900
         return response.json({"type": "FeatureCollection", 'features': features}) 
     except socket.timeout:
         return 'Data not available, the frontEnd is currently unreachable'
@@ -54,6 +55,7 @@ def prediction():
         value = __get_last_value(_type=f[0], _period=f[3], _parking_id=parking_id, with_timestamp=True)
         if 'freeslots' in value:
             output.insert(0, [int(value['timestamp']), int(value['freeslots'])])
+            
     return response.json(output)
 
 # Return the number of freeslots for the given parking area
