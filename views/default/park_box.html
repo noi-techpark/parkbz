@@ -1,6 +1,6 @@
 {{if globals().get('tooltip', False):}}
 {{if globals().get('url_base', False) and url_base:}}
-{{url="http://%s/default/freeslots.json?parking_id=%s" % (url_base, park['park_id'])}}
+{{url="http://parking.bz.it/%s/default/freeslots.json?parking_id=%s" % (url_base, request.application, park['park_id'])}}
 {{else:}}
 {{url=URL('default', 'freeslots.json', vars={'parking_id':park['park_id']})}}
 {{pass}}
