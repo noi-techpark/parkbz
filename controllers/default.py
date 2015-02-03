@@ -26,7 +26,6 @@ def get_geojson():
     try:
         parks = __get_parks_info()
         url_base = _vars('url_base', is_string=True)
-        print url_base
         parking_id = int(request.vars.parking_id) if  request.vars.parking_id and  request.vars.parking_id.isdigit() else None
         features= [{"type": "Feature",
                     "properties": {

@@ -40,6 +40,7 @@ def __get_last_value(_type=None, _period=None, _parking_id=None, _seconds=None, 
         method = "get-records"
 
     r = requests.get("%s/%s" %(rest_url, method), params=params)
+    print r.url
     data=r.json()
 
     if 'exceptionMessage' in data or len(data) == 0:
