@@ -219,7 +219,11 @@ position: absolute;
 @media only screen and (min-width:25em){
 
 	a.beta{bottom:20%;left:106%;font-size:.9em;padding:0.25em .6em}
-
+.footer-1 ul {
+width: 304px;
+height: 161px;
+padding-bottom: 0;
+}
 }
 
 @media only screen and (min-width:39em){
