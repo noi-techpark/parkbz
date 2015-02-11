@@ -139,13 +139,19 @@
     </footer>
     
   	<a href="https://github.com/ilvalle/parkbz" id="github">Fork me on GitHub</a>
-  {{if response.google_analytics_id and not(request.is_local):}}
-  <script src="{{=URL('static','js/analytics.min.js')}}"></script>
-  <script type="text/javascript">
-  analytics.initialize({
-    'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'} 
-  });</script>
-  {{pass}}
+<script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59614679-1', 'auto');
+  ga('send', 'pageview');
+
+</script> 
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fd055665d176cbf"></script>
 </body>
 </html>
