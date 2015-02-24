@@ -158,7 +158,7 @@ author: Madeincima.it
 		.footer-1 h3{font-size:1.7em;font-weight:normal;margin-bottom:.6em;font-family: 'titillium_webregular',arial,sans-serif;}
 		.footer-1 h3 strong{color:#0a99d4;font-weight:normal}
 		.footer-1 li a{border:0;}
-		.footer-1 li a img{width:30%;min-width:130px;max-width:219px}
+		.footer-1 li a img{width:100%;max-width:100%}
 		
 	.footer-2{background:#fff url(../images/bg-gradient.gif) 0 0 repeat-x;color:#ababab;padding:2em 0;clear:both;text-align:center;font-size:.9em;border-top:1px solid #fff}
 		.footer-2 .aux2 {position:relative;}
