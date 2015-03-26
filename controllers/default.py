@@ -18,6 +18,7 @@ def index():
         return 'FrontEnd is currently unreachable'
 
 # Return the template of the map, the map is populated by the geojson requested with ajax
+#@cache.action(time_expire=3600, cache_model=cache.ram)
 def map():
     return {}
 
@@ -81,3 +82,10 @@ def get_times():
     ul[0]['_class'] += 'current'
     span = SPAN(T('now'), _class="box round")
     return CAT(span, ul)
+    
+    
+def get_park_list():
+    parks = __get_parks_info()
+    return response.render('default/park_list.load', {'parks':parks})
+    
+

@@ -77,7 +77,7 @@
 	    	</div>	
 	    	
 	    	<ul class="buttons">
-	    		<!--li class="share-btn round"><a href="#"><strong>{{=T('Share')}}</strong> {{=T('on social and with a widget')}}</a></li-->
+	    		<li class="developers-btn share-btn round"><a href="#"><strong>{{=T('Share')}}</strong> {{=T('on social and with a widget')}}</a></li>
 	    		<li class="developers-btn round"><a href="https://github.com/ilvalle/parkbz"><strong>{{=T('Are you a developer?')}}</strong> {{=T('join the project')}}</a></li>
 	    	    <li class="developers-btn round survey-btn"><a href="https://docs.google.com/forms/d/{{=T('1qgBMiNqcWilOYJcOI4KM2YqB7Vt9nH-cACty__zCzD8')}}/viewform" target="_blank"><strong>{{=T("Go to the survey!")}}</strong></a></li>
 	    	</ul>
@@ -89,17 +89,18 @@
 				    	<div class="embed">	
 					    	<h4>Codice Embed</h4>
 					    	<div class="carpark-selector">
-						    	<span class="box round">BZ Centro</span>
-								<ul class="box round">
-									<li><a href="#">Central Parking</a></li>
-									<li><a href="#">City Parking</a></li>
-									<li><a href="#">Fiera</a></li>
-									<li><a href="#">Laurin</a></li>
-									<li><a href="#">Luna</a></li>
-									<li class="last"><a href="#">Piazza Walther</a></li>
-								</ul>
+						    	<span class="box round">Parcheggio</span>
+								<ul class="box round" id="widget_selector">
+						    	{{for p in parks:}}
+						    	    <li><a href="#" data-park-id="{{=p['park_id']}}">{{=p['name']}}</a></li>
+                                {{pass}}
+                                </ul>
 					    	</div>
-					    	<textarea onclick="this.focus();this.select()" readonly="readonly">&lt;div class="parking-widget" data-href="http://parking.integreen-life.bz.it" data-ref="108"&gt;&lt;/div&gt;&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=http://parking.integreen-life.bz.it/parkbz/it/static/js/widget.js;fjs.parentNode.insertBefore(js,fjs);}(document,"script","parking-widget");&lt;/script&gt;</textarea>
+					    	<textarea onclick="this.focus();this.select()" readonly="readonly" id="html_widget">
+					    	{{="""<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=%s;fjs.parentNode.insertBefore(js,fjs);}}(document,"script","parking-widget");
+</script>
+""" % URL('static','/js/widget.js', host=True)}}
+					    	</textarea>
 				    	</div>
 				    	<div class="preview">
 				    		<h4>Anteprima</h4>
