@@ -96,10 +96,9 @@
                                 {{pass}}
                                 </ul>
 					    	</div>
-					    	<textarea onclick="this.focus();this.select()" readonly="readonly" id="html_widget">
-					    	{{="""<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=%s;fjs.parentNode.insertBefore(js,fjs);}}(document,"script","parking-widget");
-</script>
-""" % URL('static','/js/widget.js', host=True)}}
+					    	<textarea onclick="this.focus();this.select()" readonly="readonly" id="html_widget" rows="5">
+					    	{{="""<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=%s;fjs.parentNode.insertBefore(js,fjs);} }(document,"script","parking-widget");
+</script>""" % URL('static','/js/widget.js', host=True)}}
 					    	</textarea>
 				    	</div>
 				    	<div class="preview">
