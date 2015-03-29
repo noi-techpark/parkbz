@@ -20,7 +20,8 @@ def index():
 # Return the template of the map, the map is populated by the geojson requested with ajax
 #@cache.action(time_expire=3600, cache_model=cache.ram)
 def map():
-    return {}
+    parks = __get_parks_info(address_only=True)
+    return {'parks': parks}
 
 # Return the geojson with the point of each parking area with the html of the specific tooltip
 def get_geojson():
