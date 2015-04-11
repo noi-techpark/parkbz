@@ -271,7 +271,7 @@ padding-bottom: 0;
 	.embed{position:relative;float:left;width:68%}
 	.preview{float:right;width:30%}
 	.preview h4{margin-bottom:.9em}
-	.previewbox{background:#fff url(../images/plc-preview.gif) 0 0 no-repeat;height:97px;padding:8px 0;}
+	.previewbox{background:#fff;height:97px;padding:8px 0;}
 	textarea{resize:none;overflow-y:scroll;font-size:1.1em;line-height:155%;background:#3d3c45;color:#f9f9f9;border:0;padding:10px 2%;box-shadow: inset 1px 1px 5px #27272b;-webkit-box-shadow: inset 1px 1px 5px #27272b;-moz-box-shadow: inset 1px 1px 5px #27272b;width:96%;height:95px}
 	
 	.carpark-selector{position:absolute;top:-6px;right:0;z-index:150}
@@ -453,5 +453,8 @@ only screen and (min-resolution: 2dppx){
 
 .survey-btn {
     background: #0a99d4;
+}
+#html_widget{
+    font-size: 0.8em;
 }
 

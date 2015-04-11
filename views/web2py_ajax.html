@@ -4,6 +4,7 @@
     var capacity = '{{=T("Capacity")}}';
     var appName = '{{=request.application}}';
     var data_not_available_str = '{{=T("Predictions currently unavailable")}}';
+    var widget_url = '{{=URL('static','/js/widget.js', host=True)}}';
 </script>
 {{
     response.files.insert(0,URL('static','js/jquery.min.js'))
