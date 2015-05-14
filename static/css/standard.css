@@ -264,14 +264,14 @@ padding-bottom: 0;
 	
 	.widget-cont{display:block}
 	.widget{margin-top:90px;float:left;width:100%}
-	.widget h3{background:#0a99d4;color:#fff;padding:.5em 1em;display:inline-block;font-family: 'titillium_webbold',Arial,sans-serif;font-weight:normal;font-size:1.3em}
+	.widget h3#widget{background:#0a99d4;color:#fff;padding:.5em 1em;display:inline-block;font-family: 'titillium_webbold',Arial,sans-serif;font-weight:normal;font-size:1.3em}
 	.widget h4{color:#fff;font-size:1.2em;font-family: 'titillium_webbold',Arial,sans-serif;font-weight:normal;margin-bottom:.8em}
 	
 	.embed-box{background:#4a4952;padding:20px 2% 18px 2%;float:left;width:96%;-moz-box-shadow:0px 0px 8px #141415;-webkit-box-shadow:0px 0px 8px #141415;box-shadow:0px 0px 8px #141415}
 	.embed{position:relative;float:left;width:68%}
 	.preview{float:right;width:30%}
 	.preview h4{margin-bottom:.9em}
-	.previewbox{background:#fff;height:97px;padding:8px 0;}
+	.previewbox{background:#fff;min-height:97px;height:100%;padding:4px 0;}
 	textarea{resize:none;overflow-y:scroll;font-size:1.1em;line-height:155%;background:#3d3c45;color:#f9f9f9;border:0;padding:10px 2%;box-shadow: inset 1px 1px 5px #27272b;-webkit-box-shadow: inset 1px 1px 5px #27272b;-moz-box-shadow: inset 1px 1px 5px #27272b;width:96%;height:95px}
 	
 	.carpark-selector{position:absolute;top:-6px;right:0;z-index:150}
@@ -457,4 +457,11 @@ only screen and (min-resolution: 2dppx){
 #html_widget{
     font-size: 0.8em;
 }
+#preview_widget .parking-widget .carpark {
+    width: 100%;
+    float: none;    
+}
+
+
+
 

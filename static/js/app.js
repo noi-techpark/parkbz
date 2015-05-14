@@ -19,6 +19,7 @@ var msg = default_msg;
 var period=undefined;
 var text;
 var popup_open;
+$(document).off("slidend", ".forecast h3.open");
 $(document).on("slidend", ".forecast h3.open", function(e) {
     if (popup_open != undefined) {
         popup_open._adjustPan();    // _adjustPan is an internal function, it could change in the future
@@ -28,18 +29,18 @@ $(document).on("slidend", ".forecast h3.open", function(e) {
     var slots = $(this).data("slots");
     var chart = new plot(ph, prediction_url, slots);
 });
-
+$(document).off("click", "#updateall");
 $(document).on("click", "#updateall", function(e) {
     $('.carpark').trigger('reload');
 });
-
+$(document).off("reload", '.carpark');
 $(document).on("reload", '.carpark', function(e, avoid_notification) {
     el = $(this);
     park_id = $(el).data('id');
     park_url = $(el).data('url');
     realtime_slots(park_id, park_url, avoid_notification);
 });
-
+$(document).off("click", '.times a');
 $(document).on("click", '.times a', function(e) {
     var el = $(this);
     type = $(el).data('type'); //'Parking forecast'
@@ -241,11 +242,44 @@ function plot (placeholder, url, slots) {
 
 
 setInterval( function() {
-    $('.carpark').trigger('reload', true);    
+    $('.carpark').trigger('reload', true);
 }, 300000 );
 setTimeout( function() { 
     $('.carpark').trigger('reload', true);
 }, Math.floor((Math.random()*10)+1)*250);
 
+var template_widget;
+$(document).ready(function() {
+    // Catch the widget template
+    if (template_widget===undefined){
+        template_widget = $('#html_widget').val();
+        $('#html_widget').val("");
+    }
+});
+// Widget part
+// 1. get the click and create the html template
+// 2. load the content of the textarea in the iframe for the live example
+$(document).on('click', "#widget_selector a", function() {
 
+    $('#car_park_selector').toggleClass('open').next().fadeToggle('fast');
+    park_id = $(this).data('park-id');
+    host = $(this).data('ref');
+    console.log('click', park_id);
+    park_html = "<div class='parking-widget' data-ref='host_js' data-id='park_id_js'></div>\n".replace(/park_id_js/, park_id).replace(/host_js/, host);
+    var textarea_val = park_html + template_widget;
+    $('#html_widget').val(textarea_val);
+    $('#preview_widget').html(park_html);
 
+    $.getScript(widget_url, function(data, textStatus, jqxhr) {
+        console.log('Load was performed.');
+	});
+
+    return false;
+});
+$(document).off('click', '.forecast h3');
+$(document).on('click', '.forecast h3', function(){
+    var el = $(this);
+	$(this).toggleClass('open').next().slideToggle('fast', function() {
+	    $(el).trigger('slidend');
+	});
+});
