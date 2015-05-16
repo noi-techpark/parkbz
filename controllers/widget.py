@@ -19,7 +19,7 @@ def index():
     if park is None:
         raise HTTP(404)
         
-    html = response.render('default/park_box.html', {'park':park, 'url_base':True, 'tooltip':True})
+    html = response.render('default/park_box.html', {'park':park, 'url_base':True, 'widget':True})
     script = """
         var free_slot_text = '%s';
         var capacity = '%s';

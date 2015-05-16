@@ -7,7 +7,9 @@
 {{pass}}
 
 {{if globals().get('tooltip', False):}}
-<div id="park_{{=park['park_id']}}" class="carpark" data-id="{{=park['park_id']}}" data-url="{{=url_freeslots}}">
+<div id="park_{{=park['park_id']}}" class="carpark " data-id="{{=park['park_id']}}" data-url="{{=url_freeslots}}">
+{{elif globals().get('widget', False):}}
+<div id="park_{{=park['park_id']}}" class="carpark box" data-id="{{=park['park_id']}}" data-url="{{=url_freeslots}}">
 {{else:}}
 <div id="park_{{=park['park_id']}}" class="carpark box {{='odd' if (pos+1)%2==1 else ''}} {{='third' if (pos+1)%3==0 else ''}}" data-id="{{=park['park_id']}}" data-url="{{=url_freeslots}}">
 {{pass}}
