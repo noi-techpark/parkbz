@@ -1,6 +1,6 @@
 {{if globals().get('url_base', False) and url_base:}}
-    {{url_freeslots="http://parking.bz.it/%s/default/freeslots.json?parking_id=%s" % (request.application, park['park_id'])}}
-    {{url_prediction="http://parking.bz.it/%s/default/prediction.json?parking_id=%s" % (request.application, park['park_id'])}}
+    {{url_freeslots="https://parking.bz.it/%s/default/freeslots.json?parking_id=%s" % (request.application, park['park_id'])}}
+    {{url_prediction="https://parking.bz.it/%s/default/prediction.json?parking_id=%s" % (request.application, park['park_id'])}}
 {{else:}}
     {{url_freeslots=URL('default', 'freeslots.json', vars={'parking_id':park['park_id']})}}
     {{url_prediction=URL('default', 'prediction.json', vars={'parking_id':park['park_id']})}}
