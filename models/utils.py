@@ -1,25 +1,29 @@
 # Return basic info for all available parking lots
 def __get_parks_info(address_only=False):
-    r = requests.get("%s/%s" %(rest_url, "get-station-details"))
-    if 'exceptionMessage' in r.json():
-        return []
-    parks = r.json()
+    def local_get():
+        r = requests.get("%s/%s" %(rest_url, "get-station-details"))
+        if 'exceptionMessage' in r.json():
+            return []
+        parks = r.json()
 
-	# Backward compatibility
-    for p in parks:
-        p['park_id'] = p['id']
-        p['address'] = T(p['mainaddress'])
-        try:
-            p['name'] = p['name'][p['name'].index('-') + 1:].strip()
-        except:
-            p['name'] = p['name'].strip()
-        p['name'] = T(p['name'])
-        p['phone'] = p['phonenumber']
-        p['slots'] = p['capacity']
-        if not(address_only):
-            value = __get_last_value(_parking_id = p['id'])
-            p['freeslots'] = value['freeslots'] if 'freeslots' in value else -1
-    parks_ordered = sorted(parks, key=lambda p: p['name'])
+	    # Backward compatibility
+        for p in parks:
+            p['park_id'] = p['id']
+            p['address'] = T(p['mainaddress'])
+            try:
+                p['name'] = p['name'][p['name'].index('-') + 1:].strip()
+            except:
+                p['name'] = p['name'].strip()
+            p['name'] = T(p['name'])
+            p['phone'] = p['phonenumber']
+            p['slots'] = p['capacity']
+            if not(address_only):
+                value = __get_last_value(_parking_id = p['id'])
+                p['freeslots'] = value['freeslots'] if 'freeslots' in value else -1
+        parks_ordered = sorted(parks, key=lambda p: p['name'])
+        return parks_ordered
+    parks_ordered = cache.ram('get_parks_info_%s' % address_only, local_get, 1800)        
+    
     return parks_ordered
 
 # return the last available value if valid (not out-of-date)
@@ -40,7 +44,7 @@ def __get_last_value(_type=None, _period=None, _parking_id=None, _seconds=None, 
         method = "get-records"
 
     r = requests.get("%s/%s" %(rest_url, method), params=params)
-    print r.url
+    #print r.url
     data=r.json()
 
     if 'exceptionMessage' in data or len(data) == 0:

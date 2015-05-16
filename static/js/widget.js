@@ -8,7 +8,7 @@ if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.9.1') {
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     script_tag.setAttribute("src",
-        "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js");
+        "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js");
     if (script_tag.readyState) {
       script_tag.onreadystatechange = function () { // For old versions of IE
           if (this.readyState == 'complete' || this.readyState == 'loaded') {
@@ -38,7 +38,7 @@ function scriptLoadHandler() {
 /******** Our main function ********/
 function main() { 
     jQuery(document).ready(function($) { 
-        var resources_url='http://127.0.0.1:8000/parkbz/static/'
+        var resources_url='https://parking.bz.it/parkbzNew/static/'
 		var link = $("<link>");
 		link.attr({
 	    	type: 'text/css',
@@ -66,7 +66,7 @@ function main() {
             document.body.appendChild(script);
         }
 		// Get base layout
-		var urlParkWidget = '/parkbz/widget/index/';
+		var urlParkWidget = '/parkbzNew/widget/index/';
 
 		function load_park_bar(element) {
 			park_id = $(element).attr('data-id');
