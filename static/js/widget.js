@@ -38,37 +38,63 @@ function scriptLoadHandler() {
 /******** Our main function ********/
 function main() { 
     jQuery(document).ready(function($) { 
+        var resources_url='http://127.0.0.1:8000/parkbz/static/'
 		var link = $("<link>");
 		link.attr({
 	    	type: 'text/css',
 	   		rel: 'stylesheet',
-	   		href: "http://parking.integreen-life.bz.it/parkbz/static/css/widget.css"
+	   		href: resources_url + "css/standard.css"
+//	   		href: "http://parking.bz.it/parkbzNew/static/css/standard.css"
 		});
 		$("head").append( link );
+	    var script   = document.createElement("script");
+        script.type  = "text/javascript";
+        script.src   = resources_url + 'js/app.js';
+        document.body.appendChild(script);
+        $.ajaxSetup({
+            cache: true
+        });
+		script_list= ['date.js', 'jquery.flot.js', 'jquery.flot.time.js', 'jquery.flot.resize.js', 'jquery.flot.tooltip.js', 'jquery.flot.axislabels.js', 
+		'jquery.flot.threshold.js'];
+        for (i=0; i<script_list.length; i++) {
+            /*$.getScript(resources_url + 'js/' + script_list[i], function( data, textStatus, jqxhr ) {
+            });*/
+      	    var script   = document.createElement("script");
+            script.async = false;
+            script.type  = "text/javascript";
+            script.src   = resources_url + 'js/' + script_list[i];
+            document.body.appendChild(script);
+        }
 		// Get base layout
-		var urlParkWidget = '/parkbz/default/freeslots.jsonp/';
+		var urlParkWidget = '/parkbz/widget/index/';
 
 		function load_park_bar(element) {
-			park_id = $(element).attr('data-ref');
-			domain  = $(element).attr('data-href');
+			park_id = $(element).attr('data-id');
+			domain  = $(element).attr('data-ref');
 			if ((domain === undefined) || (park_id === undefined)) {
 				$(element).html('<div><strong>Error, please check your widget parameters</strong></div>');
 				return;
 			}
-			
-			$.ajax({
-				type: 'GET',
-				url: domain + urlParkWidget + park_id,
-				async: false,
-				contentType: "application/json",
-				dataType: 'jsonp',
-				success: function(json) {
-					$(element).html(json.plain_html);
-				},
-				error: function(e) {
-				   console.log(e.message);
-				}
-			});
+
+			$.getJSON(domain + urlParkWidget + park_id, function(data){
+        			html = $.parseHTML(data.plain_html);
+					$(element).html(html);
+					var script   = document.createElement("script");
+                    script.type  = "text/javascript";
+                    script.text  = data.plain_script;
+                    document.body.appendChild(script);
+                    
+                    if ((typeof parking_interval != 'undefined') && (parking_interval)) {
+                        clearInterval(parking_interval);
+                    }
+                    parking_interval = setInterval( function() {
+                        $('.carpark').trigger('reload', true);
+                    }, 300000 );
+                    setTimeout( function() {
+                        console.log('cc');
+                        $('.carpark').trigger('reload', true);
+                    }, Math.floor((Math.random()*10)+1)*250);
+            });
 		}
 
 		placeholders = $('.parking-widget');

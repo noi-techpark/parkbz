@@ -63,7 +63,7 @@ $(document).on("click", '.times a', function(e) {
 });
 
 function realtime_slots (id, url, avoid_notification) {
-    var el = $( '#park_'+id);
+    var el = $('.carpark[data-id="' + id + '"]');
     $(".slots .updating", el).show();
     $(".actions .notice-update").hide();
     var params = { type:type, period:period };
@@ -259,8 +259,8 @@ $(document).ready(function() {
 // Widget part
 // 1. get the click and create the html template
 // 2. load the content of the textarea in the iframe for the live example
+$(document).off('click', "#widget_selector a");
 $(document).on('click', "#widget_selector a", function() {
-
     $('#car_park_selector').toggleClass('open').next().fadeToggle('fast');
     park_id = $(this).data('park-id');
     host = $(this).data('ref');
@@ -273,7 +273,6 @@ $(document).on('click', "#widget_selector a", function() {
     $.getScript(widget_url, function(data, textStatus, jqxhr) {
         console.log('Load was performed.');
 	});
-
     return false;
 });
 $(document).off('click', '.forecast h3');

@@ -9,13 +9,6 @@ function initTooltip(){
     }
 };
 
-$(document).on('click', '.forecast h3', function(){
-    var el = $(this);
-	$(this).toggleClass('open').next().slideToggle('fast', function() {
-	    $(el).trigger('slidend');
-	});
-});
-
 $(document).on('click', '.actions .time span,.carpark-selector span,.lang span', function(){
 	if(!$(this).hasClass('open')){
 		var docHeight = $(document).height();
@@ -29,9 +22,9 @@ $(document).on('click', '.actions .time span,.carpark-selector span,.lang span',
 
 $(document).on('click', '.buttons .share-btn', function(){
 	$(this).toggleClass('open');
-		$('.widget').slideToggle('fast');
-		$('.share').fadeToggle('fast');
-		return false;
+	$('.widget').slideToggle('fast');
+	$('.share').fadeToggle('fast');
+	return false;
 });
 
 function overlayDropdown (e){

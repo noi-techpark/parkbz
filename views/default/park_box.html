@@ -14,7 +14,7 @@
 <div class="carpark-aux">
 	<h2>{{=park['name']}}</h2>
 	<ul>
-		<li class="address"><a href="{{=URL('default', 'map', vars={'parking_id':park['park_id']})}}">{{=park['address']}}</a></li>
+		<li class="address"><a href="{{=URL(request.application, 'default', 'map', vars={'parking_id':park['park_id']}, host=True)}}">{{=park['address']}}</a></li>
 		<li class="phone"><a href="tel:{{=(park['phone'] or '--')}}">{{=(park['phone'] or '--')}}</a></li>
 	</ul>
 	<div class="slots"><strong class="available-slots"><span class="number">...</span><span class='value_type'>{{=T('Free slots')}}</span><span class="value_time"></span></strong> {{=T('out of')}} <strong>{{=park['slots']}} {{=T('Available slots')}}</strong><div class="updating"></div></div>
