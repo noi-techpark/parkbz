@@ -92,7 +92,7 @@
 						    	<span id='car_park_selector' class="box round">Parcheggio</span>
 								<ul class="box round" id="widget_selector">
 						    	{{for p in parks:}}
-						    	    <li><a href="#" data-ref='{{="http://%s" % request.env.http_host}}' data-park-id="{{=p['park_id']}}">{{=p['name']}}</a></li>
+						    	    <li><a href="#" data-ref='{{="%s://%s" % (request.env.wsgi_url_scheme, request.env.http_host)}}' data-park-id="{{=p['park_id']}}">{{=p['name']}}</a></li>
                                 {{pass}}
                                 </ul>
 					    	</div>
