@@ -14,7 +14,11 @@ if (!('indexOf' in Array.prototype)) {
 
 var template_js = '<p class="repo-name"><a href="{{link}}"><strong>{{name}}</strong></a></p><small>{{address}}</small>';
 var type='free';
-var default_msg = free_slot_text;
+if (typeof free_slot_text !== 'undefined') {
+    var default_msg = free_slot_text;
+} else {
+    var default_msg = 'Posti liberi';   // Tmp workaround for widget
+}
 var msg = default_msg;
 var period=undefined;
 var text;
