@@ -20,6 +20,8 @@
   <link href="{{=URL('static','css/standard-base.css')}}" rel="stylesheet" media="screen,projection,print" type="text/css" />
   {{include 'web2py_ajax.html'}}
   {{include 'metadata.html'}}
+    <link rel="stylesheet" href="http://cookiebanner.tis.bz.it/css/iframe.css" type="text/css"> 
+    <script type="text/javascript" src="http://cookiebanner.tis.bz.it/js/iframescript.js"></script>  
 </head>
 <!--  ng-cloak -->
 <body>
@@ -151,5 +153,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 </script> 
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4fd055665d176cbf"></script>
+<iframe src="http://cookiebanner.tis.bz.it?lang={{=T.accepted_language.split('-')[0]}}" id="myiframe" scrolling="no" frameborder="0"><p>Text if the browser doesn't support IFrames</p></iframe>
+  
 </body>
 </html>
