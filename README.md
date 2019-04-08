@@ -1,3 +1,8 @@
+DEPRECATED REPOSITORY
+=====================
+
+This repository is deprecated. See https://github.com/idm-suedtirol/bz-parking-angular for a newer version.
+
 parkbz
 ======
 
